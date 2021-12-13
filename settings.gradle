@@ -1,0 +1,2 @@
+rootProject.name = "MobileGameLab4"
+include ':app'
