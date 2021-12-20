@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/menu_background"
     android:backgroundTint="@null"
-    tools:context=".Menu.MenuActivity">
+    tools:context=".Menu.MenuActivity"
+    tools:ignore="MissingDefaultResource">
 
     <TextView
         android:id="@+id/textView"

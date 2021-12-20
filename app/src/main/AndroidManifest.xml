@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FullScreen">
+        <activity android:name=".Cases.CasesActivity"></activity>
         <activity android:name=".Game.GameActivity" />
         <activity
             android:name=".Settings.SettingsActivity"

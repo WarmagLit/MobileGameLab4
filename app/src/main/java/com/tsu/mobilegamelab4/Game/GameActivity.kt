@@ -3,10 +3,16 @@ package com.tsu.mobilegamelab4.Game
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tsu.mobilegamelab4.R
+import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
+import com.tsu.mobilegamelab4.databinding.ActivityMenuBinding
 
 class GameActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityGameBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        binding = ActivityGameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
