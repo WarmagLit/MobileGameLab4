@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="18dp"
+    android:height="18dp"
+    android:viewportWidth="18"
+    android:viewportHeight="18">
+    <path
+        android:pathData="M9.4792,9.0236m-6.5,0a6.5,6.5 0,1 1,13 0a6.5,6.5 0,1 1,-13 0"
+        android:fillColor="@color/seekbar_thumb"/>
+    <path
+        android:pathData="M9.4792,9.024m-8.5,0a8.5,8.5 0,1 1,17 0a8.5,8.5 0,1 1,-17 0"
+        android:strokeAlpha="0.35"
+        android:fillColor="@color/seekbar_thumb"
+        android:fillAlpha="0.35"/>
+</vector>

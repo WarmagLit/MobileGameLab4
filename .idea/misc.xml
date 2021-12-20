@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_main.xml" value="0.67" />
+        <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/drawable/bg_settings_seekbar.xml" value="0.3828125" />
+        <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/drawable/ic_settings_seekbar_thumb.xml" value="0.3828125" />
+        <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_main.xml" value="0.5" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_settings.xml" value="0.5" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout/activity_main.xml" value="0.9" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout/activity_settings.xml" value="0.28072916666666664" />

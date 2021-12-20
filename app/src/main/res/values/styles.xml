@@ -2,8 +2,6 @@
 <resources>
 
     <style name="menu_button">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/button_1</item>
         <item name="android:fontFamily">@font/press_start_2p_regular</item>
         <item name="android:includeFontPadding">false</item>
@@ -14,6 +12,12 @@
 
     <style name="TextTitle">
         <item name="android:textSize">36sp</item>
+        <item name="fontFamily">@font/press_start_2p_regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextSubTitle">
+        <item name="android:textSize">26sp</item>
         <item name="fontFamily">@font/press_start_2p_regular</item>
         <item name="android:includeFontPadding">false</item>
     </style>

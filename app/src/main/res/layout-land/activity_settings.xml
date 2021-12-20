@@ -4,4 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings.SettingsActivity"/>
+    android:background="@color/primary_background"
+    tools:context=".Settings.SettingsActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsJoystickButton"
+        style="@style/menu_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="JOYSTICK"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsControlsTextView"
+        app:layout_constraintEnd_toStartOf="@+id/settingsGyposcopeButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/settingsControlsTextView"
+        app:layout_constraintTop_toTopOf="@+id/settingsControlsTextView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsGyposcopeButton"
+        style="@style/menu_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="16dp"
+        android:text="GYROSCOPE"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsJoystickButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/settingsJoystickButton"
+        app:layout_constraintTop_toTopOf="@+id/settingsJoystickButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsBackButton"
+        style="@style/menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="BACK"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/settingsTitleTextView"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:text="SETTINGS"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/settingsVolumeTextView"
+        style="@style/TextSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="VOLUME"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/settingsControlsTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitleTextView" />
+
+    <TextView
+        android:id="@+id/settingsControlsTextView"
+        style="@style/TextSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="CONTROLS"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/settingsBackButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsVolumeTextView" />
+
+    <SeekBar
+        android:id="@+id/settingsVolumeSeekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:maxHeight="7dp"
+        android:minHeight="4dp"
+        android:max="20"
+        android:progress="3"
+        android:thumb="@drawable/ic_settings_seekbar_thumb"
+        android:progressDrawable="@drawable/bg_settings_seekbar"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsVolumeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settingsVolumeTextView"
+        app:layout_constraintTop_toTopOf="@+id/settingsVolumeTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
