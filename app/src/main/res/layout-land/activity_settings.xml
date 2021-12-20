@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
-    tools:context=".Settings.SettingsActivity">
+    tools:context=".settings.SettingsActivity"
+    tools:ignore="MissingDefaultResource">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settingsJoystickButton"
-        style="@style/menu_button"
+        style="@style/MenuButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,7 +24,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settingsGyposcopeButton"
-        style="@style/menu_button"
+        style="@style/MenuButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -37,7 +38,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settingsBackButton"
-        style="@style/menu_button"
+        style="@style/MenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -88,12 +89,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:max="20"
         android:maxHeight="7dp"
         android:minHeight="4dp"
-        android:max="20"
         android:progress="3"
-        android:thumb="@drawable/ic_settings_seekbar_thumb"
         android:progressDrawable="@drawable/bg_settings_seekbar"
+        android:thumb="@drawable/ic_settings_seekbar_thumb"
         app:layout_constraintBottom_toBottomOf="@+id/settingsVolumeTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settingsVolumeTextView"

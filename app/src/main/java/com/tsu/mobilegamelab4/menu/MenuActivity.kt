@@ -1,12 +1,11 @@
-package com.tsu.mobilegamelab4.Menu
+package com.tsu.mobilegamelab4.menu
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tsu.mobilegamelab4.Cases.CasesActivity
-import com.tsu.mobilegamelab4.Game.GameActivity
-import com.tsu.mobilegamelab4.R
-import com.tsu.mobilegamelab4.Settings.SettingsActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.tsu.mobilegamelab4.cases.CasesActivity
+import com.tsu.mobilegamelab4.game.GameActivity
+import com.tsu.mobilegamelab4.settings.SettingsActivity
 import com.tsu.mobilegamelab4.databinding.ActivityMenuBinding
 
 class MenuActivity : AppCompatActivity() {

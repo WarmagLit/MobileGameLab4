@@ -1,9 +1,8 @@
-package com.tsu.mobilegamelab4.Cases
+package com.tsu.mobilegamelab4.cases
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
-import com.tsu.mobilegamelab4.databinding.ActivityMenuBinding
 
 class CasesActivity : AppCompatActivity() {
 
