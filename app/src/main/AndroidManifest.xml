@@ -11,7 +11,8 @@
         android:theme="@style/Theme.FullScreen">
         <activity
             android:name=".Settings.SettingsActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:exported="true"/>
         <activity
             android:name=".Menu.MenuActivity"
             android:screenOrientation="landscape"
