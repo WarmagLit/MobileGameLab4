@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/black"
+    android:backgroundTint="@null"
+    android:background="@drawable/menu_background"
     tools:context=".Menu.MenuActivity">
 
     <TextView
         android:id="@+id/textView"
-        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
