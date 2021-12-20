@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MobileGameLab4</string>
     <string name="the_game">THE GAME</string>
+    <string name="play">Play</string>
+    <string name="opencase">Opencase</string>
+    <string name="settings">Settings</string>
 </resources>

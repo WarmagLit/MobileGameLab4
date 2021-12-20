@@ -4,56 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@null"
     android:background="@drawable/menu_background"
+    android:backgroundTint="@null"
     tools:context=".Menu.MenuActivity">
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/press_start_2p_regular"
+        android:layout_marginTop="40dp"
         android:text="@string/the_game"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/menuPlayButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton1"
-        android:text="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/menu_button" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton2"
-        android:text="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton3"
+        android:id="@+id/menuPlayButton"
+        android:layout_marginTop="80dp"
+        style="@style/menu_button"
+        android:text="@string/play"
+        app:layout_constraintBottom_toTopOf="@+id/menuOpencaseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton1"
-        style="@style/menu_button"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton3"
+        android:id="@+id/menuOpencaseButton"
+        style="@style/menu_button"
+        android:text="@string/opencase"
+        app:layout_constraintBottom_toTopOf="@+id/menuSettingsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuPlayButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menuSettingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_1"
-        android:fontFamily="@font/press_start_2p_regular"
-        android:includeFontPadding="false"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:typeface="normal"
-        app:backgroundTint="@null"
+        android:text="@string/settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton2" />
+        app:layout_constraintTop_toBottomOf="@+id/menuOpencaseButton"
+        style="@style/menu_button"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
