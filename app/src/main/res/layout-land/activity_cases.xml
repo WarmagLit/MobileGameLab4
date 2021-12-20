@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Cases.CasesActivity"
+    android:background="@color/primary_background"
     tools:ignore="MissingDefaultResource">
 
     <com.google.android.material.button.MaterialButton
