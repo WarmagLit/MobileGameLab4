@@ -9,14 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FullScreen">
+        <activity android:name=".Cases.CasesActivity"></activity>
+        <activity android:name=".Game.GameActivity" />
         <activity
             android:name=".Settings.SettingsActivity"
-            android:screenOrientation="landscape"
-            android:exported="true"/>
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".Menu.MenuActivity"
-            android:screenOrientation="landscape"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
