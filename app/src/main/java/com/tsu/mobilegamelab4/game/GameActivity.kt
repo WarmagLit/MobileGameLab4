@@ -11,6 +11,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        //setContentView(binding.root)
+        setContentView(Game(this))
     }
 }
