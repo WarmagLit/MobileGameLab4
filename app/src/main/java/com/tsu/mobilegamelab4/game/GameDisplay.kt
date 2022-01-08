@@ -1,6 +1,5 @@
 package com.tsu.mobilegamelab4.game
 
-
 import android.graphics.Rect
 
 class GameDisplay(
@@ -16,9 +15,10 @@ class GameDisplay(
     private var gameToDisplayCoordinatesOffsetY = 0.0
     private var gameCenterX = 0.0
     private var gameCenterY = 0.0
+
     fun update() {
-        gameCenterX = centerObject.positionX
-        gameCenterY = centerObject.positionY
+        gameCenterX = centerObject.pos.X
+        gameCenterY = centerObject.pos.Y
         gameToDisplayCoordinatesOffsetX = displayCenterX - gameCenterX
         gameToDisplayCoordinatesOffsetY = displayCenterY - gameCenterY
     }

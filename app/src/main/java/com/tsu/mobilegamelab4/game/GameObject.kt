@@ -2,7 +2,7 @@ package com.tsu.mobilegamelab4.game
 
 import android.graphics.Canvas
 
-abstract class GameObject(var positionX: Double, var positionY: Double) {
+abstract class GameObject(var pos: Point) {
 
     protected var velocityX = 0.0
     protected var velocityY = 0.0

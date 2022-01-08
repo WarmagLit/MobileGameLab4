@@ -1,11 +1,19 @@
 package com.tsu.mobilegamelab4.game
 
+import android.graphics.Color
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 
 object Utils {
-    fun getDistanceBetweenPoints(p1x: Double, p1y: Double, p2x: Double, p2y: Double): Double {
-        return sqrt((p1x - p2x).pow(2.0) + (p1y - p2y).pow(2.0))
+
+    var performanceColor: Int = 0
+
+    init {
+        performanceColor = Color.parseColor("#BB86FC")
+    }
+
+    fun getDistanceBetweenPoints(p1: Point, p2: Point): Double {
+        return sqrt((p1.X - p2.X).pow(2.0) + (p1.Y - p2.Y).pow(2.0))
     }
 }

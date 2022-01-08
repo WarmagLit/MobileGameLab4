@@ -6,12 +6,11 @@ import kotlin.math.roundToInt
 
 class Circle(
     color: Int,
-    positionX: Double,
-    positionY: Double,
+    pos: Point,
     mainJoystick: Joystick,
     var radius: Double
 ) :
-    GameObject(positionX, positionY) {
+    GameObject(pos) {
     var paint: Paint
     private val textPaint = Paint()
     private var joystick: Joystick = mainJoystick
@@ -31,12 +30,12 @@ class Circle(
         if (canvas != null) {
             if (gameDisplay != null) {
                 canvas.drawCircle(
-                    gameDisplay.gameToDisplayCoordinatesX(positionX).toFloat(),
-                    gameDisplay.gameToDisplayCoordinatesY(positionY).toFloat(),
+                    gameDisplay.gameToDisplayCoordinatesX(pos.X).toFloat(),
+                    gameDisplay.gameToDisplayCoordinatesY(pos.Y).toFloat(),
                     radius.toFloat(),
                     paint
                 )
-                canvas.drawText("Pos: X:${positionX.roundToInt()} Y:${positionY.roundToInt()}", 100f, 300f, textPaint)
+                canvas.drawText("Pos: X:${pos.X.roundToInt()} Y:${pos.Y.roundToInt()}", 100f, 300f, textPaint)
             }
         }
     }
@@ -47,13 +46,13 @@ class Circle(
         velocityY = joystick.actuatorY * MAX_SPEED
 
         // Update position
-        positionX += velocityX
-        positionY += velocityY
+        pos.X += velocityX
+        pos.Y += velocityY
 
         // Update direction
         if (velocityX != 0.0 || velocityY != 0.0) {
             // Normalize velocity to get direction (unit vector of velocity)
-            val distance: Double = Utils.getDistanceBetweenPoints(0.0, 0.0, velocityX, velocityY)
+            val distance: Double = Utils.getDistanceBetweenPoints(Point(0.0, 0.0), Point(velocityX, velocityY))
             directionX = velocityX / distance
             directionY = velocityY / distance
         }

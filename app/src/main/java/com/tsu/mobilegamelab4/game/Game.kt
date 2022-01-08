@@ -27,11 +27,11 @@ class Game(context: Context) : SurfaceView(context),
         gameLoop = GameLoop(this, surfaceHolder)
 
         // Initialize game panels
-        performance = context.let { Performance(it, gameLoop) }
+        performance = Performance(gameLoop)
         joystick = Joystick(275, 700, 70, 40)
 
         // Initialize game objects
-        player = Circle(R.color.purple_200, 100.0, 100.0, joystick, 50.0)
+        player = Circle(R.color.purple_200, Point(100.0, 100.0), joystick, 50.0)
 
         // Initialize display and center it around the player
         val displayMetrics = DisplayMetrics()
@@ -109,6 +109,7 @@ class Game(context: Context) : SurfaceView(context),
         // Update game state
         joystick.update()
         player.update()
+        performance.update(gameLoop.averageUPS, gameLoop.averageFPS)
     }
 
 }
