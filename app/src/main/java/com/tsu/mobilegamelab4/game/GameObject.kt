@@ -1,14 +1,11 @@
 package com.tsu.mobilegamelab4.game
 
-import android.graphics.Canvas
+import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.Vector
 
-abstract class GameObject(var pos: Point) {
+abstract class GameObject(var pos: Point): IDrawableUpdatable {
 
-    protected var velocityX = 0.0
-    protected var velocityY = 0.0
-    var directionX = 1.0
-    var directionY = 0.0
+    protected var velocity: Vector = Vector(0.0, 0.0)
+    var direction = Vector(1.0, 0.0)
 
-    abstract fun draw(canvas: Canvas?, gameDisplay: GameDisplay?)
-    abstract fun update()
 }

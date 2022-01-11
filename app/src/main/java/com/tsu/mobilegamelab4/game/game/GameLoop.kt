@@ -1,20 +1,15 @@
-package com.tsu.mobilegamelab4.game
+package com.tsu.mobilegamelab4.game.game
 
 import android.graphics.Canvas
 import android.view.SurfaceHolder
-import com.tsu.mobilegamelab4.game.Game
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 
+
 class GameLoop(private val game: Game, private val surfaceHolder: SurfaceHolder) : Thread() {
     private var isRunning = false
-
-    // Declare time and cycle count variables
-    private var updateCount = 0
-    private var frameCount = 0
-    private var startTime: Long = 0
-    private var elapsedTime: Long = 0
-    private var sleepTime: Long = 0
+    var averageUPS = 0.0
+    var averageFPS = 0.0
 
     fun startLoop() {
         isRunning = true
@@ -23,6 +18,13 @@ class GameLoop(private val game: Game, private val surfaceHolder: SurfaceHolder)
 
     override fun run() {
         super.run()
+
+        // Declare time and cycle count variables
+        var updateCount = 0
+        var frameCount = 0
+        var startTime: Long
+        var elapsedTime: Long
+        var sleepTime: Long
 
         // Game loop
         var canvas: Canvas? = null
@@ -50,47 +52,33 @@ class GameLoop(private val game: Game, private val surfaceHolder: SurfaceHolder)
             }
 
             // Pause game loop to not exceed target UPS
-            pauseToKeepTargetUPS()
-
-            // Skip frames to keep up with target UPS
-            skipFramesToKeepTargetUPS()
-
-            // Calculate average UPS and FPS
-            calculatePerformance()
-        }
-    }
-
-    private fun pauseToKeepTargetUPS() {
-        elapsedTime = System.currentTimeMillis() - startTime
-        sleepTime = (updateCount * UPS_PERIOD - elapsedTime).toLong()
-        if (sleepTime > 0) {
-            try {
-                sleep(sleepTime)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun skipFramesToKeepTargetUPS() {
-        while (sleepTime < 0 && updateCount < MAX_UPS - 1) {
-            game.update()
-            updateCount++
             elapsedTime = System.currentTimeMillis() - startTime
             sleepTime = (updateCount * UPS_PERIOD - elapsedTime).toLong()
-        }
-    }
+            if (sleepTime > 0) {
+                try {
+                    sleep(sleepTime)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
 
-    private fun calculatePerformance() {
-        elapsedTime = System.currentTimeMillis() - startTime
-        if (elapsedTime >= 1000) {
-            game.performance.setPerformance(
-                updateCount / (1E-3 * elapsedTime),
-                frameCount / (1E-3 * elapsedTime)
-            )
-            updateCount = 0
-            frameCount = 0
-            startTime = System.currentTimeMillis()
+            // Skip frames to keep up with target UPS
+            while (sleepTime < 0 && updateCount < MAX_UPS - 1) {
+                game.update()
+                updateCount++
+                elapsedTime = System.currentTimeMillis() - startTime
+                sleepTime = (updateCount * UPS_PERIOD - elapsedTime).toLong()
+            }
+
+            // Calculate average UPS and FPS
+            elapsedTime = System.currentTimeMillis() - startTime
+            if (elapsedTime >= 1000) {
+                averageUPS = updateCount / (1E-3 * elapsedTime)
+                averageFPS = frameCount / (1E-3 * elapsedTime)
+                updateCount = 0
+                frameCount = 0
+                startTime = System.currentTimeMillis()
+            }
         }
     }
 

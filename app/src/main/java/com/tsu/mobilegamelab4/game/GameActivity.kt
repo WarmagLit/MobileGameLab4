@@ -3,6 +3,7 @@ package com.tsu.mobilegamelab4.game
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
+import com.tsu.mobilegamelab4.game.Game
 
 class GameActivity : AppCompatActivity() {
 
