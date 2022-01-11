@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.tsu.mobilegamelab4.game.player.Animator
 import com.tsu.mobilegamelab4.game.player.Player
 
 class Game(context: Context) : SurfaceView(context),
@@ -16,7 +17,7 @@ class Game(context: Context) : SurfaceView(context),
     private val joystick: Joystick
     private var joystickPointerId = 0
     private val touchDistributor: TouchDistributor
-    private val spriteSheet:SpriteSheet
+    private val animator: Animator
     val performance: Performance
 
 
@@ -31,9 +32,9 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        player = Player(Point(100.0, 100.0))
-        spriteSheet = SpriteSheet(context)
-        player.sprite = spriteSheet.playerSpriteArray
+        animator = Animator(SpriteSheet(context))
+        player = Player(Point(100.0, 100.0), animator)
+        //player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick
         joystick = Joystick(player,Point(275.0, 700.0),  110, 50)

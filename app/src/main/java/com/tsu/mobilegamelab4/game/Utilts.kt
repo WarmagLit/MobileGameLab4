@@ -7,7 +7,9 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.tsu.mobilegamelab4.R
+import kotlin.math.cos
 import kotlin.math.pow
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 
@@ -28,5 +30,15 @@ object Utils {
 
     fun getDistanceBetweenPoints(p1: Point, p2: Point): Double {
         return sqrt((p1.X - p2.X).pow(2.0) + (p1.Y - p2.Y).pow(2.0))
+    }
+
+    // Sinus in degrees
+    fun sinus(angle: Double): Double {
+        return sin(angle*Math.PI/180)
+    }
+
+    // Cosinus in degrees
+    fun cosinus(angle: Double): Double {
+        return cos(angle*Math.PI/180)
     }
 }
