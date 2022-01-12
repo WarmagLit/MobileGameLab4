@@ -3,6 +3,7 @@ package com.tsu.mobilegamelab4.game
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
 import com.tsu.mobilegamelab4.game.player.Player
 import kotlin.math.pow
 import kotlin.math.sqrt
