@@ -44,6 +44,12 @@ class SpriteSheet(context: Context) {
     val heroSprite: Sprite
         get() = getSpriteByIndex(0, 0)
 
+    val gunSprite: Sprite
+        get() = getSpriteByIndex(9,0)
+
+    val bulletSprite: Sprite
+        get() = getSpriteByIndex(9,2)
+
     fun getSpriteByIndex(idxRow: Int, idxCol: Int): Sprite {
         return Sprite(
             this, Rect(

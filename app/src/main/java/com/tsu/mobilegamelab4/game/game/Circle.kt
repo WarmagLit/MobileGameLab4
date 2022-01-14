@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.tsu.mobilegamelab4.R
-import com.tsu.mobilegamelab4.game.Joystick
+import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import kotlin.math.roundToInt

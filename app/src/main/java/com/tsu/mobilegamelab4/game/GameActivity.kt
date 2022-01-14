@@ -50,7 +50,6 @@ class GameActivity : AppCompatActivity(),
             val sides = event.values[0]
             val upDown = event.values[1]
 
-            Log.d("SENSORS", sides.toString() + "      " + upDown.toString())
             game.sensorSides = sides * 10.0
             game.sensorUpDown = upDown * 10.0
         }

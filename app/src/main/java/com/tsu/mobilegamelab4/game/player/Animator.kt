@@ -11,6 +11,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 enum class Direction {
+    STAY,
     NORTH, SOUTH, WEST, EAST,
     NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST
 }
@@ -22,6 +23,7 @@ class Animator(spriteSheet: SpriteSheet) {
     private var updateCounter = 0
     private var newSpriteUpdateNum = 10
 
+    private val spriteStay: List<Sprite>
     private val spriteRight: List<Sprite>
     private val spriteUpRight: List<Sprite>
     private val spriteUp: List<Sprite>
@@ -81,6 +83,12 @@ class Animator(spriteSheet: SpriteSheet) {
             spriteSheet.getSpriteByIndex(7, 2),
             spriteSheet.getSpriteByIndex(7, 3)
         )
+        spriteStay = listOf(
+            spriteSheet.getSpriteByIndex(8, 0),
+            spriteSheet.getSpriteByIndex(8, 1),
+            spriteSheet.getSpriteByIndex(8, 2),
+            spriteSheet.getSpriteByIndex(8, 3)
+        )
 
         currentSpriteList = spriteDown
     }
@@ -103,6 +111,7 @@ class Animator(spriteSheet: SpriteSheet) {
     fun changeDirection(velocity: Vector) {
 
         when (getDirection(velocity)) {
+            Direction.STAY -> currentSpriteList = spriteStay
             Direction.NORTH -> currentSpriteList = spriteUp
             Direction.SOUTH -> currentSpriteList = spriteDown
             Direction.EAST -> currentSpriteList = spriteRight
@@ -120,8 +129,9 @@ class Animator(spriteSheet: SpriteSheet) {
             velocity.Y / velocity.length()
         )
 
-        val sqrtOfTwoByTwo = sqrt(2.0)/2
-
+        if (velocity.X == 0.0 && velocity.Y==0.0) {
+            return Direction.STAY
+        }
         if (directionVector.X > cosinus(22.5)) {
             return Direction.EAST
         }

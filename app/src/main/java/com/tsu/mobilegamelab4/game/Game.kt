@@ -1,18 +1,18 @@
 package com.tsu.mobilegamelab4.game
 
+import android.app.Activity
 import android.content.Context
-import android.content.Context.SENSOR_SERVICE
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.tsu.mobilegamelab4.SharedPreference
+import com.tsu.mobilegamelab4.game.controls.Joystick
+import com.tsu.mobilegamelab4.game.controls.SwipeStick
+import com.tsu.mobilegamelab4.game.controls.TouchDistributor
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 import com.tsu.mobilegamelab4.game.player.Animator
 import com.tsu.mobilegamelab4.game.player.Player
@@ -25,8 +25,11 @@ class Game(context: Context) : SurfaceView(context),
     private val player: Player
     private val joystick: Joystick
     private var joystickPointerId = 0
+    private val swipeStick: SwipeStick
+    private var swipeStickPointerId = 1
     private val touchDistributor: TouchDistributor
     private val animator: Animator
+    private val spriteSheet: SpriteSheet
     val performance: Performance
 
     // For sensors
@@ -37,6 +40,12 @@ class Game(context: Context) : SurfaceView(context),
     var isJoystick = true
 
     init {
+        // Metrics for SwipeStick and CenteredGameDisplay
+        val displayMetrics = DisplayMetrics()
+        (getContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        spriteSheet = SpriteSheet(context)
+
         // Check joystick or gyroscope from settings
         isJoystick = SharedPreference(context).getValueBoolean("control", true)
 
@@ -53,15 +62,18 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        animator = Animator(SpriteSheet(context))
-        player = Player(Point(100.0, 100.0), animator)
+        animator = Animator(spriteSheet)
+        player = Player(Point(100.0, 100.0), animator, spriteSheet)
         //player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick
         joystick = Joystick(player,Point(275.0, 700.0),  110, 50)
 
+        // SwipeStick
+        swipeStick = SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0),  110, 50)
+
         // Touch Distributor
-        touchDistributor = TouchDistributor(joystick)
+        touchDistributor = TouchDistributor(joystick, swipeStick)
 
         // Set up sensor stuff
         //sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
@@ -100,8 +112,11 @@ class Game(context: Context) : SurfaceView(context),
         performance.draw(canvas)
         player.draw(canvas)
 
+        swipeStick.draw(canvas)
+
         if (isJoystick) {
             joystick.draw(canvas)
+            swipeStick.draw(canvas)
         }
         else {
             extraDraw(canvas)
@@ -114,6 +129,7 @@ class Game(context: Context) : SurfaceView(context),
 
     override fun update() {
         player.update()
+        swipeStick.update()
 
         if (isJoystick) {
             joystick.update()
