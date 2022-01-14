@@ -5,10 +5,7 @@ import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.cosinus
 import com.tsu.mobilegamelab4.game.Utils.sinus
 import com.tsu.mobilegamelab4.game.graphics.Sprite
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
 
 enum class Direction {
     STAY,
@@ -23,7 +20,7 @@ class Animator(spriteSheet: SpriteSheet) {
     private var updateCounter = 0
     private var newSpriteUpdateNum = 10
 
-    private val spriteStay: List<Sprite>
+    val spriteStay: List<Sprite>
     private val spriteRight: List<Sprite>
     private val spriteUpRight: List<Sprite>
     private val spriteUp: List<Sprite>

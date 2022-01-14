@@ -3,10 +3,9 @@ package com.tsu.mobilegamelab4.game.map
 import android.graphics.Canvas
 import android.graphics.Rect
 import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.IDrawable
-import com.tsu.mobilegamelab4.game.SpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.Sprite
+import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
 abstract class Tile(private val mapLocationRect: Rect) : IDrawable {
 

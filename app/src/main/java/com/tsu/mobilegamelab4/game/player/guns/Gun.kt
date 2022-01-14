@@ -1,10 +1,8 @@
 package com.tsu.mobilegamelab4.game.player.guns
 
 import android.graphics.Canvas
-import com.tsu.mobilegamelab4.game.GameObject
-import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Vector
-import com.tsu.mobilegamelab4.game.clone
 import com.tsu.mobilegamelab4.game.graphics.Sprite
 import java.util.*
 
@@ -15,7 +13,7 @@ class Gun(
 
     private val bullets: MutableList<Bullet> = mutableListOf()
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
 
         for(bullet in bullets) {

@@ -3,6 +3,7 @@ package com.tsu.mobilegamelab4.game.controls
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Utils
 import com.tsu.mobilegamelab4.game.Vector
@@ -27,7 +28,7 @@ class SwipeStick (
     private var joystickCenterToTouchDistance = 0.0
     var actuator = Vector(0.0, 0.0)
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         // Draw outer circle
         canvas.drawCircle(
             outerCircleCenterPosition.X.toFloat(),

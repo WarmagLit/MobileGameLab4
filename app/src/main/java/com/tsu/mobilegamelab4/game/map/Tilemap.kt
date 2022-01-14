@@ -5,8 +5,8 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.util.Log
 import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.IDrawable
 import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
+import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
 class Tilemap(spriteSheet: MapSpriteSheet) : IDrawable {
     private val mapLayout = MapLayout()

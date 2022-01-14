@@ -1,17 +1,16 @@
 package com.tsu.mobilegamelab4.game.player
 
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
-import com.tsu.mobilegamelab4.game.graphics.Sprite
+import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.player.guns.Gun
-import kotlin.math.roundToInt
 
-class Player(pos: Point, val animator: Animator, spriteSheet: SpriteSheet) : GameObject(pos) {
+class Player(pos: Point, spriteSheet: HeroSpriteSheet) : GameObject(pos) {
 
     private val SPEED_PIXELS_PER_SECOND = 400.0
     private val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
@@ -20,6 +19,8 @@ class Player(pos: Point, val animator: Animator, spriteSheet: SpriteSheet) : Gam
     private var actY = 0.0
 
     private val textPaint = Paint()
+
+    private val animator = Animator(spriteSheet)
 
     private val gun: Gun
 
@@ -36,8 +37,8 @@ class Player(pos: Point, val animator: Animator, spriteSheet: SpriteSheet) : Gam
             gun.draw(canvas)
             animator.draw(
                 canvas,
-                coordinates.X.toInt() - sprite[spriteIndex].size.x / 2,
-                coordinates.Y.toInt() - sprite[spriteIndex].size.y / 2
+                coordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
+                coordinates.Y.toInt() - animator.spriteStay.first().size.y / 2
             )
         }
     }

@@ -23,7 +23,7 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
         mPaint.strokeWidth = 20f
     }
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         //sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
         canvas.drawLine(
             pos.X.toFloat(),

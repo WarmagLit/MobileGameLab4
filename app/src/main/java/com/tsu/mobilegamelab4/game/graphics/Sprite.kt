@@ -1,11 +1,8 @@
 package com.tsu.mobilegamelab4.game.graphics
 
-import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.Rect
-import com.tsu.mobilegamelab4.game.SpriteSheet
 
 class Sprite(private val spriteSheet: SpriteSheet, private val rect: Rect) {
 
