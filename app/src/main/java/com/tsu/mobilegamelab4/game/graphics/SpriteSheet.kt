@@ -42,7 +42,13 @@ open class SpriteSheet(context: Context) {
     val heroSprite: Sprite
         get() = getSpriteByIndex(0, 0)
 
-    private fun getSpriteByIndex(idxRow: Int, idxCol: Int): Sprite {
+    val gunSprite: Sprite
+        get() = getSpriteByIndex(9,0)
+
+    val bulletSprite: Sprite
+        get() = getSpriteByIndex(9,2)
+
+    fun getSpriteByIndex(idxRow: Int, idxCol: Int): Sprite {
         return Sprite(
             this, Rect(
                 idxCol * SPRITE_WIDTH_PIXELS,

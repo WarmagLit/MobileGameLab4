@@ -1,6 +1,7 @@
 package com.tsu.mobilegamelab4.game
 
 import android.graphics.Canvas
+import android.util.Log
 import android.view.SurfaceHolder
 import com.tsu.mobilegamelab4.game.Game
 import java.lang.Exception
@@ -91,6 +92,16 @@ class GameLoop(private val game: Game, private val surfaceHolder: SurfaceHolder)
             updateCount = 0
             frameCount = 0
             startTime = System.currentTimeMillis()
+        }
+    }
+
+    fun stopLoop() {
+        Log.d("GameLoop", "stopLoop()")
+        isRunning = false
+        try {
+            join()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
         }
     }
 

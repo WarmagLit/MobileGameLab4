@@ -2,7 +2,7 @@ package com.tsu.mobilegamelab4.game
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import com.tsu.mobilegamelab4.game.Utils
+import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
 class Performance: IDrawable {
 

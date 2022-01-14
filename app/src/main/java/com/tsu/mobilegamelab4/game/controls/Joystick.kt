@@ -1,8 +1,11 @@
-package com.tsu.mobilegamelab4.game
+package com.tsu.mobilegamelab4.game.controls
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.Vector
+import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
 import com.tsu.mobilegamelab4.game.player.Player
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -82,7 +85,7 @@ class Joystick(
 
     init {
         // Paint of circles
-        outerCirclePaint.color = Color.GRAY
+        outerCirclePaint.color = Color.parseColor("#8fbebeb6")
         outerCirclePaint.style = Paint.Style.FILL_AND_STROKE
 
         innerCirclePaint.color = Color.BLUE

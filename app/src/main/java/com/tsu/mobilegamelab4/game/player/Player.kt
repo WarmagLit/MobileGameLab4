@@ -2,40 +2,58 @@ package com.tsu.mobilegamelab4.game.player
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import com.tsu.mobilegamelab4.game.graphics.Sprite
+import com.tsu.mobilegamelab4.game.player.guns.Gun
+import kotlin.math.roundToInt
 
-class Player(pos: Point) : GameObject(pos) {
+class Player(pos: Point, val animator: Animator, spriteSheet: SpriteSheet) : GameObject(pos) {
 
-    var skin: Bitmap
-    lateinit var sprite: List<Sprite>
-    private var spriteUpdateCount = 0
-    private var spriteIndex = 0
     private val SPEED_PIXELS_PER_SECOND = 400.0
     private val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
 
-    init{
-        skin = Utils.playerSkin!!
-    }
+    private var actX = 0.0
+    private var actY = 0.0
 
-    companion object {
-        private const val CHANGE_SPRITE_UPDATES = 10
-        private const val SPRITE_AMOUNT = 32
+    private val textPaint = Paint()
+
+    private val gun: Gun
+
+    init {
+        textPaint.color = Color.CYAN
+        textPaint.textSize = 50f
+
+        gun = Gun(pos, spriteSheet.gunSprite)
     }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
             val coordinates = it.gameToDisplayCoordinates(pos)
-            sprite[spriteIndex].draw(canvas, coordinates.X.toInt() - sprite[spriteIndex].size.x/2, coordinates.Y.toInt() - sprite[spriteIndex].size.y/2)
+            gun.draw(canvas)
+            animator.draw(
+                canvas,
+                coordinates.X.toInt() - sprite[spriteIndex].size.x / 2,
+                coordinates.Y.toInt() - sprite[spriteIndex].size.y / 2
+            )
         }
- //       sprite[spriteIndex].draw(canvas, pos.X.toInt(), pos.Y.toInt())
     }
 
     fun changeVelocity(actuator: Vector) {
         // Update velocity based on actuator of joystick
         velocity.X = actuator.X * MAX_SPEED
         velocity.Y = actuator.Y * MAX_SPEED
+
+        actX = actuator.X
+        actY = actuator.Y
+    }
+
+    fun attack(actuator: Vector) {
+        Log.d("Attack", "At X:${actuator.X} Y: ${actuator.Y}")
+        gun.fire(Vector(actuator.X * 50, actuator.Y * 50))
     }
 
     override fun update() {
@@ -43,15 +61,11 @@ class Player(pos: Point) : GameObject(pos) {
         pos.X += velocity.X
         pos.Y += velocity.Y
 
-        // Sprite update
-        spriteUpdateCount++
-        if (spriteUpdateCount >= CHANGE_SPRITE_UPDATES) {
-            spriteIndex++
-            spriteUpdateCount = 0
-            if (spriteIndex >= SPRITE_AMOUNT) {
-                spriteIndex = 0
-            }
-        }
+        gun.update()
+
+        // Animator update
+        animator.changeDirection(velocity)
+        animator.update()
 
         // Update direction
         if (velocity.X != 0.0 || velocity.Y != 0.0) {

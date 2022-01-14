@@ -8,9 +8,6 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.tsu.mobilegamelab4.R
-import com.tsu.mobilegamelab4.game.Joystick
-import com.tsu.mobilegamelab4.game.Point
 
 class Game(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback {
