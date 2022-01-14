@@ -6,6 +6,7 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.clone
 import com.tsu.mobilegamelab4.game.graphics.Sprite
+import java.util.*
 
 class Gun(
     position: Point,
@@ -16,6 +17,7 @@ class Gun(
 
     override fun draw(canvas: Canvas) {
         sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
+
         for(bullet in bullets) {
             bullet.draw(canvas)
         }
@@ -24,7 +26,12 @@ class Gun(
     override fun update() {
         for(bullet in bullets) {
             bullet.update()
+            if (bullet.toDestroy) {
+                bullets.remove(bullet)
+                break
+            }
         }
+
     }
 
     fun fire(velocity: Vector) {

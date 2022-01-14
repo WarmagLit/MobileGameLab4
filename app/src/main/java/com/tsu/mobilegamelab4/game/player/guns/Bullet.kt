@@ -12,6 +12,10 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
 
     private val mPaint: Paint
 
+    private val DESTROY_TIME = 50
+    private var destroyCounter = 0
+    var toDestroy = false
+
     init {
         velocity = veloc
         mPaint = Paint()
@@ -40,6 +44,11 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
                 Utils.getDistanceBetweenPoints(Point(0.0, 0.0), Point(velocity.X, velocity.Y))
             direction.X = velocity.X / distance
             direction.Y = velocity.Y / distance
+        }
+
+        destroyCounter++
+        if (destroyCounter >= DESTROY_TIME) {
+            toDestroy = true
         }
     }
 
