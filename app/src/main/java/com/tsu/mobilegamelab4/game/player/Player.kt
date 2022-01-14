@@ -24,8 +24,12 @@ class Player(pos: Point) : GameObject(pos) {
         private const val SPRITE_AMOUNT = 32
     }
 
-    override fun draw(canvas: Canvas) {
-        sprite[spriteIndex].draw(canvas, pos.X.toInt(), pos.Y.toInt())
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
+        display?.let {
+            val coordinates = it.gameToDisplayCoordinates(pos)
+            sprite[spriteIndex].draw(canvas, coordinates.X.toInt() - sprite[spriteIndex].size.x/2, coordinates.Y.toInt() - sprite[spriteIndex].size.y/2)
+        }
+ //       sprite[spriteIndex].draw(canvas, pos.X.toInt(), pos.Y.toInt())
     }
 
     fun changeVelocity(actuator: Vector) {

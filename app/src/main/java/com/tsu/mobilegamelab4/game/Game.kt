@@ -5,18 +5,29 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
+import com.tsu.mobilegamelab4.game.map.Tilemap
 import com.tsu.mobilegamelab4.game.player.Player
+import android.app.Activity
+
+import android.util.DisplayMetrics
+
+
+
 
 class Game(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback,
     IUpdatable {
+
+    private val tilemap = Tilemap(MapSpriteSheet(context))
+    private val gameDisplay: GameDisplay
 
     private var gameLoop: GameLoop
     private val player: Player
     private val joystick: Joystick
     private var joystickPointerId = 0
     private val touchDistributor: TouchDistributor
-    private val spriteSheet:SpriteSheet
+    private val spriteSheet: SpriteSheet
     val performance: Performance
 
 
@@ -36,10 +47,15 @@ class Game(context: Context) : SurfaceView(context),
         player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick
-        joystick = Joystick(player,Point(275.0, 700.0),  110, 50)
+        joystick = Joystick(player, Point(275.0, 700.0), 110, 50)
 
         // Touch Distributor
         touchDistributor = TouchDistributor(joystick)
+
+        // Initialize display
+        val displayMetrics = DisplayMetrics()
+        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        gameDisplay = GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player)
 
         isFocusable = true
     }
@@ -70,13 +86,16 @@ class Game(context: Context) : SurfaceView(context),
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
+        tilemap.draw(canvas, gameDisplay)
+
         performance.draw(canvas)
-        player.draw(canvas)
+        player.draw(canvas, gameDisplay)
         joystick.draw(canvas)
     }
 
     override fun update() {
         player.update()
         joystick.update()
+        gameDisplay.update()
     }
 }

@@ -7,8 +7,8 @@ import android.graphics.Rect
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.game.graphics.Sprite
 
-class SpriteSheet(context: Context) {
-    val bitmap: Bitmap
+open class SpriteSheet(context: Context) {
+    open val bitmap: Bitmap
     val playerSpriteArray: List<Sprite>
         get() {
             val spriteArray: MutableList<Sprite> = mutableListOf()
@@ -31,14 +31,12 @@ class SpriteSheet(context: Context) {
             return spriteArray
         }
 
-    val waterSprite: Sprite
-        get() = getSpriteByIndex(1, 0)
+
     val lavaSprite: Sprite
         get() = getSpriteByIndex(1, 1)
     val groundSprite: Sprite
         get() = getSpriteByIndex(1, 2)
-    val grassSprite: Sprite
-        get() = getSpriteByIndex(1, 3)
+
     val treeSprite: Sprite
         get() = getSpriteByIndex(1, 4)
     val heroSprite: Sprite

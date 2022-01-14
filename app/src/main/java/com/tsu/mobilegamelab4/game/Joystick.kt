@@ -23,7 +23,7 @@ class Joystick(
     private var joystickCenterToTouchDistance = 0.0
     var actuator = Vector(0.0, 0.0)
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         // Draw outer circle
         canvas.drawCircle(
             outerCircleCenterPosition.X.toFloat(),

@@ -1,6 +1,7 @@
 package com.tsu.mobilegamelab4.game.player
 
 import android.graphics.Canvas
+import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.IDrawable
 import com.tsu.mobilegamelab4.game.IDrawableUpdatable
 import com.tsu.mobilegamelab4.game.graphics.Sprite
@@ -17,7 +18,7 @@ class Animator: IDrawableUpdatable {
 
     }
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         TODO("Not yet implemented")
     }
 
