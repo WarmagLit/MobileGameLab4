@@ -26,14 +26,6 @@ class GameDisplay(
         gameToDisplayCoordinatesOffset.Y = displayCenter.Y - gameCenter.Y
     }
 
-    fun gameToDisplayCoordinatesX(x: Double): Double {
-        return x + gameToDisplayCoordinatesOffset.X
-    }
-
-    fun gameToDisplayCoordinatesY(y: Double): Double {
-        return y + gameToDisplayCoordinatesOffset.Y
-    }
-
     fun gameToDisplayCoordinates(coordinates: Point): Point {
         return Point(
             coordinates.X + gameToDisplayCoordinatesOffset.X,
