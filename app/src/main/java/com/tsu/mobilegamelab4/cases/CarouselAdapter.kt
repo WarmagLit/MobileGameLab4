@@ -18,12 +18,10 @@ class MyAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tvName.text = String.format("Row number  %d ", position)
-        if (position % 2 == 0) {
-            holder.imgBanner.setBackgroundColor(Color.RED)
-        } else {
-            holder.imgBanner.setBackgroundColor(Color.GREEN)
-        }
+       // holder.tvName.text = String.format("Row number  %d ", position)
+
+        holder.imgBanner.setImageResource(R.drawable.ic_chest)
+
     }
 
     override fun getItemCount(): Int {
@@ -31,11 +29,11 @@ class MyAdapter(private val context: Context) :
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvName: TextView
+        //var tvName: TextView
         var imgBanner: ImageView
 
         init {
-            tvName = itemView.findViewById(R.id.tvName)
+            //tvName = itemView.findViewById(R.id.tvName)
             imgBanner = itemView.findViewById(R.id.imgBanner)
         }
     }

@@ -24,9 +24,7 @@ class Game(context: Context) : SurfaceView(context),
     private var gameLoop: GameLoop
     private val player: Player
     private val joystick: Joystick
-    private var joystickPointerId = 0
     private val swipeStick: SwipeStick
-    private var swipeStickPointerId = 1
     private val touchDistributor: TouchDistributor
     private val animator: Animator
     private val spriteSheet: SpriteSheet
