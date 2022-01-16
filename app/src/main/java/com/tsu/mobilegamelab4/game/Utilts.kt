@@ -1,12 +1,15 @@
 package com.tsu.mobilegamelab4.game
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.tsu.mobilegamelab4.R
+import java.security.AccessController.getContext
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
@@ -18,8 +21,17 @@ object Utils {
     var performanceColor: Int = 0
     var playerSkin: Bitmap? = null
 
+
+    lateinit var displayCenter: Point
+
     init {
         performanceColor = Color.parseColor("#BB86FC")
+    }
+
+    fun setDisplayMetrics(context: Context) {
+        val displayMetrics = DisplayMetrics()
+        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        displayCenter = Point(displayMetrics.widthPixels / 2.0, displayMetrics.heightPixels / 2.0)
     }
 
     fun setPlayerSkin(context: Context) {

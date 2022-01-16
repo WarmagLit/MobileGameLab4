@@ -30,7 +30,7 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val mapLayout: Ma
         textPaint.color = Color.CYAN
         textPaint.textSize = 50f
 
-        gun = Gun(pos, spriteSheet.gunSprite)
+        gun = Gun(Utils.displayCenter, spriteSheet.gunSprite)
     }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {

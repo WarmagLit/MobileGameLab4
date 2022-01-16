@@ -45,6 +45,7 @@ class Game(context: Context) : SurfaceView(context),
         // Metrics for SwipeStick and CenteredGameDisplay
         val displayMetrics = DisplayMetrics()
         (getContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        Utils.setDisplayMetrics(context)
 
         // Check joystick or gyroscope from settings
         isJoystick = SharedPreference(context).getValueBoolean("control", true)
@@ -66,11 +67,11 @@ class Game(context: Context) : SurfaceView(context),
         //player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick
-        joystick = Joystick(player, Point(275.0, 700.0), 200, 80)
+        joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
 
         // SwipeStick
         swipeStick =
-            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 200, 80)
+            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 180, 80)
 
         // Touch Distributor
         touchDistributor = TouchDistributor(joystick, swipeStick)
