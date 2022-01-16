@@ -7,10 +7,12 @@ import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
+import com.tsu.mobilegamelab4.game.map.MapLayout
+import com.tsu.mobilegamelab4.game.map.TileType
 import com.tsu.mobilegamelab4.game.player.guns.Gun
 
-class Player(pos: Point, spriteSheet: HeroSpriteSheet) : GameObject(pos) {
+class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val mapLayout: MapLayout) :
+    GameObject(pos) {
 
     private val SPEED_PIXELS_PER_SECOND = 400.0
     private val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
@@ -61,6 +63,11 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet) : GameObject(pos) {
         // Update position
         pos.X += velocity.X
         pos.Y += velocity.Y
+
+        if (TileType.values()[mapLayout.layout[(pos.Y / MapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / MapLayout.TILE_WIDTH_PIXELS).toInt()]] == TileType.WATER_TILE) {
+            pos.X -= velocity.X
+            pos.Y -= velocity.Y
+        }
 
         gun.update()
 

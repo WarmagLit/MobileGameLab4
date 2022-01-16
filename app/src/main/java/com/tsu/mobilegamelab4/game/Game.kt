@@ -15,10 +15,8 @@ import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 import com.tsu.mobilegamelab4.game.map.Tilemap
-import com.tsu.mobilegamelab4.game.player.Animator
 import com.tsu.mobilegamelab4.game.player.Player
 
 
@@ -32,9 +30,7 @@ class Game(context: Context) : SurfaceView(context),
     private var gameLoop: GameLoop
     private val player: Player
     private val joystick: Joystick
-    private var joystickPointerId = 0
     private val swipeStick: SwipeStick
-    private var swipeStickPointerId = 1
     private val touchDistributor: TouchDistributor
     val performance: Performance
 
@@ -66,15 +62,15 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        player = Player(Point(100.0, 100.0), HeroSpriteSheet(context))
+        player = Player(Point(100.0, 100.0), HeroSpriteSheet(context), tilemap.mapLayout)
         //player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick
-        joystick = Joystick(player, Point(275.0, 700.0), 110, 50)
+        joystick = Joystick(player, Point(275.0, 700.0), 200, 80)
 
         // SwipeStick
         swipeStick =
-            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 110, 50)
+            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 200, 80)
 
         // Touch Distributor
         touchDistributor = TouchDistributor(joystick, swipeStick)

@@ -9,7 +9,7 @@ import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
 class Tilemap(spriteSheet: MapSpriteSheet) : IDrawable {
-    private val mapLayout = MapLayout()
+    val mapLayout = MapLayout()
     private var mapBitmap: Bitmap
     private val tilemap = Array(MapLayout.NUMBER_OF_ROW_TILES) {
         Array(MapLayout.NUMBER_OF_COLUMN_TILES) {
