@@ -36,7 +36,7 @@ class WordsAdapter(private val onDragStarted: (String) -> Unit) : ListAdapter<St
 
   inner class WordsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(word: String) = itemView.run {
-      findViewById<TextView>(R.id.tvWord).text = word
+      //findViewById<TextView>(R.id.tvWord).text = word
 
       setOnLongClickListener { view ->
         // when user is long clicking on a view, drag process will start

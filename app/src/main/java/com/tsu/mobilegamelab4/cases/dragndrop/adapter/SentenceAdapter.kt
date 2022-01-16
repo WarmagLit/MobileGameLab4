@@ -30,7 +30,7 @@ class SentenceAdapter : ListAdapter<String, SentenceAdapter.WordsViewHolder>(Wor
 
   inner class WordsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(word: String) {
-      itemView.findViewById<TextView>(R.id.tvWord).text = word
+      //itemView.findViewById<TextView>(R.id.tvWord).text = word
     }
   }
 }
