@@ -19,7 +19,7 @@ import com.tsu.mobilegamelab4.game.player.Player
 
 class Game(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback,
-    IUpdatable{
+    IUpdatable {
 
     private var gameLoop: GameLoop
     private val player: Player
@@ -47,6 +47,7 @@ class Game(context: Context) : SurfaceView(context),
         // Check joystick or gyroscope from settings
         isJoystick = SharedPreference(context).getValueBoolean("control", true)
 
+        // For Accelerometer values
         textPaint.color = Color.CYAN
         textPaint.textSize = 50f
 
@@ -122,7 +123,7 @@ class Game(context: Context) : SurfaceView(context),
     }
 
     private fun extraDraw(canvas: Canvas) {
-        canvas.drawText("Gyro: X:${sensorSides.toInt()} \n Y:${sensorUpDown.toInt()}", 100f, 400f, textPaint)
+        canvas.drawText("Accelerometer: X:${sensorSides.toInt()} \n Y:${sensorUpDown.toInt()}", 100f, 400f, textPaint)
     }
 
     override fun update() {

@@ -24,7 +24,7 @@ class DropListener(private val onDrop: () -> Unit) : View.OnDragListener {
             val color = it.animatedValue as Int
             view.setBackgroundColor(color)
           }
-          duration = 500
+          duration = 400
         }.start()
       }
       // animate and hide the highlight under the drop area

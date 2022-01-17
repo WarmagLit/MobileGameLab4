@@ -4,13 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.*
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
-import com.tsu.mobilegamelab4.cases.dragndrop.adapter.WordsAdapter
+import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
-import com.tsu.mobilegamelab4.cases.dragndrop.adapter.SentenceAdapter
+import com.tsu.mobilegamelab4.cases.inventory.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
 import kotlin.math.abs
 
@@ -33,6 +39,7 @@ class CasesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initDragAndDropKeys()
+
 
         myViewPager2 = binding.viewpager
 
@@ -59,26 +66,21 @@ class CasesActivity : AppCompatActivity() {
                 page.translationX = myOffset
             }
         })
+
     }
 
     private fun initDragAndDropKeys() {
-        val sentenceAdapter = SentenceAdapter()
-        val wordsAdapter = WordsAdapter {
+        val wordsAdapter = KeysAdapter {
             selectedWord = it
         }.apply {
             submitList(words)
         }
 
 
-        //binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        //binding.recyclerView.adapter = sentenceAdapter
-
-
         binding.viewpager.setOnDragListener(
             DropListener {
                 wordsAdapter.removeItem(selectedWord)
-                sentenceAdapter.addItem(selectedWord)
-                Log.d("LoGGG", "Key droppped")
+                Log.d("LoGGG", "Key dropped")
             }
         )
 

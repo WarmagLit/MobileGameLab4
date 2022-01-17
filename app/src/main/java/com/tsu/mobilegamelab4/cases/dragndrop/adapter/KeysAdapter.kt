@@ -4,20 +4,19 @@ import android.content.ClipData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DragListener
-import com.tsu.mobilegamelab4.cases.dragndrop.callback.WordsDiffCallback
+import com.tsu.mobilegamelab4.cases.dragndrop.callback.DifferenceCallback
 
 /**
  * A @androidx.recyclerview.widget.RecyclerView adapter to show draggable items
  *
  * @param onDragStarted will provide the current draggable view value. String in this case
  * */
-class WordsAdapter(private val onDragStarted: (String) -> Unit) : ListAdapter<String, WordsAdapter.WordsViewHolder>(
-  WordsDiffCallback()
+class KeysAdapter(private val onDragStarted: (String) -> Unit) : ListAdapter<String, KeysAdapter.WordsViewHolder>(
+  DifferenceCallback()
 ) {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word, parent, false)
