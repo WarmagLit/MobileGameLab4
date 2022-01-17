@@ -8,10 +8,11 @@ import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.map.MapLayout
-import com.tsu.mobilegamelab4.game.map.TileType
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
 import com.tsu.mobilegamelab4.game.player.guns.Gun
 
-class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val mapLayout: MapLayout) :
+class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: FirstLocationTilemap) :
     GameObject(pos) {
 
     private val SPEED_PIXELS_PER_SECOND = 400.0
@@ -64,7 +65,8 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val mapLayout: Ma
         pos.X += velocity.X
         pos.Y += velocity.Y
 
-        if (TileType.values()[mapLayout.layout[(pos.Y / MapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / MapLayout.TILE_WIDTH_PIXELS).toInt()]] == TileType.WATER_TILE) {
+        //obstacle check
+        if (tilemap.tilemap[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()].isObstacle) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }

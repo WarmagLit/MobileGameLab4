@@ -13,10 +13,12 @@ import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
+import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 import com.tsu.mobilegamelab4.game.map.Tilemap
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
 import com.tsu.mobilegamelab4.game.player.Player
 
 
@@ -24,7 +26,7 @@ class Game(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback,
     IUpdatable {
 
-    private val tilemap = Tilemap(MapSpriteSheet(context))
+    private val tilemap = FirstLocationTilemap(FirstLocationSpriteSheet(context))
     private val gameDisplay: GameDisplay
 
     private var gameLoop: GameLoop
@@ -62,7 +64,7 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        player = Player(Point(100.0, 100.0), HeroSpriteSheet(context), tilemap.mapLayout)
+        player = Player(Point(0.0, 0.0), HeroSpriteSheet(context), tilemap)
         //player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick
@@ -110,12 +112,15 @@ class Game(context: Context) : SurfaceView(context),
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-        tilemap.draw(canvas, gameDisplay)
+        //tilemap.draw(canvas, gameDisplay)
+        tilemap.drawLower(canvas, gameDisplay)
 
-        performance.draw(canvas)
         player.draw(canvas, gameDisplay)
 
+        tilemap.drawUpper(canvas, gameDisplay)
+
         swipeStick.draw(canvas)
+        performance.draw(canvas)
 
         if (isJoystick) {
             joystick.draw(canvas)
