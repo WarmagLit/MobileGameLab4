@@ -16,7 +16,7 @@ enum class Direction {
     NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST
 }
 
-class Animator(spriteSheet: SpriteSheet) {
+class HeroAnimator(spriteSheet: SpriteSheet) {
 
     private var currentSpriteList: List<Sprite>
     private var currentSpriteIndex = 0

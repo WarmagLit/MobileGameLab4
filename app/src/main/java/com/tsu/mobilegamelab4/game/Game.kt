@@ -13,8 +13,10 @@ import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
+import com.tsu.mobilegamelab4.game.enemy.EnemyAnimator
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 import com.tsu.mobilegamelab4.game.player.Animator
+import com.tsu.mobilegamelab4.game.player.HeroAnimator
 import com.tsu.mobilegamelab4.game.player.Player
 
 class Game(context: Context) : SurfaceView(context),
@@ -26,7 +28,10 @@ class Game(context: Context) : SurfaceView(context),
     private val joystick: Joystick
     private val swipeStick: SwipeStick
     private val touchDistributor: TouchDistributor
-    private val animator: Animator
+
+    private val animator: HeroAnimator
+    private val enemyAnimator: EnemyAnimator
+
     private val spriteSheet: SpriteSheet
     val performance: Performance
 
@@ -61,7 +66,7 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        animator = Animator(spriteSheet)
+        animator = HeroAnimator(spriteSheet)
         player = Player(Point(100.0, 100.0), animator, spriteSheet)
         //player.sprite = spriteSheet.playerSpriteArray
 
