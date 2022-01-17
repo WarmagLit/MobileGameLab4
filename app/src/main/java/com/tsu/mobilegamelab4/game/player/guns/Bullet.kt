@@ -14,7 +14,6 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
 
     private val DESTROY_TIME = 50
     private var destroyCounter = 0
-    var toDestroy = false
 
     init {
         velocity = veloc
@@ -23,7 +22,11 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
         mPaint.strokeWidth = 20f
     }
 
-    override fun draw(canvas: Canvas) {
+    override fun hit(bullet: Bullet) {
+        // Do nothing
+    }
+
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         //sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
         canvas.drawLine(
             pos.X.toFloat(),

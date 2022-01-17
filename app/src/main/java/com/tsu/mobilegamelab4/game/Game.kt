@@ -13,15 +13,25 @@ import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
-import com.tsu.mobilegamelab4.game.enemy.EnemyAnimator
+import com.tsu.mobilegamelab4.game.enemy.Enemy
+import com.tsu.mobilegamelab4.game.enemy.Masker
+import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
+
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
-import com.tsu.mobilegamelab4.game.player.Animator
-import com.tsu.mobilegamelab4.game.player.HeroAnimator
+
+import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
+import com.tsu.mobilegamelab4.game.map.Tilemap
+
 import com.tsu.mobilegamelab4.game.player.Player
+
 
 class Game(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback,
     IUpdatable {
+
+    private val tilemap = Tilemap(MapSpriteSheet(context))
+    private val gameDisplay: GameDisplay
 
     private var gameLoop: GameLoop
     private val player: Player
@@ -29,11 +39,11 @@ class Game(context: Context) : SurfaceView(context),
     private val swipeStick: SwipeStick
     private val touchDistributor: TouchDistributor
 
-    private val animator: HeroAnimator
-    private val enemyAnimator: EnemyAnimator
+    private var gameObjects: MutableList<GameObject> = mutableListOf()
 
-    private val spriteSheet: SpriteSheet
     val performance: Performance
+
+    val enemy: Enemy
 
     // For sensors
     var sensorUpDown = 0.0
@@ -46,8 +56,7 @@ class Game(context: Context) : SurfaceView(context),
         // Metrics for SwipeStick and CenteredGameDisplay
         val displayMetrics = DisplayMetrics()
         (getContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        spriteSheet = SpriteSheet(context)
+        Utils.setDisplayMetrics(context)
 
         // Check joystick or gyroscope from settings
         isJoystick = SharedPreference(context).getValueBoolean("control", true)
@@ -66,15 +75,17 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        animator = HeroAnimator(spriteSheet)
-        player = Player(Point(100.0, 100.0), animator, spriteSheet)
-        //player.sprite = spriteSheet.playerSpriteArray
+        player = Player(Point(1000.0, 1000.0), HeroSpriteSheet(context), tilemap.mapLayout, gameObjects)
+
+        // Set enemy
+        enemy = Masker(Point(400.0, 300.0), EnemySpriteSheet(context),  player, tilemap.mapLayout, gameObjects)
 
         // Joystick
-        joystick = Joystick(player,Point(275.0, 700.0),  110, 50)
+        joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
 
         // SwipeStick
-        swipeStick = SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0),  110, 50)
+        swipeStick =
+            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 180, 80)
 
         // Touch Distributor
         touchDistributor = TouchDistributor(joystick, swipeStick)
@@ -82,7 +93,14 @@ class Game(context: Context) : SurfaceView(context),
         // Set up sensor stuff
         //sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
 
+        // Initialize display
+        gameDisplay = GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player)
+
         isFocusable = true
+
+        // Init all game objects
+        gameObjects.add(player)
+        gameObjects.add(enemy)
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -100,8 +118,6 @@ class Game(context: Context) : SurfaceView(context),
         return super.onTouchEvent(event)
     }
 
-
-
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         //Not yet implemented")
     }
@@ -113,33 +129,49 @@ class Game(context: Context) : SurfaceView(context),
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
+        tilemap.draw(canvas, gameDisplay)
+
         performance.draw(canvas)
-        player.draw(canvas)
+
+        for (obj in gameObjects) {
+            obj.draw(canvas, gameDisplay)
+        }
+        //player.draw(canvas, gameDisplay)
+        //enemy.draw(canvas, gameDisplay)
 
         swipeStick.draw(canvas)
 
         if (isJoystick) {
             joystick.draw(canvas)
-            swipeStick.draw(canvas)
-        }
-        else {
+        } else {
             extraDraw(canvas)
         }
     }
 
     private fun extraDraw(canvas: Canvas) {
-        canvas.drawText("Accelerometer: X:${sensorSides.toInt()} \n Y:${sensorUpDown.toInt()}", 100f, 400f, textPaint)
+        canvas.drawText(
+            "Accelerometer: X:${sensorSides.toInt()} \n Y:${sensorUpDown.toInt()}",
+            100f,
+            400f,
+            textPaint
+        )
     }
 
     override fun update() {
-        player.update()
+        for (obj in gameObjects) {
+            obj.update()
+            if (obj.toDestroy) {
+                gameObjects.remove(obj)
+                break
+            }
+        }
+        gameDisplay.update()
         swipeStick.update()
 
         if (isJoystick) {
             joystick.update()
-        }
-        else {
-            player.changeVelocity(Vector(sensorUpDown/100, sensorSides/100))
+        } else {
+            player.changeVelocity(Vector(sensorUpDown / 100, sensorSides / 100))
         }
         //joystick.update()
         //player.changeVelocity(Vector(sensorUpDown/100, sensorSides/100))

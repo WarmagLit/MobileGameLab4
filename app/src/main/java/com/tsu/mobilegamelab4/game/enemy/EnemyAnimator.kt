@@ -1,22 +1,21 @@
 package com.tsu.mobilegamelab4.game.enemy
 
 import android.graphics.Canvas
-import com.tsu.mobilegamelab4.game.SpriteSheet
-import com.tsu.mobilegamelab4.game.Utils
 import com.tsu.mobilegamelab4.game.Vector
+import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.Sprite
 import com.tsu.mobilegamelab4.game.player.Direction
 
 class EnemyAnimator(spriteSheet: EnemySpriteSheet) {
 
-    private var currentSpriteList: List<EnemySprite>
+    private var currentSpriteList: List<Sprite>
     private var currentSpriteIndex = 0
     private var updateCounter = 0
     private var newSpriteUpdateNum = 10
 
-    private val spriteStay: List<EnemySprite>
-    private val spriteRight: List<EnemySprite>
-    private val spriteLeft: List<EnemySprite>
+    val spriteStay: List<Sprite>
+    private val spriteRight: List<Sprite>
+    private val spriteLeft: List<Sprite>
 
 
 

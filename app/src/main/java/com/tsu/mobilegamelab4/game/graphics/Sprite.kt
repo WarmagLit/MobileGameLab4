@@ -1,22 +1,23 @@
 package com.tsu.mobilegamelab4.game.graphics
 
-import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Matrix
+import android.graphics.Point
 import android.graphics.Rect
-import com.tsu.mobilegamelab4.game.SpriteSheet
+import com.tsu.mobilegamelab4.game.map.MapLayout
 
 class Sprite(private val spriteSheet: SpriteSheet, private val rect: Rect) {
+
+    var size = Point(MapLayout.TILE_WIDTH_PIXELS, MapLayout.TILE_HEIGHT_PIXELS)//Point(250,250)
+
     fun draw(canvas: Canvas, x: Int, y: Int) {
         canvas.drawBitmap(
             spriteSheet.bitmap,
             rect,
-            Rect(x, y, x + width, y + height),
+            Rect(x, y, x + size.x, y + size.y),
             null
         )
     }
 
-
-    private val width: Int = 300
-    private val height: Int = 300
+    val width: Int = 100
+    val height: Int = 100
 }

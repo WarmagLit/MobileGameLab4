@@ -16,7 +16,7 @@ class Performance: IDrawable {
         paint.textSize = 50f
     }
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, display: GameDisplay?) {
         drawUPS(canvas)
         drawFPS(canvas)
     }
