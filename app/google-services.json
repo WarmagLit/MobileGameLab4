@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "171081806533",
+    "firebase_url": "https://mobilegamelab-63290-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mobilegamelab-63290",
+    "storage_bucket": "mobilegamelab-63290.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171081806533:android:d9862f3774cef2b4da36ac",
+        "android_client_info": {
+          "package_name": "com.tsu.mobilegamelab4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171081806533-6oo97esnhnj9pmfrt11orlq7sfcd1573.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATLkfREA7vPTvtfqjeuAFt42KPj-z-3VM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171081806533-6oo97esnhnj9pmfrt11orlq7sfcd1573.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

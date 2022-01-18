@@ -1,11 +1,8 @@
-package com.tsu.mobilegamelab4.game.player.guns
+package com.tsu.mobilegamelab4.game.entity.player.guns
 
 import android.graphics.*
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.graphics.Sprite
-import kotlin.math.PI
-import kotlin.math.atan2
 
 class Bullet(position: Point, veloc: Vector): GameObject(position) {
 
@@ -14,7 +11,6 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
 
     private val DESTROY_TIME = 50
     private var destroyCounter = 0
-    var toDestroy = false
 
     init {
         velocity = veloc
@@ -22,6 +18,7 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
         mPaint.color = Color.BLUE
         mPaint.strokeWidth = 20f
     }
+
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         //sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())

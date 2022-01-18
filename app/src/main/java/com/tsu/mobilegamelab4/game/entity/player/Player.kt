@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.game.player
+package com.tsu.mobilegamelab4.game.entity.player
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -6,14 +6,26 @@ import android.graphics.Paint
 import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
+import com.tsu.mobilegamelab4.game.entity.Entity
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
+import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.MapLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
 import com.tsu.mobilegamelab4.game.player.guns.Gun
+import com.tsu.mobilegamelab4.game.map.TileType
+import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.entity.player.guns.Gun
 
-class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: FirstLocationTilemap) :
-    GameObject(pos) {
+class Player(
+    pos: Point,
+    spriteSheet: HeroSpriteSheet,
+    private val mapLayout: FirstLocationMapLayout,
+    private val gameObjects: MutableList<GameObject>
+) :
+    Entity(pos, mapLayout, gameObjects),
+    ICollideable {
+
 
     private val SPEED_PIXELS_PER_SECOND = 400.0
     private val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
@@ -23,7 +35,7 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: Firs
 
     private val textPaint = Paint()
 
-    private val animator = Animator(spriteSheet)
+    private val animator = HeroAnimator(spriteSheet)
 
     private val gun: Gun
 
@@ -31,22 +43,26 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: Firs
         textPaint.color = Color.CYAN
         textPaint.textSize = 50f
 
-        gun = Gun(pos, spriteSheet.gunSprite)
+        hitbox = Hitbox(this, 150, 200)
+
+        gun = Gun(this, Utils.displayCenter, spriteSheet.gunSprite, gameObjects)
     }
+
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
-            val coordinates = it.gameToDisplayCoordinates(pos)
+            displayCoordinates = it.gameToDisplayCoordinates(pos)
             gun.draw(canvas)
             animator.draw(
                 canvas,
-                coordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
-                coordinates.Y.toInt() - animator.spriteStay.first().size.y / 2
+                displayCoordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
+                displayCoordinates.Y.toInt() - animator.spriteStay.first().size.y / 2
             )
         }
     }
 
-    fun changeVelocity(actuator: Vector) {
+
+    override fun changeVelocity(actuator: Vector) {
         // Update velocity based on actuator of joystick
         velocity.X = actuator.X * MAX_SPEED
         velocity.Y = actuator.Y * MAX_SPEED
@@ -66,12 +82,17 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: Firs
         pos.Y += velocity.Y
 
         //obstacle check
-        if (tilemap.mapLayout.layout[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()] == 1) {
+        if (mapLayout.layout[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()] == 1) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }
+        if (collideCheck()) {
+            pos.X -= 0.2 * velocity.X
+            pos.Y -= 0.2 *velocity.Y
+        }
 
         gun.update()
+        hitbox.updateCoord(displayCoordinates)
 
         // Animator update
         animator.changeDirection(velocity)
@@ -85,5 +106,17 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: Firs
             direction.X = velocity.X / distance
             direction.Y = velocity.Y / distance
         }
+    }
+
+    override fun collideCheck(): Boolean {
+        for (obj in gameObjects) {
+            if (obj != this && obj.hitbox.isCollide(hitbox))
+                return true
+        }
+        return false
+    }
+
+    override fun hit(bullet: Bullet) {
+        // do nothing
     }
 }
