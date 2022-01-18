@@ -12,6 +12,8 @@ class SettingsActivity : AppCompatActivity() {
 
     private var isJoystick = true
 
+    private var showPerformance = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -19,10 +21,11 @@ class SettingsActivity : AppCompatActivity() {
         val sharedPreferences = SharedPreference(this)
 
         isJoystick = sharedPreferences.getValueBoolean("control", true)
+        showPerformance = sharedPreferences.getValueBoolean("performance", false)
 
         checkControls()
 
-        binding.settingsGyposcopeButton.setOnClickListener {
+        binding.settingsGyroscopeButton.setOnClickListener {
             sharedPreferences.save("control", false)
             isJoystick = false
             checkControls()
@@ -34,6 +37,14 @@ class SettingsActivity : AppCompatActivity() {
             checkControls()
         }
 
+        binding.settingsPerformanceSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                sharedPreferences.save("performance", true)
+            } else {
+                sharedPreferences.save("performance", false)
+            }
+        }
+
         binding.settingsBackButton.setOnClickListener {
             finish()
         }
@@ -42,10 +53,14 @@ class SettingsActivity : AppCompatActivity() {
     private fun checkControls() {
         if (isJoystick) {
             binding.settingsJoystickButton.setBackgroundResource(R.drawable.bg_menu_button_selected)
-            binding.settingsGyposcopeButton.setBackgroundResource(R.drawable.bg_menu_button)
+            binding.settingsGyroscopeButton.setBackgroundResource(R.drawable.bg_menu_button)
         } else {
-            binding.settingsGyposcopeButton.setBackgroundResource(R.drawable.bg_menu_button_selected)
+            binding.settingsGyroscopeButton.setBackgroundResource(R.drawable.bg_menu_button_selected)
             binding.settingsJoystickButton.setBackgroundResource(R.drawable.bg_menu_button)
+        }
+
+        if (showPerformance) {
+            binding.settingsPerformanceSwitch.isChecked = true
         }
     }
 }

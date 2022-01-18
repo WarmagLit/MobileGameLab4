@@ -7,6 +7,7 @@ import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import com.tsu.mobilegamelab4.game.entity.Entity
+import com.tsu.mobilegamelab4.game.entity.HealthBar
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.MapLayout
@@ -30,6 +31,8 @@ class Player(
     private var actX = 0.0
     private var actY = 0.0
 
+    private val healthBar: PlayerHealthBar
+
     private val textPaint = Paint()
 
     private val animator = HeroAnimator(spriteSheet)
@@ -37,6 +40,9 @@ class Player(
     private val gun: Gun
 
     init {
+        // Init health bar
+        healthBar = PlayerHealthBar(HP, this)
+
         textPaint.color = Color.CYAN
         textPaint.textSize = 50f
 
@@ -50,6 +56,7 @@ class Player(
         display?.let {
             displayCoordinates = it.gameToDisplayCoordinates(pos)
             gun.draw(canvas)
+            healthBar.draw(canvas, display)
             animator.draw(
                 canvas,
                 displayCoordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
@@ -115,5 +122,9 @@ class Player(
 
     override fun hit(bullet: Bullet) {
         // do nothing
+    }
+
+    fun receiveStrike() {
+        healthBar.getDamage(20)
     }
 }

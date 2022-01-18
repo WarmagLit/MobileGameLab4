@@ -53,6 +53,7 @@ class Game(context: Context) : SurfaceView(context),
     private val textPaint = Paint()
 
     var isJoystick = true
+    var showPerformance = false
 
     init {
         // Metrics for SwipeStick and CenteredGameDisplay
@@ -62,6 +63,7 @@ class Game(context: Context) : SurfaceView(context),
 
         // Check joystick or gyroscope from settings
         isJoystick = SharedPreference(context).getValueBoolean("control", true)
+        showPerformance = SharedPreference(context).getValueBoolean("performance", false)
 
         // For Accelerometer values
         textPaint.color = Color.CYAN
@@ -133,7 +135,7 @@ class Game(context: Context) : SurfaceView(context),
 
         tilemap.draw(canvas, gameDisplay)
 
-        performance.draw(canvas)
+        if (showPerformance) performance.draw(canvas)
 
         for (obj in gameObjects) {
             obj.draw(canvas, gameDisplay)
