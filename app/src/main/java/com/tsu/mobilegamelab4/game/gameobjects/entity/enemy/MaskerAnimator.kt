@@ -1,11 +1,11 @@
-package com.tsu.mobilegamelab4.game.entity.enemy
+package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy
 
 import android.graphics.Canvas
 import android.graphics.Point
 import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.Sprite
-import com.tsu.mobilegamelab4.game.entity.player.Direction
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Direction
 
 class MaskerAnimator(spriteSheet: EnemySpriteSheet) {
 

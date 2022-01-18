@@ -1,7 +1,9 @@
-package com.tsu.mobilegamelab4.game
+package com.tsu.mobilegamelab4.game.gameobjects
 
+import com.tsu.mobilegamelab4.game.Hitbox
+import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
 
 abstract class GameObject(var pos: Point): IDrawableUpdatable {
 

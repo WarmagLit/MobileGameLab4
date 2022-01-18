@@ -5,10 +5,10 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Utils
 import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 
 class SwipeStick(
-    private val player: Player,
+    player: Player,
     outerCircleCenterPosition: Point,
     outerCircleRadius: Int,
     innerCircleRadius: Int

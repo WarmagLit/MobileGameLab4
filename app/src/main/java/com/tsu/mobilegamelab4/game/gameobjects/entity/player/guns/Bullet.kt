@@ -1,8 +1,9 @@
-package com.tsu.mobilegamelab4.game.entity.player.guns
+package com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns
 
 import android.graphics.*
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 
 class Bullet(position: Point, veloc: Vector): GameObject(position) {
 

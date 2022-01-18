@@ -1,13 +1,15 @@
-package com.tsu.mobilegamelab4.game.entity
+package com.tsu.mobilegamelab4.game.gameobjects.entity
 
 import android.graphics.Paint
+import android.graphics.Rect
 import com.tsu.mobilegamelab4.game.*
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
 
 abstract class Entity(
     pos: Point,
-    private val mapLayout: FirstLocationMapLayout,
+    private val collisionLayout: FirstLocationCollisionLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
     GameObject(pos),
@@ -27,7 +29,13 @@ abstract class Entity(
 
     abstract fun changeVelocity(actuator: Vector)
 
-    abstract fun collideCheck(): Boolean
+    fun collideCheck(): Rect? {
+        for (obj in gameObjects) {
+            if (obj != this && obj.hitbox.isCollide(hitbox))
+                return obj.hitbox.rect
+        }
+        return null
+    }
 
     fun die() {
         toDestroy = true

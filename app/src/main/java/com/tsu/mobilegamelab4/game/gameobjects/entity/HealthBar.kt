@@ -1,13 +1,11 @@
-package com.tsu.mobilegamelab4.game.entity
+package com.tsu.mobilegamelab4.game.gameobjects.entity
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Point
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.interfaces.IDrawable
-import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
 
 
 open class HealthBar(private val maxHealth: Int, private val owner: Entity): IDrawable {

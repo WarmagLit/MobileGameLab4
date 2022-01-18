@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.game.entity.player
+package com.tsu.mobilegamelab4.game.gameobjects.entity.player
 
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.*

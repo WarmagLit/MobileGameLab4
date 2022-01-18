@@ -1,11 +1,12 @@
 package com.tsu.mobilegamelab4.game
 
 import android.graphics.Rect
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 
 class GameDisplay(
     private val widthPixels: Int,
     private val heightPixels: Int,
-    private val centerObject: GameObject
+    var centerObject: GameObject
 ) {
 
     val displayRect = Rect(0, 0, widthPixels, heightPixels)

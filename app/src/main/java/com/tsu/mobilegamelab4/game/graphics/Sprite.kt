@@ -3,12 +3,11 @@ package com.tsu.mobilegamelab4.game.graphics
 import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.Rect
-import com.tsu.mobilegamelab4.game.map.MapLayout
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Sprite(private val spriteSheet: SpriteSheet, private val rect: Rect) {
 
-    var size = Point(FirstLocationMapLayout.TILE_WIDTH_PIXELS, FirstLocationMapLayout.TILE_HEIGHT_PIXELS)//Point(250,250)
+    var size = Point(FirstLocationMap.CELL_WIDTH_PIXELS, FirstLocationMap.CELL_HEIGHT_PIXELS)//Point(250,250)
 
     fun draw(canvas: Canvas, x: Int, y: Int) {
         canvas.drawBitmap(
@@ -18,7 +17,4 @@ class Sprite(private val spriteSheet: SpriteSheet, private val rect: Rect) {
             null
         )
     }
-
-    val width: Int = 100
-    val height: Int = 100
 }

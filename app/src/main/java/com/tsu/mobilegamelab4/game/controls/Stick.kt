@@ -7,12 +7,12 @@ import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 abstract class Stick(
-    private val player: Player,
+    var player: Player,
     private val outerCircleCenterPosition: Point,
     private val outerCircleRadius: Int,
     private val innerCircleRadius: Int
