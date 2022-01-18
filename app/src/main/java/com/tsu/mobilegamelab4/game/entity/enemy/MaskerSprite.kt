@@ -1,12 +1,11 @@
-package com.tsu.mobilegamelab4.game.enemy
+package com.tsu.mobilegamelab4.game.entity.enemy
 
 import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.Rect
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
-import com.tsu.mobilegamelab4.game.map.MapLayout
 
-class EnemySprite(private val spriteSheet: EnemySpriteSheet, private val rect: Rect) {
+class MaskerSprite(private val spriteSheet: EnemySpriteSheet, private val rect: Rect) {
 
     var size = Point(300, 300)//Point(250,250)
 

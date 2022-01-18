@@ -1,11 +1,8 @@
-package com.tsu.mobilegamelab4.game.player.guns
+package com.tsu.mobilegamelab4.game.entity.player.guns
 
 import android.graphics.*
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.graphics.Sprite
-import kotlin.math.PI
-import kotlin.math.atan2
 
 class Bullet(position: Point, veloc: Vector): GameObject(position) {
 
@@ -22,9 +19,6 @@ class Bullet(position: Point, veloc: Vector): GameObject(position) {
         mPaint.strokeWidth = 20f
     }
 
-    override fun hit(bullet: Bullet) {
-        // Do nothing
-    }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         //sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())

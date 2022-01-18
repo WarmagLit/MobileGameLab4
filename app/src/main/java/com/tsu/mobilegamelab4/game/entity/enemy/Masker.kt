@@ -1,14 +1,14 @@
-package com.tsu.mobilegamelab4.game.enemy
+package com.tsu.mobilegamelab4.game.entity.enemy
 
 import android.graphics.Canvas
-import android.util.Log
 import com.tsu.mobilegamelab4.game.*
+import com.tsu.mobilegamelab4.game.entity.HealthBar
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.MapLayout
 import com.tsu.mobilegamelab4.game.map.TileType
-import com.tsu.mobilegamelab4.game.player.Player
-import com.tsu.mobilegamelab4.game.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
 
 class Masker(
     pos: Point,
@@ -17,16 +17,15 @@ class Masker(
     private val mapLayout: MapLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
-    Enemy(pos, spriteSheet, mapLayout, player), ICollideable {
+    Enemy(pos, spriteSheet, mapLayout, player, gameObjects), ICollideable {
 
-    private var actX = 0.0
-    private var actY = 0.0
+    private var act = Point(0.0, 0.0)
 
-    private var HP = 100
+    private val healthBar: HealthBar = HealthBar(HP, this)
 
-    private val animator = EnemyAnimator(spriteSheet)
+    private val animator = MaskerAnimator(spriteSheet)
 
-    var displayCoordinates = Point(0.0, 0.0)
+    private var cooldownCounter = 0
 
     init {
         hitbox = Hitbox(this, 155, 180)
@@ -36,6 +35,8 @@ class Masker(
         private const val SPEED_PIXELS_PER_SECOND = 200.0
         private const val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
         private const val SEEK_DISTANCE = 400.0
+        private const val ATTACK_DISTANCE = 200.0
+        private const val ATTACK_COOLDOWN = 60
     }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
@@ -47,6 +48,7 @@ class Masker(
                 displayCoordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
                 displayCoordinates.Y.toInt() - animator.spriteStay.first().size.y / 2
             )
+            healthBar.draw(canvas, display)
         }
     }
 
@@ -55,21 +57,30 @@ class Masker(
         velocity.X = actuator.X * MAX_SPEED
         velocity.Y = actuator.Y * MAX_SPEED
 
-        actX = actuator.X
-        actY = actuator.Y
+        act.X = actuator.X
+        act.Y = actuator.Y
     }
 
-    fun attack(actuator: Vector) {
-        Log.d("Attack", "At X:${actuator.X} Y: ${actuator.Y}")
+    fun attack(player: Player) {
+        if (cooldownCounter == 0) {
+            cooldownCounter = ATTACK_COOLDOWN
+            player.changeVelocity(Vector(direction.X * 10, direction.Y * 10))
+            animator.attackAnimation()
+        }
     }
-
 
     override fun update() {
-        if (Utils.getDistanceBetweenPoints(player.pos, pos) <= Companion.SEEK_DISTANCE) {
+        if (Utils.getDistanceBetweenPoints(player.pos, pos) <= SEEK_DISTANCE) {
             changeVelocity(Utils.getDirectionalVector(pos, player.pos))
         } else {
             changeVelocity(Vector(0.0, 0.0))
         }
+
+        if (Utils.getDistanceBetweenPoints(player.pos, pos) <= ATTACK_DISTANCE) {
+            attack(player)
+        }
+
+        if (cooldownCounter > 0) cooldownCounter--
 
         // Update position
         pos.X += velocity.X
@@ -100,7 +111,7 @@ class Masker(
         }
     }
 
-    private fun collideCheck(): Boolean {
+    override fun collideCheck(): Boolean {
         for (obj in gameObjects) {
             if (obj != this && obj.hitbox.isCollide(hitbox))
                 return true
@@ -109,13 +120,7 @@ class Masker(
     }
 
     override fun hit(bullet: Bullet) {
-        HP -= 10
-        if (HP <= 0) {
-            die()
-        }
+        healthBar.getDamage(20)
     }
 
-    fun die() {
-        toDestroy = true
-    }
 }

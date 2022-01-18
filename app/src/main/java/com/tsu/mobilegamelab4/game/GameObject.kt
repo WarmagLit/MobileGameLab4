@@ -1,7 +1,7 @@
 package com.tsu.mobilegamelab4.game
 
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
 
 abstract class GameObject(var pos: Point): IDrawableUpdatable {
 
@@ -10,5 +10,4 @@ abstract class GameObject(var pos: Point): IDrawableUpdatable {
     lateinit var hitbox: Hitbox
     var toDestroy: Boolean = false
 
-    abstract fun hit(bullet: Bullet)
 }

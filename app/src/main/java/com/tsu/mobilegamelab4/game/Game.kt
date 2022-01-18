@@ -2,6 +2,7 @@ package com.tsu.mobilegamelab4.game
 
 import android.app.Activity
 import android.content.Context
+import android.content.Entity
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -13,8 +14,8 @@ import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
-import com.tsu.mobilegamelab4.game.enemy.Enemy
-import com.tsu.mobilegamelab4.game.enemy.Masker
+import com.tsu.mobilegamelab4.game.entity.enemy.Enemy
+import com.tsu.mobilegamelab4.game.entity.enemy.Masker
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
@@ -23,7 +24,7 @@ import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
 import com.tsu.mobilegamelab4.game.map.Tilemap
 
-import com.tsu.mobilegamelab4.game.player.Player
+import com.tsu.mobilegamelab4.game.entity.player.Player
 
 
 class Game(context: Context) : SurfaceView(context),
@@ -48,6 +49,7 @@ class Game(context: Context) : SurfaceView(context),
     // For sensors
     var sensorUpDown = 0.0
     var sensorSides = 0.0
+
     private val textPaint = Paint()
 
     var isJoystick = true
@@ -136,8 +138,6 @@ class Game(context: Context) : SurfaceView(context),
         for (obj in gameObjects) {
             obj.draw(canvas, gameDisplay)
         }
-        //player.draw(canvas, gameDisplay)
-        //enemy.draw(canvas, gameDisplay)
 
         swipeStick.draw(canvas)
 
@@ -174,7 +174,6 @@ class Game(context: Context) : SurfaceView(context),
             player.changeVelocity(Vector(sensorUpDown / 100, sensorSides / 100))
         }
         //joystick.update()
-        //player.changeVelocity(Vector(sensorUpDown/100, sensorSides/100))
     }
 
     fun pause() {

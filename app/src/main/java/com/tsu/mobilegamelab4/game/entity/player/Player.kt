@@ -1,18 +1,18 @@
-package com.tsu.mobilegamelab4.game.player
+package com.tsu.mobilegamelab4.game.entity.player
 
-import android.animation.Animator
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
+import com.tsu.mobilegamelab4.game.entity.Entity
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.MapLayout
 import com.tsu.mobilegamelab4.game.map.TileType
-import com.tsu.mobilegamelab4.game.player.guns.Bullet
-import com.tsu.mobilegamelab4.game.player.guns.Gun
+import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.entity.player.guns.Gun
 
 class Player(
     pos: Point,
@@ -20,7 +20,7 @@ class Player(
     private val mapLayout: MapLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
-    GameObject(pos),
+    Entity(pos, mapLayout, gameObjects),
     ICollideable {
 
 
@@ -35,8 +35,6 @@ class Player(
     private val animator = HeroAnimator(spriteSheet)
 
     private val gun: Gun
-
-    var displayCoordinates = Point(0.0, 0.0)
 
     init {
         textPaint.color = Color.CYAN
@@ -61,7 +59,7 @@ class Player(
     }
 
 
-    fun changeVelocity(actuator: Vector) {
+    override fun changeVelocity(actuator: Vector) {
         // Update velocity based on actuator of joystick
         velocity.X = actuator.X * MAX_SPEED
         velocity.Y = actuator.Y * MAX_SPEED
@@ -107,7 +105,7 @@ class Player(
         }
     }
 
-    private fun collideCheck(): Boolean {
+    override fun collideCheck(): Boolean {
         for (obj in gameObjects) {
             if (obj != this && obj.hitbox.isCollide(hitbox))
                 return true

@@ -1,11 +1,12 @@
-package com.tsu.mobilegamelab4.game.player.guns
+package com.tsu.mobilegamelab4.game.entity.player.guns
 
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Vector
+import com.tsu.mobilegamelab4.game.entity.Entity
+import com.tsu.mobilegamelab4.game.entity.enemy.Enemy
 import com.tsu.mobilegamelab4.game.graphics.Sprite
-import com.tsu.mobilegamelab4.game.player.Player
-import java.util.*
+import com.tsu.mobilegamelab4.game.entity.player.Player
 
 class Gun(
     private val owner: Player,
@@ -15,9 +16,6 @@ class Gun(
 ) : GameObject(position) {
 
     private val bullets: MutableList<Bullet> = mutableListOf()
-    override fun hit(bullet: Bullet) {
-        // Do nothing
-    }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
@@ -31,7 +29,7 @@ class Gun(
         for(bullet in bullets) {
             bullet.update()
             for (obj in gameObjects) {
-                if (obj != owner && obj.hitbox.isPointInside(bullet.pos)) {
+                if (obj is Entity && obj != owner && obj.hitbox.isPointInside(bullet.pos)) {
                     obj.hit(bullet)
                     bullet.toDestroy = true
                 }

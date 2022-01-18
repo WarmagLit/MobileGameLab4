@@ -7,7 +7,7 @@ import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.player.Player
+import com.tsu.mobilegamelab4.game.entity.player.Player
 import kotlin.math.pow
 import kotlin.math.sqrt
 

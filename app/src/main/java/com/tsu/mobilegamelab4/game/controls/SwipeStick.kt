@@ -5,7 +5,7 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.Utils
 import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.player.Player
+import com.tsu.mobilegamelab4.game.entity.player.Player
 
 class SwipeStick(
     private val player: Player,
