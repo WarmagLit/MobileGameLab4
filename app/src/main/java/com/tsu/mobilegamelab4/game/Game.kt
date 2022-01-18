@@ -15,9 +15,8 @@ import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
-import com.tsu.mobilegamelab4.game.map.Tilemap
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
 import com.tsu.mobilegamelab4.game.player.Player
 
@@ -64,7 +63,12 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-        player = Player(Point(0.0, 0.0), HeroSpriteSheet(context), tilemap)
+        player = Player(
+            Point(
+                4.0 * FirstLocationMapLayout.TILE_WIDTH_PIXELS,
+                18.0 * FirstLocationMapLayout.TILE_HEIGHT_PIXELS
+            ), HeroSpriteSheet(context), tilemap
+        )
         //player.sprite = spriteSheet.playerSpriteArray
 
         // Joystick

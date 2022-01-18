@@ -66,7 +66,7 @@ class Player(pos: Point, spriteSheet: HeroSpriteSheet, private val tilemap: Firs
         pos.Y += velocity.Y
 
         //obstacle check
-        if (tilemap.tilemap[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()].isObstacle) {
+        if (tilemap.mapLayout.layout[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()] == 1) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }

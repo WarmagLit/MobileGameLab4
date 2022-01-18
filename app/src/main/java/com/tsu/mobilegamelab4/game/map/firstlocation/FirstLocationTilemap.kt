@@ -14,7 +14,7 @@ import com.tsu.mobilegamelab4.game.map.Tile
 
 class FirstLocationTilemap(spriteSheet: FirstLocationSpriteSheet) : IDrawable {
     
-    private val mapLayout = FirstLocationMapLayout()
+    val mapLayout = FirstLocationMapLayout()
     private var mapBitmap: Bitmap
     private val lowerLevel: Bitmap
     private val upperLevel: Bitmap
