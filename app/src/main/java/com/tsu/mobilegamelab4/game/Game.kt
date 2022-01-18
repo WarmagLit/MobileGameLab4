@@ -145,9 +145,6 @@ class Game(context: Context) : SurfaceView(context),
         //tilemap.draw(canvas, gameDisplay)
         tilemap.drawLower(canvas, gameDisplay)
 
-        if (showPerformance) performance.draw(canvas)
-
-
         for (obj in gameObjects) {
             obj.draw(canvas, gameDisplay)
         }
@@ -155,13 +152,14 @@ class Game(context: Context) : SurfaceView(context),
         tilemap.drawUpper(canvas, gameDisplay)
 
         swipeStick.draw(canvas)
-        performance.draw(canvas)
 
         if (isJoystick) {
             joystick.draw(canvas)
         } else {
             extraDraw(canvas)
         }
+
+        if (showPerformance) performance.draw(canvas)
     }
 
     private fun extraDraw(canvas: Canvas) {
