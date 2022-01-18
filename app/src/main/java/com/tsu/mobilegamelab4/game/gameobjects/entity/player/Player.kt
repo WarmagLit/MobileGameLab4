@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.game.entity.player
+package com.tsu.mobilegamelab4.game.gameobjects.entity.player
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -6,21 +6,22 @@ import android.graphics.Paint
 import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
-import com.tsu.mobilegamelab4.game.entity.Entity
-import com.tsu.mobilegamelab4.game.entity.HealthBar
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.entity.Entity
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Gun
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
-import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
-import com.tsu.mobilegamelab4.game.entity.player.guns.Gun
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Player(
     pos: Point,
     spriteSheet: HeroSpriteSheet,
-    private val mapLayout: FirstLocationMapLayout,
+    private val collisionLayout: FirstLocationCollisionLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
-    Entity(pos, mapLayout, gameObjects),
+    Entity(pos, collisionLayout, gameObjects),
     ICollideable {
 
 
@@ -53,6 +54,7 @@ class Player(
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
+           // hitbox.draw(canvas, display)
             displayCoordinates = it.gameToDisplayCoordinates(pos)
             gun.draw(canvas)
             healthBar.draw(canvas, display)
@@ -86,17 +88,25 @@ class Player(
 
         //obstacle check
         if (pos.X >= 0 && pos.Y >= 0
-            && mapLayout.layout[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()] == 1) {
+            && collisionLayout.layout[(pos.Y / FirstLocationMap.CELL_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMap.CELL_WIDTH_PIXELS).toInt()] == 1
+        ) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }
-        if (collideCheck()) {
-            pos.X -= 0.2 * velocity.X
-            pos.Y -= 0.2 *velocity.Y
+
+        val objRect = collideCheck()
+        objRect?.let {
+            val pushVector = Utils.normalizeVector(Vector(
+                ((hitbox.rect.centerX() - it.centerX())).toDouble(),
+                ((hitbox.rect.centerY() - it.centerY())).toDouble()
+            ))
+            pos.X += pushVector.X - velocity.X
+            pos.Y += pushVector.Y - velocity.Y
         }
 
+
         gun.update()
-        hitbox.updateCoord(displayCoordinates)
+        hitbox.updateCoordinatesWithOffset(displayCoordinates)
 
         // Animator update
         animator.changeDirection(velocity)
@@ -110,14 +120,6 @@ class Player(
             direction.X = velocity.X / distance
             direction.Y = velocity.Y / distance
         }
-    }
-
-    override fun collideCheck(): Boolean {
-        for (obj in gameObjects) {
-            if (obj != this && obj.hitbox.isCollide(hitbox))
-                return true
-        }
-        return false
     }
 
     override fun hit(bullet: Bullet) {

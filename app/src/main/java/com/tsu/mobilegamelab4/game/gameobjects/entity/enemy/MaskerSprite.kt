@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.game.entity.enemy
+package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy
 
 import android.graphics.Canvas
 import android.graphics.Point

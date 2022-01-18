@@ -4,12 +4,13 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.getSystemService
+import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
-import com.tsu.mobilegamelab4.game.Game
+import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.level.FirstLevel
 
 class GameActivity : AppCompatActivity(),
     SensorEventListener {
@@ -25,7 +26,7 @@ class GameActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         //setContentView(binding.root)
-        game = Game(this)
+        game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
         setContentView(game)
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager

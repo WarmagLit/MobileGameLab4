@@ -21,4 +21,15 @@ abstract class SpriteSheet(context: Context) {
             )
         )
     }
+
+    fun getSpriteByIndex(rect: Rect): Sprite {
+        return Sprite(
+            this, Rect(
+                rect.left * spriteWidthPixels,
+                rect.top * spriteHeightPixels,
+                rect.right * spriteWidthPixels,
+                rect.bottom * spriteHeightPixels
+            )
+        )
+    }
 }

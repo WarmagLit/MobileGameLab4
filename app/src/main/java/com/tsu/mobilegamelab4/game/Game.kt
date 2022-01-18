@@ -1,5 +1,6 @@
 package com.tsu.mobilegamelab4.game
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
@@ -13,29 +14,26 @@ import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
-import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.entity.enemy.Enemy
-import com.tsu.mobilegamelab4.game.entity.enemy.Masker
-import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
-
-import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
-
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
+import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
+import com.tsu.mobilegamelab4.game.level.FirstLevel
+import com.google.firebase.database.DatabaseReference
 
-import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.google.firebase.database.FirebaseDatabase
 
 
-class Game(context: Context) : SurfaceView(context),
+
+
+
+@SuppressLint("ViewConstructor")
+class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView(context),
     SurfaceHolder.Callback,
     IUpdatable {
 
-    private val tilemap = FirstLocationTilemap(FirstLocationSpriteSheet(context))
     private val gameDisplay: GameDisplay
-
     private var gameLoop: GameLoop
-    private val player: Player
     private val joystick: Joystick
     private val swipeStick: SwipeStick
     private val touchDistributor: TouchDistributor
@@ -44,7 +42,7 @@ class Game(context: Context) : SurfaceView(context),
 
     val performance: Performance
 
-    val enemy: Enemy
+    // val enemy: Enemy
 
     // For sensors
     var sensorUpDown = 0.0
@@ -79,18 +77,19 @@ class Game(context: Context) : SurfaceView(context),
 
         // Set player
         Utils.setPlayerSkin(context)
-       // player = Player(Point(1000.0, 1000.0), HeroSpriteSheet(context), tilemap.mapLayout, gameObjects)
-        player = Player(
-            Point(
-                4.0 * FirstLocationMapLayout.TILE_WIDTH_PIXELS,
-                18.0 * FirstLocationMapLayout.TILE_HEIGHT_PIXELS
-            ), HeroSpriteSheet(context), tilemap.mapLayout, gameObjects
-        )
+        // player = Player(Point(1000.0, 1000.0), HeroSpriteSheet(context), tilemap.mapLayout, gameObjects)
 
         // Set enemy
-        enemy = Masker(Point(400.0, 300.0), EnemySpriteSheet(context),  player, tilemap.mapLayout, gameObjects)
+//        enemy = Masker(
+//            Point(400.0, 300.0),
+//            EnemySpriteSheet(context),
+//            player,
+//            tilemap.mapLayout,
+//            gameObjects
+//        )
 
         //player.sprite = spriteSheet.playerSpriteArray
+        val player = currentLevel.initializePlayer(HeroSpriteSheet(context))
 
         // Joystick
         joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
@@ -111,8 +110,14 @@ class Game(context: Context) : SurfaceView(context),
         isFocusable = true
 
         // Init all game objects
-        gameObjects.add(player)
-        gameObjects.add(enemy)
+        //gameObjects.add(player)
+        //gameObjects.add(enemy)
+    }
+
+    fun attachControlsToPlayer(player: Player) {
+        joystick.player = player
+        swipeStick.player = player
+        gameDisplay.centerObject = player
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -143,19 +148,19 @@ class Game(context: Context) : SurfaceView(context),
 
 
         //tilemap.draw(canvas, gameDisplay)
-        tilemap.drawLower(canvas, gameDisplay)
-
-        if (showPerformance) performance.draw(canvas)
+        // tilemap.drawLower(canvas, gameDisplay)
 
 
-        for (obj in gameObjects) {
-            obj.draw(canvas, gameDisplay)
-        }
+//        for (obj in gameObjects) {
+//            obj.draw(canvas, gameDisplay)
+//        }
 
-        tilemap.drawUpper(canvas, gameDisplay)
+        // tilemap.drawUpper(canvas, gameDisplay)
+        currentLevel.draw(canvas, gameDisplay)
 
         swipeStick.draw(canvas)
-        performance.draw(canvas)
+
+        if (showPerformance) performance.draw(canvas)
 
         if (isJoystick) {
             joystick.draw(canvas)
@@ -174,20 +179,22 @@ class Game(context: Context) : SurfaceView(context),
     }
 
     override fun update() {
-        for (obj in gameObjects) {
-            obj.update()
-            if (obj.toDestroy) {
-                gameObjects.remove(obj)
-                break
-            }
-        }
+//        for (obj in gameObjects) {
+//            obj.update()
+//            if (obj.toDestroy) {
+//                gameObjects.remove(obj)
+//                break
+//            }
+//        }
+        currentLevel.update()
+
         gameDisplay.update()
         swipeStick.update()
 
         if (isJoystick) {
             joystick.update()
         } else {
-            player.changeVelocity(Vector(sensorUpDown / 100, sensorSides / 100))
+            joystick.player.changeVelocity(Vector(sensorUpDown / 100, sensorSides / 100))
         }
         //joystick.update()
     }

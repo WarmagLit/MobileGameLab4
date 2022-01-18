@@ -1,24 +1,24 @@
-package com.tsu.mobilegamelab4.game.entity.enemy
+package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy
 
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.*
-import com.tsu.mobilegamelab4.game.entity.HealthBar
-import com.tsu.mobilegamelab4.game.entity.player.Player
-import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.entity.HealthBar
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.map.MapLayout
-import com.tsu.mobilegamelab4.game.map.TileType
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Masker(
     pos: Point,
     spriteSheet: EnemySpriteSheet,
     player: Player,
-    private val mapLayout: FirstLocationMapLayout,
+    private val collisionLayout: FirstLocationCollisionLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
-    Enemy(pos, spriteSheet, mapLayout, player, gameObjects), ICollideable {
+    Enemy(pos, spriteSheet, collisionLayout, player, gameObjects), ICollideable {
 
     private var act = Point(0.0, 0.0)
 
@@ -89,17 +89,25 @@ class Masker(
         pos.Y += velocity.Y
 
         if (pos.X >= 0 && pos.Y >= 0
-            && TileType.values()[mapLayout.layout[(pos.Y / MapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / MapLayout.TILE_WIDTH_PIXELS).toInt()]] == TileType.WATER_TILE
+            && collisionLayout.layout[(pos.Y / FirstLocationMap.CELL_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMap.CELL_WIDTH_PIXELS).toInt()] == 1
         ) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }
-        if (collideCheck()) {
-            pos.X -= 3 * velocity.X
-            pos.Y -= 3 * velocity.Y
+
+        val objRect = collideCheck()
+        objRect?.let {
+            val pushVector = Utils.normalizeVector(
+                Vector(
+                    ((hitbox.rect.centerX() - it.centerX())).toDouble(),
+                    ((hitbox.rect.centerY() - it.centerY())).toDouble()
+                )
+            )
+            pos.X += pushVector.X - velocity.X * 2
+            pos.Y += pushVector.Y - velocity.Y * 2
         }
 
-        hitbox.updateCoord(displayCoordinates)
+        hitbox.updateCoordinatesWithOffset(displayCoordinates)
 
         // Animator update
         animator.changeDirection(velocity)
@@ -113,14 +121,6 @@ class Masker(
             direction.X = velocity.X / distance
             direction.Y = velocity.Y / distance
         }
-    }
-
-    override fun collideCheck(): Boolean {
-        for (obj in gameObjects) {
-            if (obj != this && obj.hitbox.isCollide(hitbox))
-                return true
-        }
-        return false
     }
 
     override fun hit(bullet: Bullet) {

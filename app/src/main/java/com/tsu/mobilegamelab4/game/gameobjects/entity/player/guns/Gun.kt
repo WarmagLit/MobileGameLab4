@@ -1,12 +1,12 @@
-package com.tsu.mobilegamelab4.game.entity.player.guns
+package com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns
 
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Vector
-import com.tsu.mobilegamelab4.game.entity.Entity
-import com.tsu.mobilegamelab4.game.entity.enemy.Enemy
+import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.entity.Entity
 import com.tsu.mobilegamelab4.game.graphics.Sprite
-import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 
 class Gun(
     private val owner: Player,
