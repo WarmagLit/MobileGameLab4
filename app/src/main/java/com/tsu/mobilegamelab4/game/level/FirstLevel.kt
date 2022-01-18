@@ -17,7 +17,7 @@ class FirstLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
     spriteSheet: FirstLocationSpriteSheet
 ) :
-    IDrawableUpdatable {
+    Level(enemySpriteSheet, spriteSheet) {
 
     private val map = FirstLocationMap(spriteSheet)
     private var gameObjects: MutableList<GameObject> = mutableListOf()
@@ -36,7 +36,7 @@ class FirstLevel(
         )
     }
 
-    fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
+    override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
         val player = Player(
             Point(
                 4.0 * FirstLocationMap.CELL_WIDTH_PIXELS,

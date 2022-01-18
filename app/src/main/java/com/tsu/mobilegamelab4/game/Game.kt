@@ -22,13 +22,11 @@ import com.tsu.mobilegamelab4.game.level.FirstLevel
 import com.google.firebase.database.DatabaseReference
 
 import com.google.firebase.database.FirebaseDatabase
-
-
-
+import com.tsu.mobilegamelab4.game.level.Level
 
 
 @SuppressLint("ViewConstructor")
-class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView(context),
+class Game(context: Context, private val currentLevel: Level) : SurfaceView(context),
     SurfaceHolder.Callback,
     IUpdatable {
 
