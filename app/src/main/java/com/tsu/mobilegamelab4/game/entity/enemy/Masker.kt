@@ -67,6 +67,7 @@ class Masker(
             cooldownCounter = ATTACK_COOLDOWN
             player.changeVelocity(Vector(direction.X * 10, direction.Y * 10))
             animator.attackAnimation()
+            player.receiveStrike()
         }
     }
 

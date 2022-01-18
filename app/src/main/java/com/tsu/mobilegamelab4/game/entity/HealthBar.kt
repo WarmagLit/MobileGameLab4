@@ -10,10 +10,10 @@ import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
 
 
-class HealthBar(private val maxHealth: Int, private val owner: Entity): IDrawable {
+open class HealthBar(private val maxHealth: Int, private val owner: Entity): IDrawable {
 
-    private var HP = maxHealth
-    private val healthPaint = Paint()
+    protected var HP = maxHealth
+    val healthPaint = Paint()
     var offset = Point(70, 120)
     var healthLineLength = 150
 
