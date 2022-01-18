@@ -9,11 +9,7 @@ import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import com.tsu.mobilegamelab4.game.entity.Entity
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.map.MapLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
-import com.tsu.mobilegamelab4.game.player.guns.Gun
-import com.tsu.mobilegamelab4.game.map.TileType
 import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.entity.player.guns.Gun
 
@@ -82,7 +78,8 @@ class Player(
         pos.Y += velocity.Y
 
         //obstacle check
-        if (mapLayout.layout[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()] == 1) {
+        if (pos.X >= 0 && pos.Y >= 0
+            && mapLayout.layout[(pos.Y / FirstLocationMapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMapLayout.TILE_WIDTH_PIXELS).toInt()] == 1) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }

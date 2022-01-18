@@ -3,18 +3,19 @@ package com.tsu.mobilegamelab4.game.entity.enemy
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.entity.HealthBar
+import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.MapLayout
 import com.tsu.mobilegamelab4.game.map.TileType
-import com.tsu.mobilegamelab4.game.entity.player.Player
-import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
 
 class Masker(
     pos: Point,
     spriteSheet: EnemySpriteSheet,
     player: Player,
-    private val mapLayout: MapLayout,
+    private val mapLayout: FirstLocationMapLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
     Enemy(pos, spriteSheet, mapLayout, player, gameObjects), ICollideable {
@@ -86,7 +87,9 @@ class Masker(
         pos.X += velocity.X
         pos.Y += velocity.Y
 
-        if (TileType.values()[mapLayout.layout[(pos.Y / MapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / MapLayout.TILE_WIDTH_PIXELS).toInt()]] == TileType.WATER_TILE) {
+        if (pos.X >= 0 && pos.Y >= 0
+            && TileType.values()[mapLayout.layout[(pos.Y / MapLayout.TILE_HEIGHT_PIXELS).toInt()][(pos.X / MapLayout.TILE_WIDTH_PIXELS).toInt()]] == TileType.WATER_TILE
+        ) {
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }

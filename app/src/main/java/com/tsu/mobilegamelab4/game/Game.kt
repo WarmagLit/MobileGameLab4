@@ -2,7 +2,6 @@ package com.tsu.mobilegamelab4.game
 
 import android.app.Activity
 import android.content.Context
-import android.content.Entity
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -22,12 +21,8 @@ import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationTilemap
-import com.tsu.mobilegamelab4.game.player.Player
-import com.tsu.mobilegamelab4.game.graphics.MapSpriteSheet
-import com.tsu.mobilegamelab4.game.map.Tilemap
 
 import com.tsu.mobilegamelab4.game.entity.player.Player
 

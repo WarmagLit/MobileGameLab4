@@ -1,21 +1,13 @@
 package com.tsu.mobilegamelab4.game.entity
 
-import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
-import android.util.Log
 import com.tsu.mobilegamelab4.game.*
-import com.tsu.mobilegamelab4.game.entity.player.HeroAnimator
-import com.tsu.mobilegamelab4.game.entity.player.guns.Bullet
-import com.tsu.mobilegamelab4.game.entity.player.guns.Gun
-import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.map.MapLayout
-import com.tsu.mobilegamelab4.game.map.TileType
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMapLayout
 
 abstract class Entity(
     pos: Point,
-    private val mapLayout: MapLayout,
+    private val mapLayout: FirstLocationMapLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
     GameObject(pos),
