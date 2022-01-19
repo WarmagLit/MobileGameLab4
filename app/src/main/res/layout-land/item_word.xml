@@ -6,9 +6,8 @@
     android:layout_height="100dp"
     android:layout_marginHorizontal="13dp"
     android:backgroundTint="@color/transparent"
+    app:cardElevation="0dp"
     tools:ignore="MissingDefaultResource">
-
-
 
     <ImageView
         android:id="@+id/imageView"
@@ -16,6 +15,5 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/key_holder" />
-
 
 </androidx.cardview.widget.CardView>

@@ -8,42 +8,13 @@ import com.tsu.mobilegamelab4.game.gameobjects.entity.Entity
 import com.tsu.mobilegamelab4.game.graphics.Sprite
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 
-class Gun(
-    private val owner: Player,
-    position: Point,
-    private val sprite: Sprite,
-    private val gameObjects: MutableList<GameObject>
-) : GameObject(position) {
+abstract class Gun(
+    protected val owner: Entity,
+    protected val sprite: Sprite,
+    protected val gameObjects: MutableList<GameObject>
+) : GameObject(owner.displayCoordinates) {
 
-    private val bullets: MutableList<Bullet> = mutableListOf()
+    protected val bullets: MutableList<Bullet> = mutableListOf()
 
-    override fun draw(canvas: Canvas, display: GameDisplay?) {
-        sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
-
-        for(bullet in bullets) {
-            bullet.draw(canvas)
-        }
-    }
-
-    override fun update() {
-        for(bullet in bullets) {
-            bullet.update()
-            for (obj in gameObjects) {
-                if (obj is Entity && obj != owner && obj.hitbox.isPointInside(bullet.pos)) {
-                    obj.hit(bullet)
-                    bullet.toDestroy = true
-                }
-            }
-            if (bullet.toDestroy) {
-                bullets.remove(bullet)
-                break
-            }
-        }
-
-    }
-
-    fun fire(velocity: Vector) {
-        val bullet = Bullet(Point(pos.X + 100, pos.Y + 50), velocity)
-        bullets.add(bullet)
-    }
+    abstract fun fire(velocity: Vector)
 }

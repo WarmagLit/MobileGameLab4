@@ -1,9 +1,10 @@
-package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy
+package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker
 
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.gameobjects.entity.HealthBar
+import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Enemy
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
@@ -43,7 +44,7 @@ class Masker(
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
             displayCoordinates = it.gameToDisplayCoordinates(pos)
-            //hitbox.draw(canvas, display)
+            hitbox.draw(canvas, display)
             animator.draw(
                 canvas,
                 displayCoordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
@@ -107,7 +108,7 @@ class Masker(
             pos.Y += pushVector.Y - velocity.Y * 2
         }
 
-        hitbox.updateCoordinatesWithOffset(displayCoordinates)
+        hitbox.updateCoordinatesWithCentering(displayCoordinates)
 
         // Animator update
         animator.changeDirection(velocity)

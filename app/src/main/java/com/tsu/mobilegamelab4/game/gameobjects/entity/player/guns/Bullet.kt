@@ -5,50 +5,12 @@ import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 
-class Bullet(position: Point, veloc: Vector): GameObject(position) {
+abstract class Bullet(position: Point): GameObject(position) {
 
+    protected lateinit var mPaint: Paint
 
-    private val mPaint: Paint
+    protected val DESTROY_TIME = 50
+    protected var destroyCounter = 0
 
-    private val DESTROY_TIME = 50
-    private var destroyCounter = 0
-
-    init {
-        velocity = veloc
-        mPaint = Paint()
-        mPaint.color = Color.BLUE
-        mPaint.strokeWidth = 20f
-    }
-
-
-    override fun draw(canvas: Canvas, display: GameDisplay?) {
-        //sprite.draw(canvas, pos.X.toInt(), pos.Y.toInt())
-        canvas.drawLine(
-            pos.X.toFloat(),
-            pos.Y.toFloat(),
-            pos.X.toFloat() + velocity.X.toFloat(), pos.Y.toFloat()+velocity.Y.toFloat(), mPaint)
-    }
-
-
-    override fun update() {
-        // Update position
-        pos.X += velocity.X
-        pos.Y += velocity.Y
-
-        // Update direction
-        if (velocity.X != 0.0 || velocity.Y != 0.0) {
-            // Normalize velocity to get direction (unit vector of velocity)
-            val distance: Double =
-                Utils.getDistanceBetweenPoints(Point(0.0, 0.0), Point(velocity.X, velocity.Y))
-            direction.X = velocity.X / distance
-            direction.Y = velocity.Y / distance
-        }
-
-        destroyCounter++
-        if (destroyCounter >= DESTROY_TIME) {
-            toDestroy = true
-        }
-    }
-
-
+    var displayCoordinates: Point = Point(0.0, 0.0)
 }

@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy
+package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker
 
 import android.graphics.Canvas
 import android.graphics.Point
@@ -140,10 +140,10 @@ class MaskerAnimator(spriteSheet: EnemySpriteSheet) {
     fun attackAnimation() {
         if (currentDirection == Direction.EAST) {
             additionalSpriteList = spriteAttackRight
-            currentAdditionalSpriteOffset.x = Companion.additionalSpriteOffset.x
+            currentAdditionalSpriteOffset.x = additionalSpriteOffset.x
         } else {
             additionalSpriteList = spriteAttackLeft
-            currentAdditionalSpriteOffset.x = -Companion.additionalSpriteOffset.x
+            currentAdditionalSpriteOffset.x = -additionalSpriteOffset.x
         }
     }
 }

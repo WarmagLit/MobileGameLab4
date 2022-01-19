@@ -10,6 +10,7 @@ import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.gameobjects.entity.Entity
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Gun
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.hero_gun.HeroGun
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
@@ -17,25 +18,25 @@ import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Player(
     pos: Point,
-    spriteSheet: HeroSpriteSheet,
+    val spriteSheet: HeroSpriteSheet,
     private val collisionLayout: FirstLocationCollisionLayout,
-    private val gameObjects: MutableList<GameObject>
+    gameObjects: MutableList<GameObject>
 ) :
     Entity(pos, collisionLayout, gameObjects),
     ICollideable {
 
 
-    private val SPEED_PIXELS_PER_SECOND = 400.0
+    private val SPEED_PIXELS_PER_SECOND = 600.0
     private val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
 
     private var actX = 0.0
     private var actY = 0.0
 
-    private val healthBar: PlayerHealthBar
+    val healthBar: PlayerHealthBar
 
     private val textPaint = Paint()
 
-    private val animator = HeroAnimator(spriteSheet)
+    val animator = HeroAnimator(spriteSheet)
 
     private val gun: Gun
 
@@ -46,9 +47,10 @@ class Player(
         textPaint.color = Color.CYAN
         textPaint.textSize = 50f
 
-        hitbox = Hitbox(this, 100, 150)
+        hitbox = Hitbox(this, 120, 130)
+        hitbox.offset.y = 40
 
-        gun = Gun(this, Utils.displayCenter, spriteSheet.gunSprite, gameObjects)
+        gun = HeroGun(this, spriteSheet.gunSprite, gameObjects)
     }
 
 
@@ -78,6 +80,8 @@ class Player(
 
     fun attack(actuator: Vector) {
         Log.d("Attack", "At X:${actuator.X} Y: ${actuator.Y}")
+        Log.d("GUN", "Player:" + displayCoordinates.X.toInt() + "  " + displayCoordinates.Y.toInt())
+        Log.d("GUN", "PlayerAbsolute:" + pos.X.toInt() + "  " + pos.Y.toInt())
         gun.fire(Vector(actuator.X * 50, actuator.Y * 50))
     }
 
@@ -106,7 +110,7 @@ class Player(
 
 
         gun.update()
-        hitbox.updateCoordinatesWithOffset(displayCoordinates)
+        hitbox.updateCoordinatesWithCentering(displayCoordinates)
 
         // Animator update
         animator.changeDirection(velocity)
@@ -123,10 +127,10 @@ class Player(
     }
 
     override fun hit(bullet: Bullet) {
-        // do nothing
+        receiveStrike()
     }
 
     fun receiveStrike() {
-        healthBar.getDamage(20)
+        healthBar.getDamage(5)
     }
 }

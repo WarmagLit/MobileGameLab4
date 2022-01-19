@@ -10,11 +10,13 @@ import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
 class Hitbox(val gameObject: GameObject, val width: Int, val height: Int) : IDrawable {
 
+    var offset = android.graphics.Point(0,0)
+
     var rect = Rect(
-        gameObject.pos.X.toInt(),
-        gameObject.pos.Y.toInt(),
-        gameObject.pos.X.toInt() + width,
-        gameObject.pos.Y.toInt() + height
+        gameObject.pos.X.toInt() + offset.x,
+        gameObject.pos.Y.toInt() + offset.y,
+        gameObject.pos.X.toInt() + width + offset.x,
+        gameObject.pos.Y.toInt() + height+ offset.y
     )
 
     var rectPaint = Paint()
@@ -28,18 +30,18 @@ class Hitbox(val gameObject: GameObject, val width: Int, val height: Int) : IDra
         canvas.drawRect(rect, rectPaint)
     }
 
-    fun updateCoordinatesWithOffset(p:Point) {
-        rect.left = p.X.toInt() - width / 2
-        rect.top = p.Y.toInt() - height / 2
-        rect.right = p.X.toInt() + width / 2
-        rect.bottom = p.Y.toInt() + height / 2
+    fun updateCoordinatesWithCentering(p:Point) {
+        rect.left = p.X.toInt() + offset.x - width / 2
+        rect.top = p.Y.toInt() + offset.y - height / 2
+        rect.right = p.X.toInt() + offset.x + width / 2
+        rect.bottom = p.Y.toInt() + offset.y + height / 2
     }
 
     fun updateCoordinates(p:Point) {
-        rect.left = p.X.toInt()
-        rect.top = p.Y.toInt()
-        rect.right = p.X.toInt() + width
-        rect.bottom = p.Y.toInt() + height
+        rect.left = p.X.toInt()+ offset.x
+        rect.top = p.Y.toInt() + offset.y
+        rect.right = p.X.toInt() + offset.x + width
+        rect.bottom = p.Y.toInt() + offset.y + height
     }
 
     fun isCollide(hitbox: Hitbox): Boolean {

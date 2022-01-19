@@ -6,19 +6,19 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.Column
 import com.tsu.mobilegamelab4.game.gameobjects.Crate
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
-import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker
+import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.Masker
+import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Wizard.Wizard
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class FirstLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
     spriteSheet: FirstLocationSpriteSheet
 ) :
-    IDrawableUpdatable {
+    Level(enemySpriteSheet, spriteSheet) {
 
     private val map = FirstLocationMap(spriteSheet)
     private var gameObjects: MutableList<GameObject> = mutableListOf()
@@ -44,7 +44,7 @@ class FirstLevel(
         )
     }
 
-    fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
+    override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
         val player = Player(
             Point(
                 4.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
@@ -66,6 +66,16 @@ class FirstLevel(
                     Point(
                         14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        16.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        19.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     enemySpriteSheet,
                     player,

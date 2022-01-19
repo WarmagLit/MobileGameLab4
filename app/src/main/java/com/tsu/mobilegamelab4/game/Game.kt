@@ -22,13 +22,11 @@ import com.tsu.mobilegamelab4.game.level.FirstLevel
 import com.google.firebase.database.DatabaseReference
 
 import com.google.firebase.database.FirebaseDatabase
-
-
-
+import com.tsu.mobilegamelab4.game.level.Level
 
 
 @SuppressLint("ViewConstructor")
-class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView(context),
+class Game(context: Context, private val currentLevel: Level) : SurfaceView(context),
     SurfaceHolder.Callback,
     IUpdatable {
 
@@ -38,11 +36,9 @@ class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView
     private val swipeStick: SwipeStick
     private val touchDistributor: TouchDistributor
 
-    private var gameObjects: MutableList<GameObject> = mutableListOf()
+    private val player: Player
 
     val performance: Performance
-
-    // val enemy: Enemy
 
     // For sensors
     var sensorUpDown = 0.0
@@ -89,7 +85,7 @@ class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView
 //        )
 
         //player.sprite = spriteSheet.playerSpriteArray
-        val player = currentLevel.initializePlayer(HeroSpriteSheet(context))
+         player = currentLevel.initializePlayer(HeroSpriteSheet(context))
 
         // Joystick
         joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
@@ -146,16 +142,6 @@ class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-
-        //tilemap.draw(canvas, gameDisplay)
-        // tilemap.drawLower(canvas, gameDisplay)
-
-
-//        for (obj in gameObjects) {
-//            obj.draw(canvas, gameDisplay)
-//        }
-
-        // tilemap.drawUpper(canvas, gameDisplay)
         currentLevel.draw(canvas, gameDisplay)
 
         swipeStick.draw(canvas)
@@ -167,6 +153,11 @@ class Game(context: Context, private val currentLevel: FirstLevel) : SurfaceView
         } else {
             extraDraw(canvas)
         }
+
+        if (showPerformance) performance.draw(canvas)
+
+        // Draw HealthBar ont hte top of all drawables
+        player.healthBar.draw(canvas, gameDisplay)
     }
 
     private fun extraDraw(canvas: Canvas) {

@@ -8,7 +8,7 @@ import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
 
-open class HealthBar(private val maxHealth: Int, private val owner: Entity): IDrawable {
+open class HealthBar(val maxHealth: Int, private val owner: Entity): IDrawable {
 
     protected var HP = maxHealth
     val healthPaint = Paint()
