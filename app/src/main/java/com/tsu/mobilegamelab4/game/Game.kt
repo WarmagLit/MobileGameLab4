@@ -211,11 +211,11 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     private fun showDialog() {
         activity.runOnUiThread {
-            showDialogs()
+            showDeathDialog()
         }
     }
 
-    fun showDialogs() {
+    private fun showDeathDialog() {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(
             Window.FEATURE_NO_TITLE

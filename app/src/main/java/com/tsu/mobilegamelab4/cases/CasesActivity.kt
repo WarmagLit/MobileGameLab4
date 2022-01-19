@@ -1,11 +1,18 @@
 package com.tsu.mobilegamelab4.cases
 
+import android.app.Dialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.*
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.FirebaseApp
 import com.google.firebase.appcheck.FirebaseAppCheck
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
@@ -18,6 +25,7 @@ import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
 import com.tsu.mobilegamelab4.cases.inventory.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
+import com.tsu.mobilegamelab4.menu.MenuActivity
 import kotlin.math.abs
 
 class CasesActivity : AppCompatActivity() {
@@ -64,9 +72,8 @@ class CasesActivity : AppCompatActivity() {
 //            }
 //        })
 
-        binding.menuSettingsButton.setOnClickListener {
-            val value = myRef.get().isComplete
-            Log.d("sdg", value.toString())
+        binding.casesGoBackButton.setOnClickListener {
+            finish()
         }
 
         myViewPager2 = binding.viewpager
@@ -97,6 +104,22 @@ class CasesActivity : AppCompatActivity() {
 
     }
 
+    fun showPrizeDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(
+            Window.FEATURE_NO_TITLE
+        )
+        //dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_opencase_layout)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val textAmount = dialog.findViewById<TextView>(R.id.dialogAmounttextView)
+        val rnds = (100..1000).random()
+        textAmount.text = rnds.toString()
+
+        dialog.show()
+    }
+
     private fun initDragAndDropKeys() {
         val wordsAdapter = KeysAdapter {
             selectedWord = it
@@ -108,6 +131,7 @@ class CasesActivity : AppCompatActivity() {
         binding.viewpager.setOnDragListener(
             DropListener {
                 wordsAdapter.removeItem(selectedWord)
+                showPrizeDialog()
                 Log.d("LoGGG", "Key dropped")
             }
         )
