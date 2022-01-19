@@ -42,7 +42,7 @@ class Masker(
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
             displayCoordinates = it.gameToDisplayCoordinates(pos)
-            //hitbox.draw(canvas, display)
+            hitbox.draw(canvas, display)
             animator.draw(
                 canvas,
                 displayCoordinates.X.toInt() - animator.spriteStay.first().size.x / 2,

@@ -9,11 +9,13 @@ import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
 
 class Hitbox(val gameObject: GameObject, val width: Int, val height: Int) : IDrawable {
 
+    var offset = android.graphics.Point(0,0)
+
     var rect = Rect(
-        gameObject.pos.X.toInt(),
-        gameObject.pos.Y.toInt(),
-        gameObject.pos.X.toInt() + width,
-        gameObject.pos.Y.toInt() + height
+        gameObject.pos.X.toInt() + offset.x,
+        gameObject.pos.Y.toInt() + offset.y,
+        gameObject.pos.X.toInt() + width + offset.x,
+        gameObject.pos.Y.toInt() + height+ offset.y
     )
 
     var rectPaint = Paint()
@@ -28,10 +30,10 @@ class Hitbox(val gameObject: GameObject, val width: Int, val height: Int) : IDra
     }
 
     fun updateCoord(p:Point) {
-        rect.left = p.X.toInt() - width / 2
-        rect.top = p.Y.toInt() - height / 2
-        rect.right = p.X.toInt() + width / 2
-        rect.bottom = p.Y.toInt() + height / 2
+        rect.left = p.X.toInt() + offset.x - width / 2
+        rect.top = p.Y.toInt() + offset.y - height / 2
+        rect.right = p.X.toInt() + offset.x + width / 2
+        rect.bottom = p.Y.toInt() + offset.y + height / 2
     }
 
     fun isCollide(hitbox: Hitbox): Boolean {
