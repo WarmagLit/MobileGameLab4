@@ -46,7 +46,7 @@ class Player(
         textPaint.color = Color.CYAN
         textPaint.textSize = 50f
 
-        hitbox = Hitbox(this, 150, 200)
+        hitbox = Hitbox(this, 100, 150)
 
         gun = Gun(this, Utils.displayCenter, spriteSheet.gunSprite, gameObjects)
     }
@@ -54,7 +54,7 @@ class Player(
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
-           // hitbox.draw(canvas, display)
+            hitbox.draw(canvas, display)
             displayCoordinates = it.gameToDisplayCoordinates(pos)
             gun.draw(canvas)
             healthBar.draw(canvas, display)

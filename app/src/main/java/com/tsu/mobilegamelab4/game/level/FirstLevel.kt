@@ -3,6 +3,7 @@ package com.tsu.mobilegamelab4.game.level
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.gameobjects.Column
 import com.tsu.mobilegamelab4.game.gameobjects.Crate
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker
@@ -30,6 +31,13 @@ class FirstLevel(
                     Point(
                         7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Column(
+                    spriteSheet,
+                    Point(
+                        5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 )
             )
@@ -72,16 +80,16 @@ class FirstLevel(
         map.draw(canvas, display)
         gameObjects.sortWith(
             Comparator{ go1: GameObject, go2: GameObject ->
-                if (go1.pos.X < go2.pos.X) {
-                    return@Comparator 1
-                }
-                if (go1.pos.X > go2.pos.X) {
+                if (go1.pos.Y < go2.pos.Y) {
                     return@Comparator -1
+                }
+                if (go1.pos.Y > go2.pos.Y) {
+                    return@Comparator 1
                 }
                 return@Comparator 0
             }
         )
-        gameObjects.map {
+        gameObjects.forEach {
             it.draw(canvas, display)
         }
         map.draw(canvas, display)
@@ -92,7 +100,7 @@ class FirstLevel(
             !it.toDestroy
         }.toMutableList()
 
-        gameObjects.map {
+        gameObjects.forEach {
             it.update()
         }
     }
