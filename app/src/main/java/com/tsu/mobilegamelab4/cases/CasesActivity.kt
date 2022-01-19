@@ -104,14 +104,16 @@ class CasesActivity : AppCompatActivity() {
 
     }
 
-    fun showPrizeDialog() {
+    private fun showPrizeDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(
             Window.FEATURE_NO_TITLE
         )
-        //dialog.setCancelable(false)
+
         dialog.setContentView(R.layout.dialog_opencase_layout)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.setCanceledOnTouchOutside(true)
 
         val textAmount = dialog.findViewById<TextView>(R.id.dialogAmounttextView)
         val rnds = (100..1000).random()

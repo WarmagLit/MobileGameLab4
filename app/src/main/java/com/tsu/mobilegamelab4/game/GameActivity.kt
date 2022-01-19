@@ -66,6 +66,7 @@ class GameActivity : AppCompatActivity(),
         }
 
         setContentView(game)
+
     }
 
     override fun onPause() {
