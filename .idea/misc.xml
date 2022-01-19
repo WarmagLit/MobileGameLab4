@@ -6,6 +6,7 @@
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/drawable/bg_settings_seekbar.xml" value="0.3828125" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/drawable/ic_settings_seekbar_thumb.xml" value="0.3828125" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_cases.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_choose_level.xml" value="0.3201058201058201" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_game.xml" value="0.31040564373897706" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_main.xml" value="0.5" />
         <entry key="..\:/Android Studio Projects/MobileGame/app/src/main/res/layout-land/activity_menu.xml" value="0.5" />
@@ -15,14 +16,12 @@
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5208333333333334" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5208333333333334" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/activity_cases.xml" value="0.29509632224168125" />
-        <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/activity_choose_level.xml" value="0.3333333333333333" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/activity_game.xml" value="0.3274956217162872" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/activity_menu.xml" value="0.3336252189141856" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/activity_settings.xml" value="0.4041666666666667" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/item_overlap_cover.xml" value="0.1" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/item_word.xml" value="0.4466666666666667" />
         <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout-land/row_layout.xml" value="0.22" />
-        <entry key="..\:/TSU/Mobile/MobileGameLab4/app/src/main/res/layout/activity_choose_level.xml" value="0.22" />
       </map>
     </option>
   </component>

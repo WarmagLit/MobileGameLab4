@@ -42,6 +42,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="20dp"
                 android:background="@drawable/level_holder">
+
                 <TextView
                     android:id="@+id/levelOneSubTitleTextView"
                     style="@style/TextSubTitle"
@@ -49,9 +50,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="16sp"
                     android:text="@string/level_1"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -66,20 +67,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/levelOneSubTitleTextView"
                     app:srcCompat="@drawable/level_first_preview" />
-                
+
                 <TextView
                     android:id="@+id/levelOneNameTextView"
                     style="@style/TextSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     android:text="@string/start"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="20dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,6 +89,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="20dp"
                 android:background="@drawable/level_holder">
+
                 <TextView
                     android:id="@+id/levelTwoSubTitleTextView"
                     style="@style/TextSubTitle"
@@ -95,9 +97,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="16sp"
                     android:text="@string/level_2"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -119,13 +121,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     android:text="@string/continues"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="20dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -134,6 +136,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="20dp"
                 android:background="@drawable/level_holder">
+
                 <TextView
                     android:id="@+id/levelThreeSubTitleTextView"
                     style="@style/TextSubTitle"
@@ -141,9 +144,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="16sp"
                     android:text="@string/level_3"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -165,13 +168,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     android:text="@string/end"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="20dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

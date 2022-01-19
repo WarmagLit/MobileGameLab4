@@ -13,7 +13,8 @@
         android:theme="@style/Theme.FullScreen">
         <activity
             android:name=".choose_level.ChooseLevelActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".cases.CasesActivity"
             android:exported="true"
