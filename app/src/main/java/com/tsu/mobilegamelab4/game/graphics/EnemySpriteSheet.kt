@@ -14,6 +14,6 @@ class EnemySpriteSheet(context: Context) : SpriteSheet(context) {
         val bitmapOptions = BitmapFactory.Options()
         bitmapOptions.inScaled = false
         bitmap =
-            BitmapFactory.decodeResource(context.resources, R.drawable.enemy_masker, bitmapOptions)
+            BitmapFactory.decodeResource(context.resources, R.drawable.enemy_spritesheet, bitmapOptions)
     }
 }

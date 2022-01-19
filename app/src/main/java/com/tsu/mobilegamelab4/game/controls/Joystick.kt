@@ -3,10 +3,10 @@ package com.tsu.mobilegamelab4.game.controls
 import android.graphics.Color
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.interfaces.IDrawableUpdatable
-import com.tsu.mobilegamelab4.game.entity.player.Player
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 
 class Joystick(
-    private val player: Player,
+    player: Player,
     outerCircleCenterPosition: Point,
     outerCircleRadius: Int,
     innerCircleRadius: Int

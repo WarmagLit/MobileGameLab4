@@ -9,9 +9,9 @@ import com.google.android.flexbox.*
 import com.google.firebase.FirebaseApp
 import com.google.firebase.appcheck.FirebaseAppCheck
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
@@ -40,6 +40,34 @@ class CasesActivity : AppCompatActivity() {
 
         initDragAndDropKeys()
 
+        val database = Firebase.database
+        val myRef = database.getReference("message")
+
+//        myRef.child("message").setValue("Hello, World!").addOnFailureListener {
+//            Log.d("Tag", "Failure")
+//        }.addOnSuccessListener {
+//            Log.d("Tag", "Success")
+//        }
+//
+//        // Read from the database
+//        myRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                val value = dataSnapshot.getValue<String>()
+//                Log.d("TAG", "Value is: $value")
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // Failed to read value
+//                Log.w("TAG", "Failed to read value.", error.toException())
+//            }
+//        })
+
+        binding.menuSettingsButton.setOnClickListener {
+            val value = myRef.get().isComplete
+            Log.d("sdg", value.toString())
+        }
 
         myViewPager2 = binding.viewpager
 

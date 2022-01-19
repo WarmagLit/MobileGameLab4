@@ -4,12 +4,15 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.getSystemService
+import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
-import com.tsu.mobilegamelab4.game.Game
+import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.level.FirstLevel
+import java.lang.Exception
+import java.lang.reflect.Executable
 
 class GameActivity : AppCompatActivity(),
     SensorEventListener {
@@ -24,8 +27,16 @@ class GameActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
-        game = Game(this)
+
+        val level = intent.getIntExtra("level", 0)
+
+        when(level) {
+            1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            else -> throw Exception("Wrong level")
+        }
+
         setContentView(game)
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
