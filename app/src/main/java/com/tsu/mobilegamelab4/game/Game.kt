@@ -36,11 +36,9 @@ class Game(context: Context, private val currentLevel: Level) : SurfaceView(cont
     private val swipeStick: SwipeStick
     private val touchDistributor: TouchDistributor
 
-    private var gameObjects: MutableList<GameObject> = mutableListOf()
+    private val player: Player
 
     val performance: Performance
-
-    // val enemy: Enemy
 
     // For sensors
     var sensorUpDown = 0.0
@@ -87,7 +85,7 @@ class Game(context: Context, private val currentLevel: Level) : SurfaceView(cont
 //        )
 
         //player.sprite = spriteSheet.playerSpriteArray
-        val player = currentLevel.initializePlayer(HeroSpriteSheet(context))
+         player = currentLevel.initializePlayer(HeroSpriteSheet(context))
 
         // Joystick
         joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
@@ -150,7 +148,6 @@ class Game(context: Context, private val currentLevel: Level) : SurfaceView(cont
 
         if (showPerformance) performance.draw(canvas)
 
-
         if (isJoystick) {
             joystick.draw(canvas)
         } else {
@@ -158,6 +155,9 @@ class Game(context: Context, private val currentLevel: Level) : SurfaceView(cont
         }
 
         if (showPerformance) performance.draw(canvas)
+
+        // Draw HealthBar ont hte top of all drawables
+        player.healthBar.draw(canvas, gameDisplay)
     }
 
     private fun extraDraw(canvas: Canvas) {

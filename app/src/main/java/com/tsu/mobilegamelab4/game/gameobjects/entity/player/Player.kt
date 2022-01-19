@@ -18,9 +18,9 @@ import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Player(
     pos: Point,
-    spriteSheet: HeroSpriteSheet,
+    val spriteSheet: HeroSpriteSheet,
     private val collisionLayout: FirstLocationCollisionLayout,
-    private val gameObjects: MutableList<GameObject>
+    gameObjects: MutableList<GameObject>
 ) :
     Entity(pos, collisionLayout, gameObjects),
     ICollideable {
@@ -32,11 +32,11 @@ class Player(
     private var actX = 0.0
     private var actY = 0.0
 
-    private val healthBar: PlayerHealthBar
+    val healthBar: PlayerHealthBar
 
     private val textPaint = Paint()
 
-    private val animator = HeroAnimator(spriteSheet)
+    val animator = HeroAnimator(spriteSheet)
 
     private val gun: Gun
 
@@ -131,6 +131,6 @@ class Player(
     }
 
     fun receiveStrike() {
-        healthBar.getDamage(20)
+        healthBar.getDamage(5)
     }
 }

@@ -1,6 +1,7 @@
 package com.tsu.mobilegamelab4.game.gameobjects.entity.player
 
 import android.graphics.Canvas
+import android.graphics.Point
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.cosinus
 import com.tsu.mobilegamelab4.game.Utils.sinus
@@ -30,6 +31,9 @@ class HeroAnimator(spriteSheet: SpriteSheet) {
     private val spriteDown: List<Sprite>
     private val spriteDownRight: List<Sprite>
 
+    private val spriteFullHeart: Sprite
+    private val spriteHalfHeart: Sprite
+    private val spriteEmptyHeart: Sprite
 
     init {
         spriteRight = listOf(
@@ -87,11 +91,34 @@ class HeroAnimator(spriteSheet: SpriteSheet) {
             spriteSheet.getSpriteByIndex(8, 3)
         )
 
+        spriteFullHeart = spriteSheet.getSpriteByIndexWithSize(10, 0, Point(80, 80))
+        spriteHalfHeart = spriteSheet.getSpriteByIndexWithSize(10, 1, Point(80, 80))
+        spriteEmptyHeart = spriteSheet.getSpriteByIndexWithSize(10, 2, Point(80, 80))
+
         currentSpriteList = spriteDown
     }
 
     fun draw(canvas: Canvas, X: Int, Y: Int) {
         currentSpriteList[currentSpriteIndex].draw(canvas, X, Y)
+    }
+
+    fun drawHP(canvas: Canvas, pos: Point, currentHP: Int, maxHP: Int, heartAmount: Int) {
+        val hpPerHeart: Float = maxHP.toFloat() / heartAmount
+        var HP = currentHP.toFloat()
+        val heartWidth = spriteFullHeart.size.x - 10
+        for (i in 1..heartAmount) {
+            if (HP >= hpPerHeart) {
+                spriteFullHeart.draw(canvas, pos.x + i * heartWidth, pos.y)
+                HP -= hpPerHeart
+            } else {
+                if (HP > 0) {
+                    spriteHalfHeart.draw(canvas, pos.x + i * heartWidth, pos.y)
+                    HP = -1f
+                } else {
+                    spriteEmptyHeart.draw(canvas, pos.x + i * heartWidth, pos.y)
+                }
+            }
+        }
     }
 
     fun update() {
