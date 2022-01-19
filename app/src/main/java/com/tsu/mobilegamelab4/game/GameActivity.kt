@@ -1,12 +1,17 @@
 package com.tsu.mobilegamelab4.game
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
@@ -24,11 +29,13 @@ class GameActivity : AppCompatActivity(),
 
     private lateinit var game: Game
 
+    var level: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
 
-        val level = intent.getIntExtra("level", 0)
+        level = intent.getIntExtra("level", 0)
 
         when(level) {
             1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
@@ -48,6 +55,17 @@ class GameActivity : AppCompatActivity(),
                 SensorManager.SENSOR_DELAY_FASTEST
             )
         }
+    }
+
+    fun restartLevel() {
+        when(level) {
+            1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            else -> throw Exception("Wrong level")
+        }
+
+        setContentView(game)
     }
 
     override fun onPause() {

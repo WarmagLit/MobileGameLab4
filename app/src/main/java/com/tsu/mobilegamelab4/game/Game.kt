@@ -2,14 +2,22 @@ package com.tsu.mobilegamelab4.game
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import com.google.android.material.button.MaterialButton
 import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
@@ -22,11 +30,16 @@ import com.tsu.mobilegamelab4.game.level.FirstLevel
 import com.google.firebase.database.DatabaseReference
 
 import com.google.firebase.database.FirebaseDatabase
+import com.tsu.mobilegamelab4.R
+import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.level.Level
+import com.tsu.mobilegamelab4.menu.MenuActivity
+import com.tsu.mobilegamelab4.settings.SettingsActivity
 
 
 @SuppressLint("ViewConstructor")
-class Game(context: Context, private val currentLevel: Level) : SurfaceView(context),
+class Game(private val activity: GameActivity, private val currentLevel: Level) : SurfaceView(activity),
     SurfaceHolder.Callback,
     IUpdatable {
 
@@ -177,6 +190,8 @@ class Game(context: Context, private val currentLevel: Level) : SurfaceView(cont
 //                break
 //            }
 //        }
+        if (player.toDestroy) showDialog()
+
         currentLevel.update()
 
         gameDisplay.update()
@@ -192,6 +207,35 @@ class Game(context: Context, private val currentLevel: Level) : SurfaceView(cont
 
     fun pause() {
         gameLoop.stopLoop()
+    }
+
+    private fun showDialog() {
+        activity.runOnUiThread {
+            showDeathDialog()
+        }
+    }
+
+    private fun showDeathDialog() {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(
+            Window.FEATURE_NO_TITLE
+        )
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_death_layout)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnRestart = dialog.findViewById<MaterialButton>(R.id.dialogRestartButton)
+        btnRestart.setOnClickListener {
+            activity.restartLevel()
+        }
+        val btnBackToMenu = dialog.findViewById<MaterialButton>(R.id.dialogBackToMenuButton)
+        btnBackToMenu.setOnClickListener {
+            val intent = Intent(activity, MenuActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+        dialog.show()
+        pause()
     }
 
 }
