@@ -22,7 +22,7 @@ class MagicGun (
     val position = owner.displayCoordinates
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
-        sprite.draw(canvas, owner.displayCoordinates.X.toInt(), owner.displayCoordinates.Y.toInt())
+        //sprite.draw(canvas, owner.displayCoordinates.X.toInt(), owner.displayCoordinates.Y.toInt())
 
         for (bullet in bullets) {
             bullet.draw(canvas, display)

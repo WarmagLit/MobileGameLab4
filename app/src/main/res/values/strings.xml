@@ -19,4 +19,6 @@
     <string name="continues">Continue</string>
     <string name="end">End</string>
     <string name="level_3">Level 3</string>
+    <string name="restart">RESTART</string>
+    <string name="back_to_menu">BACK TO MENU</string>
 </resources>

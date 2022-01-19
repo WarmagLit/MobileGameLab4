@@ -131,6 +131,6 @@ class Player(
     }
 
     fun receiveStrike() {
-        healthBar.getDamage(5)
+        healthBar.getDamage(20)
     }
 }
