@@ -6,10 +6,12 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.Column
 import com.tsu.mobilegamelab4.game.gameobjects.Crate
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Boss.Boss
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Landmine.Landmine
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.Masker
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Wizard.Wizard
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
+import com.tsu.mobilegamelab4.game.graphics.BossSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
@@ -17,6 +19,7 @@ import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class FirstLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
+    private val bossSpriteSheet: BossSpriteSheet,
     spriteSheet: FirstLocationSpriteSheet
 ) :
     Level(enemySpriteSheet, spriteSheet) {
@@ -92,8 +95,18 @@ class FirstLevel(
                     player,
                     map.collisionLayout,
                     gameObjects
+                ),
+                Boss(
+                    Point(
+                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        23.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    bossSpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
                 )
-            )
+            ).toList()
         )
     }
 

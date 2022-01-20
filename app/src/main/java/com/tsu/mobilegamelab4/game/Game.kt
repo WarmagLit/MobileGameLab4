@@ -118,9 +118,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         isFocusable = true
 
-        // Init all game objects
-        //gameObjects.add(player)
-        //gameObjects.add(enemy)
     }
 
     fun attachControlsToPlayer(player: Player) {

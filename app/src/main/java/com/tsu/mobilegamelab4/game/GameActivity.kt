@@ -13,6 +13,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
+import com.tsu.mobilegamelab4.game.graphics.BossSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.level.FirstLevel
@@ -38,9 +39,9 @@ class GameActivity : AppCompatActivity(),
         level = intent.getIntExtra("level", 0)
 
         when(level) {
-            1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
-            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
-            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this)))
+            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this),FirstLocationSpriteSheet(this)))
+            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this),FirstLocationSpriteSheet(this)))
             else -> throw Exception("Wrong level")
         }
 
@@ -59,9 +60,9 @@ class GameActivity : AppCompatActivity(),
 
     fun restartLevel() {
         when(level) {
-            1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
-            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
-            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), FirstLocationSpriteSheet(this)))
+            1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this),FirstLocationSpriteSheet(this)))
+            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this),FirstLocationSpriteSheet(this)))
+            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this),FirstLocationSpriteSheet(this)))
             else -> throw Exception("Wrong level")
         }
 

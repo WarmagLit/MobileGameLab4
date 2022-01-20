@@ -4,16 +4,14 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import com.tsu.mobilegamelab4.R
 
-open class EnemySpriteSheet(context: Context) : SpriteSheet(context) {
-
-
+class BossSpriteSheet(context: Context) : EnemySpriteSheet(context) {
     init {
-        spriteWidthPixels = 16
-        spriteHeightPixels = 19
+        spriteWidthPixels = 136
+        spriteHeightPixels = 44
 
         val bitmapOptions = BitmapFactory.Options()
         bitmapOptions.inScaled = false
         bitmap =
-            BitmapFactory.decodeResource(context.resources, R.drawable.enemy_spritesheet, bitmapOptions)
+            BitmapFactory.decodeResource(context.resources, R.drawable.boss_spritesheet, bitmapOptions)
     }
 }

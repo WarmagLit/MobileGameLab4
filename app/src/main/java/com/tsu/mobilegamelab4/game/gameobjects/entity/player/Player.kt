@@ -61,7 +61,7 @@ class Player(
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
-            hitbox.draw(canvas, display)
+            //hitbox.draw(canvas, display)
             displayCoordinates = it.gameToDisplayCoordinates(pos)
             gun.draw(canvas)
             healthBar.draw(canvas, display)
