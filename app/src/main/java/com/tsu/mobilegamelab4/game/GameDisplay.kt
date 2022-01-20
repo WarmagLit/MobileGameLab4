@@ -4,8 +4,8 @@ import android.graphics.Rect
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 
 class GameDisplay(
-    private val widthPixels: Int,
-    private val heightPixels: Int,
+    val widthPixels: Int,
+    val heightPixels: Int,
     var centerObject: GameObject
 ) {
 

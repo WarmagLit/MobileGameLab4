@@ -11,15 +11,17 @@ import com.tsu.mobilegamelab4.game.interfaces.IUsable
 import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
-class Chest(
+class Door(
     private val spriteSheet: FirstLocationSpriteSheet,
     pos: Point,
-    private var key: Keys?
+    private val keys: List<Keys>
 ) :
     GameObject(pos),
     IUsable {
 
-    var sprite = spriteSheet.getSpriteByIndex(Rect(1, 8, 2, 9))
+    var sprite = spriteSheet.getSpriteByIndex(Rect(1, 5, 3, 8)).also {
+        it.size = android.graphics.Point(it.size.x * 2, it.size.y * 3)
+    }
     private var displayCoordinates = Point(0.0, 0.0)
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
@@ -29,7 +31,7 @@ class Chest(
             sprite.draw(
                 canvas,
                 displayCoordinates.X.toInt(),
-                displayCoordinates.Y.toInt()
+                (displayCoordinates.Y - sprite.size.y/3).toInt()
             )
             //hitbox.draw(canvas, display)
         }
@@ -42,25 +44,28 @@ class Chest(
     init {
         hitbox = Hitbox(
             this,
-            FirstLocationMap.CELL_WIDTH_PIXELS,
-            FirstLocationMap.CELL_HEIGHT_PIXELS * 4 / 5
+            FirstLocationMap.CELL_WIDTH_PIXELS * 2,
+            FirstLocationMap.CELL_HEIGHT_PIXELS * 2
         )
-        hitbox.offset = android.graphics.Point(0, FirstLocationMap.CELL_HEIGHT_PIXELS / 5)
     }
 
     override fun use(player: Player) {
-        if (key != Keys.EMPTY) {
-            sprite = spriteSheet.getSpriteByIndex(Rect(3, 8, 4, 9))
-            key?.let {
-                player.keys.add(it)
+        var suitableKeyCount = 0
+        keys.forEach { doorKey ->
+            if (player.keys.find { it.name == doorKey.name } != null) {
+                suitableKeyCount++
             }
-        } else {
-            sprite = spriteSheet.getSpriteByIndex(Rect(2, 8, 3, 9))
         }
-        key = null
+
+        if (suitableKeyCount == keys.size) {
+            sprite = spriteSheet.getSpriteByIndex(Rect(4, 5, 6, 8)).also {
+                it.size = android.graphics.Point(it.size.x * 2, it.size.y * 3)
+            }
+            hitbox.disable()
+        }
     }
 
-    override fun getCenter() = Point(pos.X + sprite.size.x / 2, pos.Y + sprite.size.y / 2)
+    override fun getCenter() = Point(pos.X + sprite.size.x / 2, pos.Y + sprite.size.y * 2 / 3)
 
-    override fun isUsed() = key == null
+    override fun isUsed() = hitbox.isDisabled()
 }

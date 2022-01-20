@@ -1,9 +1,13 @@
 package com.tsu.mobilegamelab4.settings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.SharedPreference
+import com.tsu.mobilegamelab4.authentication.SignInActivity
 import com.tsu.mobilegamelab4.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
@@ -48,6 +52,13 @@ class SettingsActivity : AppCompatActivity() {
         binding.settingsBackButton.setOnClickListener {
             finish()
         }
+
+        binding.settingsSignOut.setOnClickListener {
+            Firebase.auth.signOut()
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun checkControls() {

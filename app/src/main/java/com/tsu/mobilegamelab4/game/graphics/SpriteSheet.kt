@@ -46,4 +46,15 @@ abstract class SpriteSheet(context: Context) {
             )
         )
     }
+
+    fun getSpriteByRect(rect: Rect): Sprite {
+        return Sprite(
+            this, Rect(
+                rect.left,
+                rect.top,
+                rect.right,
+                rect.bottom
+            )
+        )
+    }
 }

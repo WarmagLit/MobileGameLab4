@@ -66,7 +66,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/levelOneSubTitleTextView"
-                    app:srcCompat="@drawable/level_first_preview" />
+                    app:srcCompat="@drawable/level_first_preview"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/levelOneNameTextView"
@@ -113,7 +114,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/levelTwoSubTitleTextView"
-                    app:srcCompat="@drawable/level_first_preview" />
+                    app:srcCompat="@drawable/level_first_preview"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/levelTwoNameTextView"
@@ -160,7 +162,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/levelThreeSubTitleTextView"
-                    app:srcCompat="@drawable/level_first_preview" />
+                    app:srcCompat="@drawable/level_first_preview"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/levelThreeNameTextView"
@@ -170,6 +173,54 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
                     android:text="@string/end"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bonusLevel"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/level_holder">
+
+                <TextView
+                    android:id="@+id/levelBonusSubTitleTextView"
+                    style="@style/TextSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/bonus"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/levelBonusNameTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/levelBonusSubTitleTextView"
+                    app:srcCompat="@drawable/top_secret"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/levelBonusNameTextView"
+                    style="@style/TextSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/question_marks"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"

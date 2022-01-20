@@ -57,5 +57,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menuOpencaseButton" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menuScoreBoardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="82dp"
+        android:background="@drawable/ic_baseline_emoji_events_24"
+        android:backgroundTint="@null"
+        app:iconTint="@null"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuOpencaseButton"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

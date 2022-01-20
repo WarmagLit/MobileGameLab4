@@ -1,11 +1,14 @@
 package com.tsu.mobilegamelab4.game.controls
 
-import android.util.Log
 import android.view.MotionEvent
 import com.tsu.mobilegamelab4.game.Point
 
 
-class TouchDistributor(val joystick: Joystick, var swipeStick: SwipeStick) {
+class TouchDistributor(
+    private val joystick: Joystick,
+    private var swipeStick: SwipeStick,
+    private val useButton: UseButton
+) {
 
     fun handleTouch(event: MotionEvent): Boolean {
         // Handle user input touch event actions
@@ -51,6 +54,17 @@ class TouchDistributor(val joystick: Joystick, var swipeStick: SwipeStick) {
                     // swipeStick was not previously, and is not pressed in this event
                     // **Some operation**
                 }
+
+                if (useButton.isVisible && useButton.isPressed(
+                        Point(
+                            event.getX(pointerIndex).toDouble(),
+                            event.getY(pointerIndex).toDouble()
+                        )
+                    ) && pointerID != joystick.pointerId && pointerID != swipeStick.pointerId
+                ) {
+                    useButton.onClick()
+                }
+
                 return true
             }
             MotionEvent.ACTION_MOVE -> {

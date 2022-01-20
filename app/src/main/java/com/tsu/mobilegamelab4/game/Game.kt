@@ -3,49 +3,43 @@ package com.tsu.mobilegamelab4.game
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.google.android.material.button.MaterialButton
+import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.SharedPreference
+import com.tsu.mobilegamelab4.choose_level.ChooseLevelActivity
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
-import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.controls.UseButton
+import com.tsu.mobilegamelab4.game.gameobjects.Steps
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
-import com.tsu.mobilegamelab4.game.level.FirstLevel
-import com.google.firebase.database.DatabaseReference
-
-import com.google.firebase.database.FirebaseDatabase
-import com.tsu.mobilegamelab4.R
-import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.interfaces.IUsable
 import com.tsu.mobilegamelab4.game.level.Level
 import com.tsu.mobilegamelab4.menu.MenuActivity
-import com.tsu.mobilegamelab4.settings.SettingsActivity
 
 
 @SuppressLint("ViewConstructor")
-class Game(private val activity: GameActivity, private val currentLevel: Level) : SurfaceView(activity),
+class Game(private val activity: GameActivity, private val currentLevel: Level) :
+    SurfaceView(activity),
     SurfaceHolder.Callback,
     IUpdatable {
 
     private val gameDisplay: GameDisplay
     private var gameLoop: GameLoop
     private val joystick: Joystick
+    private val useButton: UseButton
     private val swipeStick: SwipeStick
     private val touchDistributor: TouchDistributor
 
@@ -98,7 +92,23 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 //        )
 
         //player.sprite = spriteSheet.playerSpriteArray
-         player = currentLevel.initializePlayer(HeroSpriteSheet(context))
+        player = currentLevel.initializePlayer(HeroSpriteSheet(context))
+
+        val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
+        steps.levelCompleted = {
+            val intent = Intent(activity, ChooseLevelActivity::class.java)
+            activity.finish()
+            activity.startActivity(intent)
+        }
+
+        // UseButton
+
+        useButton = UseButton(
+            player,
+            currentLevel.gameObjects.filter { it is IUsable }.map { it as IUsable },
+            Point(displayMetrics.widthPixels.toDouble() - 600.0, 900.0),
+            100
+        )
 
         // Joystick
         joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
@@ -108,7 +118,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
             SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 180, 80)
 
         // Touch Distributor
-        touchDistributor = TouchDistributor(joystick, swipeStick)
+        touchDistributor = TouchDistributor(joystick, swipeStick, useButton)
 
         // Set up sensor stuff
         //sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
@@ -156,6 +166,8 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         swipeStick.draw(canvas)
 
+        useButton.draw(canvas)
+
         if (showPerformance) performance.draw(canvas)
 
         if (isJoystick) {
@@ -192,6 +204,9 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         currentLevel.update()
 
         gameDisplay.update()
+
+        useButton.update()
+
         swipeStick.update()
 
         if (isJoystick) {
@@ -224,7 +239,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         val btnRestart = dialog.findViewById<MaterialButton>(R.id.dialogRestartButton)
         btnRestart.setOnClickListener {
             activity.restartLevel()
-            dialog.dismiss()
         }
         val btnBackToMenu = dialog.findViewById<MaterialButton>(R.id.dialogBackToMenuButton)
         btnBackToMenu.setOnClickListener {
@@ -232,8 +246,8 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
             activity.startActivity(intent)
         }
 
+
         dialog.show()
         pause()
     }
-
 }

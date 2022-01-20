@@ -14,6 +14,7 @@ import com.tsu.mobilegamelab4.game.GameActivity
 import com.tsu.mobilegamelab4.settings.SettingsActivity
 import com.tsu.mobilegamelab4.databinding.ActivityMenuBinding
 import com.tsu.mobilegamelab4.video.VideoActivity
+import com.tsu.mobilegamelab4.scoreboard.ScoreBoardActivity
 
 class MenuActivity : AppCompatActivity() {
 
@@ -36,6 +37,11 @@ class MenuActivity : AppCompatActivity() {
 
         binding.menuSettingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.menuScoreBoardButton.setOnClickListener {
+            val intent = Intent(this, ScoreBoardActivity::class.java)
             startActivity(intent)
         }
 
