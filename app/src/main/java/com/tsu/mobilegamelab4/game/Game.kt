@@ -233,13 +233,13 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         val btnRestart = dialog.findViewById<MaterialButton>(R.id.dialogRestartButton)
         btnRestart.setOnClickListener {
             activity.restartLevel()
-            dialog.dismiss()
         }
         val btnBackToMenu = dialog.findViewById<MaterialButton>(R.id.dialogBackToMenuButton)
         btnBackToMenu.setOnClickListener {
             val intent = Intent(activity, MenuActivity::class.java)
             activity.startActivity(intent)
         }
+
 
         dialog.show()
         pause()

@@ -4,10 +4,7 @@ import android.graphics.Canvas
 import android.util.DisplayMetrics
 import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.gameobjects.Chest
-import com.tsu.mobilegamelab4.game.gameobjects.Column
-import com.tsu.mobilegamelab4.game.gameobjects.Crate
-import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.*
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.Masker
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Wizard.Wizard
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
@@ -68,6 +65,17 @@ class FirstLevel(
                         21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     Keys.YELLOW
+                ),
+                Door(
+                    locationSpriteSheet,
+                    Point(
+                        20.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    listOf(
+                        Keys.RED,
+                        Keys.BLUE
+                    )
                 )
             )
         )
@@ -140,7 +148,7 @@ class FirstLevel(
                 val keySprite = keySpriteSheet.getSpriteByRect(key.keyRect)
                 keySprite.size = android.graphics.Point(key.keyRect.width()*4, key.keyRect.height()*4)
                 keySprite.draw(canvas, display.widthPixels - xOffset, 50)
-                xOffset += 100
+                xOffset += 150
             }
         }
     }

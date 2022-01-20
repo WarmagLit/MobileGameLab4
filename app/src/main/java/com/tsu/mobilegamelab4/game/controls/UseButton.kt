@@ -39,6 +39,7 @@ class UseButton(
 
     fun onClick() {
         usableObject?.use(player)
+        usableObject = null
     }
 
     fun isPressed(touchPosition: Point): Boolean {

@@ -8,7 +8,7 @@ import android.graphics.Rect.intersects
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
-class Hitbox(val gameObject: GameObject, val width: Int, val height: Int) : IDrawable {
+class Hitbox(val gameObject: GameObject, private var width: Int, private var height: Int) : IDrawable {
 
     var offset = android.graphics.Point(0,0)
 
@@ -50,5 +50,10 @@ class Hitbox(val gameObject: GameObject, val width: Int, val height: Int) : IDra
 
     fun isPointInside(p: Point): Boolean {
         return rect.contains(p.X.toInt(), p.Y.toInt())
+    }
+
+    fun disable() {
+        width = 0
+        height = 0
     }
 }
