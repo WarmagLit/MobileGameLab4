@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".authentication.signin.SignInActivity"
+    android:background="@color/primary_background"
+    tools:context=".authentication.SignInActivity"
     tools:ignore="MissingDefaultResource">
 
 
@@ -26,6 +27,9 @@
         android:layout_marginTop="84dp"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+
+        android:textColorHint="@color/shadow"
         android:minHeight="48dp"
         android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +43,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
+        android:hint="@string/password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/shadow"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
         app:layout_constraintEnd_toEndOf="parent"

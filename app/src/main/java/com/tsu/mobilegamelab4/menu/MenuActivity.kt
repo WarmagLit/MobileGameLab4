@@ -1,9 +1,15 @@
 package com.tsu.mobilegamelab4.menu
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.CasesActivity
+import com.tsu.mobilegamelab4.choose_level.ChooseLevelActivity
 import com.tsu.mobilegamelab4.game.GameActivity
 import com.tsu.mobilegamelab4.settings.SettingsActivity
 import com.tsu.mobilegamelab4.databinding.ActivityMenuBinding
@@ -18,7 +24,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.menuPlayButton.setOnClickListener {
-            val intent = Intent(this, GameActivity::class.java)
+            val intent = Intent(this, ChooseLevelActivity::class.java)
             startActivity(intent)
         }
 
@@ -31,5 +37,7 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
+
     }
+
 }
