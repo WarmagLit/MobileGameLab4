@@ -6,6 +6,7 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.Column
 import com.tsu.mobilegamelab4.game.gameobjects.Crate
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Landmine.Landmine
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.Masker
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Wizard.Wizard
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
@@ -76,6 +77,16 @@ class FirstLevel(
                     Point(
                         16.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         19.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Landmine(
+                    Point(
+                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        23.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     enemySpriteSheet,
                     player,

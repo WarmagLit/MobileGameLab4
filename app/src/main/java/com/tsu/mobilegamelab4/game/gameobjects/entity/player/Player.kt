@@ -127,10 +127,10 @@ class Player(
     }
 
     override fun hit(bullet: Bullet) {
-        receiveStrike()
+        receiveDamage(20)
     }
 
-    fun receiveStrike() {
-        healthBar.getDamage(20)
+    fun receiveDamage(damage: Int) {
+        healthBar.getDamage(damage)
     }
 }
