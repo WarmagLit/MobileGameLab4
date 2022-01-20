@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityGoogleMapBinding
-    private var googleMap: GoogleMap? = null
+    private lateinit var googleMap: GoogleMap
     private val tsu = LatLng(56.469483, 84.948689)
     private val areaRadius = 1400.0
 
@@ -87,16 +87,16 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
+    override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
-        p0?.addMarker(
+        p0.addMarker(
             MarkerOptions()
                 .position(tsu)
                 .title("Marker in TSU")
         )
-        p0?.moveCamera(CameraUpdateFactory.newLatLng(tsu))
-        p0?.animateCamera(CameraUpdateFactory.newLatLngZoom(tsu, 17f))
-        p0?.addCircle(
+        p0.moveCamera(CameraUpdateFactory.newLatLng(tsu))
+        p0.animateCamera(CameraUpdateFactory.newLatLngZoom(tsu, 17f))
+        p0.addCircle(
             CircleOptions()
                 .center(tsu)
                 .radius(areaRadius)
@@ -140,7 +140,7 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             return
         }
-        googleMap?.isMyLocationEnabled = true
+        googleMap.isMyLocationEnabled = true
     }
 
     private fun askPermissions(permissions: Array<String>) {
