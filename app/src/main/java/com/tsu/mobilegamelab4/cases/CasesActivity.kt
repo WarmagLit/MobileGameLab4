@@ -1,7 +1,6 @@
 package com.tsu.mobilegamelab4.cases
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +11,8 @@ import android.view.Window
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.*
-import com.google.android.material.button.MaterialButton
-import com.google.firebase.FirebaseApp
-import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -23,9 +20,8 @@ import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
-import com.tsu.mobilegamelab4.cases.inventory.User
+import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
-import com.tsu.mobilegamelab4.menu.MenuActivity
 import kotlin.math.abs
 
 class CasesActivity : AppCompatActivity() {
@@ -35,11 +31,37 @@ class CasesActivity : AppCompatActivity() {
     var myViewPager2: ViewPager2? = null
     var MyAdapter: MyAdapter? = null
 
+    private lateinit var auth: FirebaseAuth
+
     // values of the draggable views (usually this should come from a data source)
-    private val words = mutableListOf("world", "a", "!", "What", "wonderful", "world", "a", "!", "What","world", "a","erful", "world", "a", "!", "What", "wonderful")
+    private val words = mutableListOf(
+        "world",
+        "a",
+        "!",
+        "What",
+        "wonderful",
+        "world",
+        "a",
+        "!",
+        "What",
+        "world",
+        "a",
+        "erful",
+        "world",
+        "a",
+        "!",
+        "What",
+        "wonderful"
+    )
+
     // last selected word
     private var selectedWord = ""
 
+    private var currentScore = 0
+
+    val database = Firebase.database
+    lateinit var myRef: DatabaseReference
+    lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,29 +70,18 @@ class CasesActivity : AppCompatActivity() {
 
         initDragAndDropKeys()
 
-        val database = Firebase.database
-        val myRef = database.getReference("message")
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+        val userUid = auth.currentUser?.uid.toString()
+        myRef = database.getReference("users").child(userUid)
 
-//        myRef.child("message").setValue("Hello, World!").addOnFailureListener {
-//            Log.d("Tag", "Failure")
-//        }.addOnSuccessListener {
-//            Log.d("Tag", "Success")
-//        }
-//
-//        // Read from the database
-//        myRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                val value = dataSnapshot.getValue<String>()
-//                Log.d("TAG", "Value is: $value")
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Failed to read value
-//                Log.w("TAG", "Failed to read value.", error.toException())
-//            }
-//        })
+        /*
+        myRef.child("message").setValue("Hello, World!").addOnFailureListener {
+            Log.d("Tag", "Failure")
+        }.addOnSuccessListener {
+            Log.d("Tag", "Success")
+        }*/
+        getDataFromDatabase()
 
         binding.casesGoBackButton.setOnClickListener {
             finish()
@@ -92,7 +103,7 @@ class CasesActivity : AppCompatActivity() {
                 page.translationX = -myOffset
             } else if (position <= 1) {
                 val scaleFactor =
-                    0.7f.coerceAtLeast(1 - abs(position ))
+                    0.7f.coerceAtLeast(1 - abs(position))
                 page.translationX = myOffset
                 page.scaleY = scaleFactor
                 page.alpha = scaleFactor
@@ -102,6 +113,33 @@ class CasesActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun sendNewScore() {
+        // Create new post at /user-posts/$userid/$postid and at
+        // /posts/$postid simultaneously
+        val key = myRef.push().key
+        if (key == null) {
+            Log.w("TAG", "Couldn't get push key for posts")
+            return
+        }
+        val user = User(
+            currentUser.uid,
+            currentUser.pass,
+            currentScore,
+            currentUser.redKeys,
+            currentUser.greenKeys,
+            currentUser.blueKeys,
+            currentUser.yellowKeys,
+            currentUser.levelsCompleted
+        )
+        val postValues = user.toMap()
+
+        val childUpdates = hashMapOf<String, Any>(
+            "/users/${currentUser.uid}" to postValues
+        )
+
+        database.reference.updateChildren(childUpdates)
     }
 
     private fun showPrizeDialog() {
@@ -117,9 +155,33 @@ class CasesActivity : AppCompatActivity() {
 
         val textAmount = dialog.findViewById<TextView>(R.id.dialogAmounttextView)
         val rnds = (100..1000).random()
+        currentScore += rnds
+        sendNewScore()
         textAmount.text = rnds.toString()
 
         dialog.show()
+    }
+
+    private fun getDataFromDatabase() {
+        // Read from the database
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val value = dataSnapshot.getValue<User>()
+                if (value != null) {
+                    currentUser = value
+                    currentScore = value.score.toInt()
+                    binding.casesScoreTextView.text = value.score.toString()
+                }
+                Log.d("TAG", "Value is: $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
     }
 
     private fun initDragAndDropKeys() {
@@ -139,10 +201,11 @@ class CasesActivity : AppCompatActivity() {
         )
 
 
-        binding.recyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.COLUMN, FlexWrap.WRAP).apply {
-            justifyContent = JustifyContent.SPACE_EVENLY
-            alignItems = AlignItems.CENTER
-        }
+        binding.recyclerView.layoutManager =
+            FlexboxLayoutManager(this, FlexDirection.COLUMN, FlexWrap.WRAP).apply {
+                justifyContent = JustifyContent.SPACE_EVENLY
+                alignItems = AlignItems.CENTER
+            }
 
         binding.recyclerView.adapter = wordsAdapter
     }
