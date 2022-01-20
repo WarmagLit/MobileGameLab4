@@ -76,6 +76,13 @@ class FirstLevel(
                         Keys.RED,
                         Keys.BLUE
                     )
+                ),
+                Steps(
+                    locationSpriteSheet,
+                    Point(
+                        28.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        2.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
                 )
             )
         )

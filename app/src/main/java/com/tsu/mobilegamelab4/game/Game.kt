@@ -16,10 +16,12 @@ import android.view.Window
 import com.google.android.material.button.MaterialButton
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.SharedPreference
+import com.tsu.mobilegamelab4.choose_level.ChooseLevelActivity
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
 import com.tsu.mobilegamelab4.game.controls.UseButton
+import com.tsu.mobilegamelab4.game.gameobjects.Steps
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
@@ -91,6 +93,12 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         //player.sprite = spriteSheet.playerSpriteArray
         player = currentLevel.initializePlayer(HeroSpriteSheet(context))
+
+        val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
+        steps.levelCompleted = {
+            val intent = Intent(activity, ChooseLevelActivity::class.java)
+            activity.startActivity(intent)
+        }
 
         // UseButton
 
