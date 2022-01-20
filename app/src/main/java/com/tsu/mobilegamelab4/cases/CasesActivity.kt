@@ -31,27 +31,16 @@ class CasesActivity : AppCompatActivity() {
     var myViewPager2: ViewPager2? = null
     var MyAdapter: MyAdapter? = null
 
-    private lateinit var auth: FirebaseAuth
-
     // values of the draggable views (usually this should come from a data source)
     private val words = mutableListOf(
-        "world",
-        "a",
-        "!",
-        "What",
-        "wonderful",
-        "world",
-        "a",
-        "!",
-        "What",
-        "world",
-        "a",
-        "erful",
-        "world",
-        "a",
-        "!",
-        "What",
-        "wonderful"
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
     )
 
     // last selected word
@@ -59,8 +48,9 @@ class CasesActivity : AppCompatActivity() {
 
     private var currentScore = 0
 
-    val database = Firebase.database
-    lateinit var myRef: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private val database = Firebase.database
+    private lateinit var myRef: DatabaseReference
     lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,12 +65,6 @@ class CasesActivity : AppCompatActivity() {
         val userUid = auth.currentUser?.uid.toString()
         myRef = database.getReference("users").child(userUid)
 
-        /*
-        myRef.child("message").setValue("Hello, World!").addOnFailureListener {
-            Log.d("Tag", "Failure")
-        }.addOnSuccessListener {
-            Log.d("Tag", "Success")
-        }*/
         getDataFromDatabase()
 
         binding.casesGoBackButton.setOnClickListener {
@@ -125,6 +109,7 @@ class CasesActivity : AppCompatActivity() {
         }
         val user = User(
             currentUser.uid,
+            currentUser.nickname,
             currentUser.pass,
             currentScore,
             currentUser.redKeys,

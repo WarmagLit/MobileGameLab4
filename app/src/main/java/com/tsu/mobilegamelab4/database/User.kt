@@ -6,6 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class User (
     val uid: String? = null,
+    val nickname: String? = null,
     val pass: String? = null,
     var score: Int = 0,
     var redKeys: Int = 0,
@@ -19,6 +20,7 @@ data class User (
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "uid" to uid,
+            "nickname" to nickname,
             "pass" to pass,
             "score" to score,
             "redKeys" to redKeys,

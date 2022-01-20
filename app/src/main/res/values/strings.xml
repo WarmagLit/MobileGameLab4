@@ -26,4 +26,7 @@
     <string name="sign_out">Sign out</string>
     <string name="password">Password</string>
     <string name="_0">0</string>
+    <string name="name">Name</string>
+    <string name="signup">SIGNUP</string>
+    <string name="login">LOGIN</string>
 </resources>
