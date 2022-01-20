@@ -79,7 +79,7 @@ class UseButton(
             if (Utils.getDistanceBetweenPoints(
                     player.pos,
                     usable.getCenter()
-                ) <= FirstLocationMap.CELL_WIDTH_PIXELS * 1.2
+                ) <= FirstLocationMap.CELL_WIDTH_PIXELS * 1.2 && !usable.isUsed()
             ) {
                 isVisible = true
                 usableObject = usable

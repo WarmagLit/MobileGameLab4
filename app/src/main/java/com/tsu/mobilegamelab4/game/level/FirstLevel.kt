@@ -64,13 +64,13 @@ class FirstLevel(
                         7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
-                    Keys.YELLOW
+                    Keys.EMPTY
                 ),
                 Door(
                     locationSpriteSheet,
                     Point(
-                        20.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        9.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     listOf(
                         Keys.RED,

@@ -19,8 +19,8 @@ class Door(
     GameObject(pos),
     IUsable {
 
-    var sprite = spriteSheet.getSpriteByIndex(Rect(1, 6, 3, 8)).also {
-        it.size = android.graphics.Point(it.size.x * 2, it.size.y * 2)
+    var sprite = spriteSheet.getSpriteByIndex(Rect(1, 5, 3, 8)).also {
+        it.size = android.graphics.Point(it.size.x * 2, it.size.y * 3)
     }
     private var displayCoordinates = Point(0.0, 0.0)
 
@@ -31,7 +31,7 @@ class Door(
             sprite.draw(
                 canvas,
                 displayCoordinates.X.toInt(),
-                displayCoordinates.Y.toInt()
+                (displayCoordinates.Y - sprite.size.y/3).toInt()
             )
             //hitbox.draw(canvas, display)
         }
@@ -58,12 +58,14 @@ class Door(
         }
 
         if (suitableKeyCount == keys.size) {
-            sprite = spriteSheet.getSpriteByIndex(Rect(4, 6, 6, 8)).also {
-                it.size = android.graphics.Point(it.size.x * 2, it.size.y * 2)
+            sprite = spriteSheet.getSpriteByIndex(Rect(4, 5, 6, 8)).also {
+                it.size = android.graphics.Point(it.size.x * 2, it.size.y * 3)
             }
             hitbox.disable()
         }
     }
 
     override fun getCenter() = Point(pos.X + sprite.size.x / 2, pos.Y + sprite.size.y * 2 / 3)
+
+    override fun isUsed() = hitbox.isDisabled()
 }

@@ -6,4 +6,5 @@ import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 interface IUsable {
     fun use(player: Player)
     fun getCenter(): Point
+    fun isUsed(): Boolean
 }

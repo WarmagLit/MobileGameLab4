@@ -14,7 +14,7 @@ import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 class Chest(
     private val spriteSheet: FirstLocationSpriteSheet,
     pos: Point,
-    private var key: Keys? = null
+    private var key: Keys?
 ) :
     GameObject(pos),
     IUsable {
@@ -49,15 +49,18 @@ class Chest(
     }
 
     override fun use(player: Player) {
-        if (key != null) {
+        if (key != Keys.EMPTY) {
             sprite = spriteSheet.getSpriteByIndex(Rect(3, 8, 4, 9))
             key?.let {
                 player.keys.add(it)
             }
         } else {
-            sprite = spriteSheet.getSpriteByIndex(Rect(3, 8, 4, 9))
+            sprite = spriteSheet.getSpriteByIndex(Rect(2, 8, 3, 9))
         }
+        key = null
     }
 
     override fun getCenter() = Point(pos.X + sprite.size.x / 2, pos.Y + sprite.size.y / 2)
+
+    override fun isUsed() = key == null
 }

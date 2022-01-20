@@ -56,4 +56,6 @@ class Hitbox(val gameObject: GameObject, private var width: Int, private var hei
         width = 0
         height = 0
     }
+
+    fun isDisabled() = width == 0 && height == 0
 }
