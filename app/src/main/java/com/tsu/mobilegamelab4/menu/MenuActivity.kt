@@ -35,7 +35,12 @@ class MenuActivity : AppCompatActivity() {
         }
 
         binding.menuSettingsButton.setOnClickListener {
-           // val intent = Intent(this, SettingsActivity::class.java)
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.textView.setOnClickListener {
+
             val intent = Intent(this, VideoActivity::class.java)
             startActivity(intent)
         }
