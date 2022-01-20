@@ -3,6 +3,7 @@ package com.tsu.mobilegamelab4.game.level
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.gameobjects.Chest
 import com.tsu.mobilegamelab4.game.gameobjects.Column
 import com.tsu.mobilegamelab4.game.gameobjects.Crate
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
@@ -21,7 +22,6 @@ class FirstLevel(
     Level(enemySpriteSheet, spriteSheet) {
 
     private val map = FirstLocationMap(spriteSheet)
-    private var gameObjects: MutableList<GameObject> = mutableListOf()
 
     init {
         gameObjects.addAll(
@@ -37,6 +37,13 @@ class FirstLevel(
                     spriteSheet,
                     Point(
                         5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Chest(
+                    spriteSheet,
+                    Point(
+                        3.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 )
