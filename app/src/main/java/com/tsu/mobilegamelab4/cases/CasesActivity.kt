@@ -125,6 +125,7 @@ class CasesActivity : AppCompatActivity() {
         }
         val user = User(
             currentUser.uid,
+            currentUser.pass,
             currentScore,
             currentUser.redKeys,
             currentUser.greenKeys,
