@@ -1,18 +1,21 @@
-package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker
+package com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Landmine
 
 import android.graphics.Canvas
+import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.gameobjects.entity.HealthBar
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Enemy
+import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.MaskerAnimator
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
+import java.util.logging.Level
 
-class Masker(
+class Landmine (
     pos: Point,
     spriteSheet: EnemySpriteSheet,
     player: Player,
@@ -25,30 +28,31 @@ class Masker(
 
     private val healthBar: HealthBar = HealthBar(HP, this)
 
-    private val animator = MaskerAnimator(spriteSheet)
+    private val animator = LandmineAnimator(spriteSheet)
 
-    private var cooldownCounter = 0
+    private var cooldownCounter = -1
 
     init {
         hitbox = Hitbox(this, 155, 180)
     }
 
     companion object {
-        private const val SPEED_PIXELS_PER_SECOND = 200.0
+        private const val SPEED_PIXELS_PER_SECOND = 0.0
         private const val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
         private const val SEEK_DISTANCE = 400.0
-        private const val ATTACK_DISTANCE = 200.0
+        private const val ATTACK_DISTANCE = 400.0
         private const val ATTACK_COOLDOWN = 60
+        private const val MAX_DAMAGE = 100.0
     }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         display?.let {
             displayCoordinates = it.gameToDisplayCoordinates(pos)
-            hitbox.draw(canvas, display)
+            //hitbox.draw(canvas, display)
             animator.draw(
                 canvas,
-                displayCoordinates.X.toInt() - animator.spriteStay.first().size.x / 2,
-                displayCoordinates.Y.toInt() - animator.spriteStay.first().size.y / 2
+                displayCoordinates.X.toInt() - animator.currentSpriteList.first().size.x / 2,
+                displayCoordinates.Y.toInt() - animator.currentSpriteList.first().size.y / 2
             )
             healthBar.draw(canvas, display)
         }
@@ -56,38 +60,41 @@ class Masker(
 
     override fun changeVelocity(actuator: Vector) {
         // Update velocity based on actuator of joystick
+        // It's static enemy
+        /*
         velocity.X = actuator.X * MAX_SPEED
         velocity.Y = actuator.Y * MAX_SPEED
 
         act.X = actuator.X
         act.Y = actuator.Y
+        */
     }
 
     fun attack(player: Player) {
         if (cooldownCounter == 0) {
-            cooldownCounter = ATTACK_COOLDOWN
-            player.changeVelocity(Vector(direction.X * 10, direction.Y * 10))
-            animator.attackAnimation()
-            player.receiveDamage(20)
+            animator.explode()
+            val distanceToPlayer = Utils.getDistanceBetweenPoints(player.pos, pos)
+            val damag = (MAX_DAMAGE/(distanceToPlayer/FirstLocationMap.CELL_WIDTH_PIXELS)).toInt()
+            Log.d("TAG", damag.toString())
+            cooldownCounter = -1
+            player.receiveDamage(damag)
         }
     }
 
     override fun update() {
-        if (Utils.getDistanceBetweenPoints(player.pos, pos) <= SEEK_DISTANCE) {
-            changeVelocity(Utils.getDirectionalVector(pos, player.pos))
-        } else {
-            changeVelocity(Vector(0.0, 0.0))
-        }
-
-        if (Utils.getDistanceBetweenPoints(player.pos, pos) <= ATTACK_DISTANCE) {
-            attack(player)
+        if (Utils.getDistanceBetweenPoints(player.pos, pos) <= ATTACK_DISTANCE && cooldownCounter == -1) {
+            cooldownCounter = 40
         }
 
         if (cooldownCounter > 0) cooldownCounter--
+        if (cooldownCounter == 0) {
+            attack(player)
+        }
 
-        // Update position
-        pos.X += velocity.X
-        pos.Y += velocity.Y
+        // Landmine exploded
+        if (animator.isStopped) {
+            toDestroy = true
+        }
 
         if (pos.X >= 0 && pos.Y >= 0
             && collisionLayout.layout[(pos.Y / FirstLocationMap.CELL_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMap.CELL_WIDTH_PIXELS).toInt()] == 1
@@ -95,6 +102,7 @@ class Masker(
             pos.X -= velocity.X
             pos.Y -= velocity.Y
         }
+
 
         val objRect = collideCheck()
         objRect?.let {
@@ -111,17 +119,7 @@ class Masker(
         hitbox.updateCoordinatesWithCentering(displayCoordinates)
 
         // Animator update
-        animator.changeDirection(velocity)
         animator.update()
-
-        // Update direction
-        if (velocity.X != 0.0 || velocity.Y != 0.0) {
-            // Normalize velocity to get direction (unit vector of velocity)
-            val distance: Double =
-                Utils.getDistanceBetweenPoints(Point(0.0, 0.0), Point(velocity.X, velocity.Y))
-            direction.X = velocity.X / distance
-            direction.Y = velocity.Y / distance
-        }
     }
 
     override fun hit(bullet: Bullet) {
