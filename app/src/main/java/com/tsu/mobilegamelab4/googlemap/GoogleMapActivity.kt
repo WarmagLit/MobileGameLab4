@@ -3,12 +3,18 @@ package com.tsu.mobilegamelab4.googlemap
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,25 +24,71 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.databinding.ActivityGoogleMapBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityGoogleMapBinding
     private var googleMap: GoogleMap? = null
+    private val tsu = LatLng(56.469483, 84.948689)
+    private val areaRadius = 1400.0
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGoogleMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.mapGoogleMap) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+
+        binding.bonusButton.isEnabled = false
+        binding.bonusButton.visibility = View.GONE
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            askPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+            return
+        }
+
+        lifecycleScope.launch {
+            while (true) {
+                delay(3000)
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location: Location? ->
+                        location?.let {
+                            if (it.distanceTo(Location(LocationManager.GPS_PROVIDER).apply {
+                                    latitude = tsu.latitude
+                                    longitude = tsu.longitude
+                                }) <= areaRadius
+                            ) {
+                                binding.bonusButton.visibility = View.VISIBLE
+                                binding.bonusButton.isEnabled = true
+                            }
+                        }
+                    }
+            }
+        }
     }
 
     override fun onMapReady(p0: GoogleMap?) {
         googleMap = p0
-
-        val tsu = LatLng(56.469483, 84.948689)
         p0?.addMarker(
             MarkerOptions()
                 .position(tsu)
@@ -47,32 +99,13 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
         p0?.addCircle(
             CircleOptions()
                 .center(tsu)
-                .radius(60.0)
+                .radius(areaRadius)
                 .strokeColor(Color.RED)
                 .fillColor(ContextCompat.getColor(this, R.color.colorRedTranslucent))
         )
 
         showMyLocation(true)
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (ActivityCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            return
-//        }
-//        googleMap?.isMyLocationEnabled = true
-//    }
 
     private val showMyLocationHandler = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
