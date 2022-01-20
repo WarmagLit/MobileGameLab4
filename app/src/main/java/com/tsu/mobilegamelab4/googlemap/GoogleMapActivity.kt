@@ -1,6 +1,7 @@
 package com.tsu.mobilegamelab4.googlemap
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.databinding.ActivityGoogleMapBinding
+import com.tsu.mobilegamelab4.game.GameActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -50,40 +52,14 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            askPermissions(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-            return
-        }
+        setOnClickListener()
+    }
 
-        lifecycleScope.launch {
-            while (true) {
-                delay(3000)
-                fusedLocationClient.lastLocation
-                    .addOnSuccessListener { location: Location? ->
-                        location?.let {
-                            if (it.distanceTo(Location(LocationManager.GPS_PROVIDER).apply {
-                                    latitude = tsu.latitude
-                                    longitude = tsu.longitude
-                                }) <= areaRadius
-                            ) {
-                                binding.bonusButton.visibility = View.VISIBLE
-                                binding.bonusButton.isEnabled = true
-                            }
-                        }
-                    }
-            }
+    private fun setOnClickListener() {
+        binding.bonusButton.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra("level", 1)
+            startActivity(intent)
         }
     }
 
@@ -105,6 +81,38 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
         )
 
         showMyLocation(true)
+
+        lifecycleScope.launch {
+            while (true) {
+                delay(3000)
+                if (!(ActivityCompat.checkSelfPermission(
+                        this@GoogleMapActivity,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        this@GoogleMapActivity,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                            )
+                ) {
+                    fusedLocationClient.lastLocation
+                        .addOnSuccessListener { location: Location? ->
+                            location?.let {
+                                if (it.distanceTo(Location(LocationManager.GPS_PROVIDER).apply {
+                                        latitude = tsu.latitude
+                                        longitude = tsu.longitude
+                                    }) <= areaRadius
+                                ) {
+                                    binding.bonusButton.visibility = View.VISIBLE
+                                    binding.bonusButton.isEnabled = true
+                                } else {
+                                    binding.bonusButton.visibility = View.GONE
+                                    binding.bonusButton.isEnabled = false
+                                }
+                            }
+                        }
+                }
+            }
+        }
     }
 
     private val showMyLocationHandler = registerForActivityResult(
