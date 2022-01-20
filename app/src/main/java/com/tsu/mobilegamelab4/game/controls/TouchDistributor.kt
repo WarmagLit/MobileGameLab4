@@ -5,9 +5,9 @@ import com.tsu.mobilegamelab4.game.Point
 
 
 class TouchDistributor(
-    val joystick: Joystick,
-    var swipeStick: SwipeStick,
-    val useButton: UseButton
+    private val joystick: Joystick,
+    private var swipeStick: SwipeStick,
+    private val useButton: UseButton
 ) {
 
     fun handleTouch(event: MotionEvent): Boolean {

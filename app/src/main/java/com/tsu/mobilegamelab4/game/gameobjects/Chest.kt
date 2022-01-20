@@ -8,9 +8,11 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUsable
+import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
-class Chest(private val spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos),
+class Chest(private val spriteSheet: FirstLocationSpriteSheet, pos: Point, private var key: Keys?) :
+    GameObject(pos),
     IUsable {
 
     var sprite = spriteSheet.getSpriteByIndex(Rect(1, 8, 2, 9))
@@ -44,7 +46,11 @@ class Chest(private val spriteSheet: FirstLocationSpriteSheet, pos: Point) : Gam
 
     override fun use(player: Player) {
         sprite = spriteSheet.getSpriteByIndex(Rect(3, 8, 4, 9))
+        key?.let {
+            player.keys.add(it)
+        }
+        key = null
     }
 
-    override fun getCenter() = Point(pos.X + sprite.size.x/2, pos.Y + sprite.size.y/2)
+    override fun getCenter() = Point(pos.X + sprite.size.x / 2, pos.Y + sprite.size.y / 2)
 }

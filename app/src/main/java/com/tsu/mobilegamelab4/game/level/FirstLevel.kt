@@ -1,6 +1,7 @@
 package com.tsu.mobilegamelab4.game.level
 
 import android.graphics.Canvas
+import android.util.DisplayMetrics
 import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.Chest
@@ -13,46 +14,67 @@ import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.KeySpriteSheet
+import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class FirstLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
-    spriteSheet: FirstLocationSpriteSheet
+    locationSpriteSheet: FirstLocationSpriteSheet,
+    private val keySpriteSheet: KeySpriteSheet
 ) :
-    Level(enemySpriteSheet, spriteSheet) {
+    Level(enemySpriteSheet, locationSpriteSheet, keySpriteSheet) {
 
-    private val map = FirstLocationMap(spriteSheet)
+    private val map = FirstLocationMap(locationSpriteSheet)
+    private lateinit var player: Player
 
     init {
         gameObjects.addAll(
             arrayOf(
                 Crate(
-                    spriteSheet,
+                    locationSpriteSheet,
                     Point(
                         7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 ),
                 Column(
-                    spriteSheet,
+                    locationSpriteSheet,
                     Point(
                         5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 ),
                 Chest(
-                    spriteSheet,
+                    locationSpriteSheet,
                     Point(
                         3.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
-                    )
+                    ),
+                    Keys.BLUE
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.RED
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.YELLOW
                 )
             )
         )
     }
 
     override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
-        val player = Player(
+        player = Player(
             Point(
                 4.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                 18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
@@ -96,7 +118,7 @@ class FirstLevel(
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         map.draw(canvas, display)
         gameObjects.sortWith(
-            Comparator{ go1: GameObject, go2: GameObject ->
+            Comparator { go1: GameObject, go2: GameObject ->
                 if (go1.pos.Y < go2.pos.Y) {
                     return@Comparator -1
                 }
@@ -110,6 +132,17 @@ class FirstLevel(
             it.draw(canvas, display)
         }
         map.draw(canvas, display)
+
+        //draw keys
+        display?.let {
+            var xOffset = 200
+            for (key in player.keys) {
+                val keySprite = keySpriteSheet.getSpriteByRect(key.keyRect)
+                keySprite.size = android.graphics.Point(key.keyRect.width()*4, key.keyRect.height()*4)
+                keySprite.draw(canvas, display.widthPixels - xOffset, 50)
+                xOffset += 100
+            }
+        }
     }
 
     override fun update() {

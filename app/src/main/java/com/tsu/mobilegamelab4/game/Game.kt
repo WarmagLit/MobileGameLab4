@@ -244,5 +244,4 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         dialog.show()
         pause()
     }
-
 }

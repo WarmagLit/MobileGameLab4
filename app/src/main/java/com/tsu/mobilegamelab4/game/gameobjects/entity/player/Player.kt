@@ -13,6 +13,7 @@ import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Gun
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.hero_gun.HeroGun
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
+import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
@@ -28,6 +29,8 @@ class Player(
 
     private val SPEED_PIXELS_PER_SECOND = 600.0
     private val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
+
+    val keys: MutableList<Keys> = mutableListOf()
 
     private var actX = 0.0
     private var actY = 0.0
