@@ -26,6 +26,7 @@ class DropListener(private val onDrop: () -> Unit) : View.OnDragListener {
           }
           duration = 400
         }.start()
+
       }
       // animate and hide the highlight under the drop area
       DragEvent.ACTION_DRAG_ENDED -> {
