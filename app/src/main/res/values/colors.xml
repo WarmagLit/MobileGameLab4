@@ -13,4 +13,5 @@
     <color name="seekbar_thumb">#BBE1FA</color>
 
     <color name="colorWhiteTransparent">#7CFFFFFF</color>
+    <color name="colorRedTranslucent">#60ff0000</color>
 </resources>

@@ -97,6 +97,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
         steps.levelCompleted = {
             val intent = Intent(activity, ChooseLevelActivity::class.java)
+            activity.finish()
             activity.startActivity(intent)
         }
 
