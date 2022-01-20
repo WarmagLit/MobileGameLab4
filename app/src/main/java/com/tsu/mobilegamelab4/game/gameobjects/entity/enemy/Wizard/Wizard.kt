@@ -77,7 +77,7 @@ class Wizard (
             //animator.attackAnimation()
             //player.receiveStrike()
             val playerDirection = Utils.getDirectionalVector(pos, player.pos)
-            gun.fire(Vector(playerDirection.X * 15, playerDirection.Y * 15))
+            gun.fire(Vector(playerDirection.X, playerDirection.Y))
         }
     }
 

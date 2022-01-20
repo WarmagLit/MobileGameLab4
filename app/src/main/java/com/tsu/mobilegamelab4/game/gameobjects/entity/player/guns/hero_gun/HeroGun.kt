@@ -1,9 +1,7 @@
 package com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.hero_gun
 
 import android.graphics.Canvas
-import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.Vector
+import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.gameobjects.entity.Entity
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
@@ -17,8 +15,12 @@ class HeroGun(
     gameObjects: MutableList<GameObject>
 ) : Gun(owner, sprite, gameObjects) {
 
+    init {
+        bulletSpeed = 40.0
+    }
+
     override fun draw(canvas: Canvas, display: GameDisplay?) {
-        sprite.draw(canvas, owner.displayCoordinates.X.toInt(), owner.displayCoordinates.Y.toInt())
+        //sprite.draw(canvas, owner.displayCoordinates.X.toInt(), owner.displayCoordinates.Y.toInt())
 
         for (bullet in bullets) {
             bullet.draw(canvas)
@@ -43,10 +45,20 @@ class HeroGun(
     }
 
     override fun fire(velocity: Vector) {
-        val bullet = HeroBullet(
-            Point(owner.displayCoordinates.X + 100, owner.displayCoordinates.Y + 50),
-            velocity
+        val bullet1 = HeroBullet(
+            Point(owner.displayCoordinates.X, owner.displayCoordinates.Y + 50),
+            velocity.multiply(50.0)
         )
-        bullets.add(bullet)
+        val bullet2 = HeroBullet(
+            Point(owner.displayCoordinates.X, owner.displayCoordinates.Y + 50),
+            velocity.multiply(50.0).rotateByAngle(12.0)
+        )
+        val bullet3 = HeroBullet(
+            Point(owner.displayCoordinates.X, owner.displayCoordinates.Y + 50),
+            velocity.multiply(50.0).rotateByAngle(-12.0)
+        )
+        bullets.add(bullet1)
+        bullets.add(bullet2)
+        bullets.add(bullet3)
     }
 }

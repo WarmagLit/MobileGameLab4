@@ -15,6 +15,7 @@ abstract class Gun(
 ) : GameObject(owner.displayCoordinates) {
 
     protected val bullets: MutableList<Bullet> = mutableListOf()
+    protected var bulletSpeed = 20.0
 
     abstract fun fire(velocity: Vector)
 }

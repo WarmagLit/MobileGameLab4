@@ -13,6 +13,7 @@ import com.tsu.mobilegamelab4.choose_level.ChooseLevelActivity
 import com.tsu.mobilegamelab4.game.GameActivity
 import com.tsu.mobilegamelab4.settings.SettingsActivity
 import com.tsu.mobilegamelab4.databinding.ActivityMenuBinding
+import com.tsu.mobilegamelab4.video.VideoActivity
 
 class MenuActivity : AppCompatActivity() {
 
@@ -34,7 +35,8 @@ class MenuActivity : AppCompatActivity() {
         }
 
         binding.menuSettingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
+           // val intent = Intent(this, SettingsActivity::class.java)
+            val intent = Intent(this, VideoActivity::class.java)
             startActivity(intent)
         }
 

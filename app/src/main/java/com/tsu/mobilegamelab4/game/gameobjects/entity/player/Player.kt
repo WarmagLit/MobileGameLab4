@@ -39,6 +39,11 @@ class Player(
     val animator = HeroAnimator(spriteSheet)
 
     private val gun: Gun
+    private var cooldownCounter = 0
+
+    companion object {
+        private const val ATTACK_COOLDOWN = 30
+    }
 
     init {
         // Init health bar
@@ -79,16 +84,18 @@ class Player(
     }
 
     fun attack(actuator: Vector) {
-        Log.d("Attack", "At X:${actuator.X} Y: ${actuator.Y}")
-        Log.d("GUN", "Player:" + displayCoordinates.X.toInt() + "  " + displayCoordinates.Y.toInt())
-        Log.d("GUN", "PlayerAbsolute:" + pos.X.toInt() + "  " + pos.Y.toInt())
-        gun.fire(Vector(actuator.X * 50, actuator.Y * 50))
+        if (cooldownCounter == 0) {
+            gun.fire(Vector(actuator.X, actuator.Y))
+            cooldownCounter = ATTACK_COOLDOWN
+        }
     }
 
     override fun update() {
         // Update position
         pos.X += velocity.X
         pos.Y += velocity.Y
+
+        if (cooldownCounter > 0) cooldownCounter--
 
         //obstacle check
         if (pos.X >= 0 && pos.Y >= 0

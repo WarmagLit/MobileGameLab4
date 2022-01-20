@@ -9,7 +9,9 @@ abstract class Bullet(position: Point): GameObject(position) {
 
     protected lateinit var mPaint: Paint
 
-    protected val DESTROY_TIME = 50
+    companion object {
+        var DESTROY_TIME = 50
+    }
     protected var destroyCounter = 0
 
     var displayCoordinates: Point = Point(0.0, 0.0)

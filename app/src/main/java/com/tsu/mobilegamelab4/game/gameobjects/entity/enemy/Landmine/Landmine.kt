@@ -38,10 +38,7 @@ class Landmine (
 
     companion object {
         private const val SPEED_PIXELS_PER_SECOND = 0.0
-        private const val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
-        private const val SEEK_DISTANCE = 400.0
         private const val ATTACK_DISTANCE = 400.0
-        private const val ATTACK_COOLDOWN = 60
         private const val MAX_DAMAGE = 100.0
     }
 
@@ -59,15 +56,7 @@ class Landmine (
     }
 
     override fun changeVelocity(actuator: Vector) {
-        // Update velocity based on actuator of joystick
         // It's static enemy
-        /*
-        velocity.X = actuator.X * MAX_SPEED
-        velocity.Y = actuator.Y * MAX_SPEED
-
-        act.X = actuator.X
-        act.Y = actuator.Y
-        */
     }
 
     fun attack(player: Player) {
@@ -93,7 +82,7 @@ class Landmine (
 
         // Landmine exploded
         if (animator.isStopped) {
-            toDestroy = true
+            die()
         }
 
         if (pos.X >= 0 && pos.Y >= 0

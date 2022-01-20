@@ -38,6 +38,7 @@ abstract class Entity(
     }
 
     fun die() {
+        hitbox.rect = Rect(0,0,0,0)
         toDestroy = true
     }
 }

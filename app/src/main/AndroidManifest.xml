@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FullScreen">
         <activity
+            android:name=".video.VideoActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
+        <activity
             android:name=".choose_level.ChooseLevelActivity"
             android:exported="true"
             android:screenOrientation="landscape" />

@@ -17,6 +17,7 @@ class MagicBall (position: Point, veloc: Vector): Bullet(position) {
     var logCounter = 0
 
     init {
+        DESTROY_TIME = 100
         velocity.X = veloc.X
         velocity.Y = veloc.Y
         mPaint = Paint()
