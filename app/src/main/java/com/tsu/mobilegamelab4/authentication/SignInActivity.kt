@@ -34,13 +34,22 @@ class SignInActivity : AppCompatActivity() {
         binding.btnSignUp.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextTextPassword.text.toString()
+            val nickname = binding.editTextTextNickname.text.toString()
             if (!isEmailValid(email)) {
-                Toast.makeText(baseContext, "Incorrect email",
-                    Toast.LENGTH_SHORT).show()
-            }
-            else if (!isPassValid(password)) {
-                Toast.makeText(baseContext, "Password should be at least 6 characters.",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseContext, "Incorrect email",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (!isPassValid(password)) {
+                Toast.makeText(
+                    baseContext, "Password should be at least 6 characters.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (!isNicknameValid(nickname)) {
+                Toast.makeText(
+                    baseContext, "Nickname should be at least 4 characters.",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
@@ -48,7 +57,7 @@ class SignInActivity : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCustomToken:success")
                             val userUid = auth.currentUser?.uid.toString()
-                            val user = User(userUid, password, 0, 0, 0, 0, 0, 0)
+                            val user = User(userUid, nickname, password, 0, 0, 0, 0, 0, 0)
                             myRef.child(userUid).setValue(user)
                             val intent = Intent(this, MenuActivity::class.java)
                             startActivity(intent)
@@ -64,6 +73,7 @@ class SignInActivity : AppCompatActivity() {
                     }
             }
         }
+
 
         binding.btnLogin.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
@@ -98,7 +108,7 @@ class SignInActivity : AppCompatActivity() {
             Toast.makeText(this, "Authorized", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
-        } else{
+        } else {
             Toast.makeText(this, "User is not authorized", Toast.LENGTH_SHORT).show()
         }
     }
@@ -116,6 +126,11 @@ class SignInActivity : AppCompatActivity() {
 
     private fun isPassValid(pass: String): Boolean {
         if (pass.length < 6) return false
+        return true
+    }
+
+    private fun isNicknameValid(name: String): Boolean {
+        if (name.length < 4 && name.length < 12) return false
         return true
     }
 }

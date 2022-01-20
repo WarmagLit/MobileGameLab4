@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FullScreen">
         <activity
-            android:name=".authentication.signup.SignUpActivity"
-            android:exported="true" />
+            android:name=".scoreboard.ScoreBoardActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".authentication.SignInActivity"
             android:exported="true"
@@ -43,9 +44,7 @@
         <activity
             android:name=".menu.MenuActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
