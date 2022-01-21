@@ -2,6 +2,7 @@ package com.tsu.mobilegamelab4.game
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Canvas
@@ -9,6 +10,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -61,6 +63,8 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     var isJoystick = true
     var showPerformance = false
+
+    var isDeathDialogShowed = false
 
     init {
         // Metrics for SwipeStick and CenteredGameDisplay
@@ -215,7 +219,10 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 //                break
 //            }
 //        }
-        if (player.toDestroy) showDialog()
+        if (player.toDestroy && !isDeathDialogShowed) {
+            showDialog()
+            isDeathDialogShowed = true
+        }
 
         currentLevel.update()
 
@@ -235,12 +242,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     fun pause() {
         gameLoop.stopLoop()
-    }
-
-    private fun showDialog() {
-        activity.runOnUiThread {
-            showDeathDialog()
-        }
     }
 
     private suspend fun showOpenChestDialog(loot: Keys) {
@@ -277,6 +278,12 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         }
     }
 
+    private fun showDialog() {
+        activity.runOnUiThread {
+            showDeathDialog()
+        }
+    }
+
     private fun showDeathDialog() {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(
@@ -289,6 +296,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         val btnRestart = dialog.findViewById<MaterialButton>(R.id.dialogRestartButton)
         btnRestart.setOnClickListener {
             activity.restartLevel()
+            dialog.dismiss()
         }
         val btnBackToMenu = dialog.findViewById<MaterialButton>(R.id.dialogBackToMenuButton)
         btnBackToMenu.setOnClickListener {
@@ -296,7 +304,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
             activity.startActivity(intent)
         }
 
-
+        dialog.create()
         dialog.show()
         pause()
     }
