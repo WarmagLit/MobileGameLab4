@@ -183,8 +183,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         useButton.draw(canvas)
 
-        if (showPerformance) performance.draw(canvas)
-
         if (isJoystick) {
             joystick.draw(canvas)
         } else {

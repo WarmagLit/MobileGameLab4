@@ -1,6 +1,7 @@
 package com.tsu.mobilegamelab4.game
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.hardware.Sensor
@@ -12,6 +13,7 @@ import android.util.Log
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.R
+import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
 import com.tsu.mobilegamelab4.game.graphics.BossSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
@@ -97,6 +99,7 @@ class GameActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-
+        val intent = Intent(this, ChooseLevelActivity::class.java)
+        startActivity(intent)
     }
 }
