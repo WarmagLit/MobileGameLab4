@@ -31,4 +31,6 @@
     <string name="login">LOGIN</string>
     <string name="question_marks">\???</string>
     <string name="bonus">Bonus</string>
+    <string name="you_found_a_key">You found a key!</string>
+    <string name="chest_was_empty">Chest was empty..</string>
 </resources>

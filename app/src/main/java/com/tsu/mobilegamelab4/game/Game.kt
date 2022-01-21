@@ -9,10 +9,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
-import android.view.MotionEvent
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import android.view.Window
+import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.SharedPreference
@@ -21,13 +22,18 @@ import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
 import com.tsu.mobilegamelab4.game.controls.UseButton
+import com.tsu.mobilegamelab4.game.gameobjects.Chest
 import com.tsu.mobilegamelab4.game.gameobjects.Steps
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUpdatable
 import com.tsu.mobilegamelab4.game.interfaces.IUsable
+import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.level.Level
 import com.tsu.mobilegamelab4.menu.MenuActivity
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @SuppressLint("ViewConstructor")
@@ -94,11 +100,21 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         //player.sprite = spriteSheet.playerSpriteArray
         player = currentLevel.initializePlayer(HeroSpriteSheet(context))
 
+        //create exit from level
         val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
         steps.levelCompleted = {
             val intent = Intent(activity, ChooseLevelActivity::class.java)
             activity.finish()
             activity.startActivity(intent)
+        }
+
+        //create dialogs from open chest
+        currentLevel.gameObjects.filterIsInstance<Chest>().forEach { chest ->
+            chest.showDialog = {
+                activity.lifecycleScope.launch {
+                    showOpenChestDialog(it)
+                }
+            }
         }
 
         // UseButton
@@ -224,6 +240,40 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
     private fun showDialog() {
         activity.runOnUiThread {
             showDeathDialog()
+        }
+    }
+
+    private suspend fun showOpenChestDialog(loot: Keys) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(
+            Window.FEATURE_NO_TITLE
+        )
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_open_chest_layout)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.findViewById<ConstraintLayout>(R.id.rootLayout).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val keyImageView = dialog.findViewById<ImageView>(R.id.dialogChestKeyImageView)
+        val title = dialog.findViewById<TextView>(R.id.dialogChestTitleTextView)
+
+        when (loot) {
+            Keys.BLUE -> keyImageView.setImageResource(R.drawable.blue_key)
+            Keys.RED -> keyImageView.setImageResource(R.drawable.red_key)
+            Keys.YELLOW -> keyImageView.setImageResource(R.drawable.yellow_key)
+            Keys.GREEN -> keyImageView.setImageResource(R.drawable.green_key)
+            Keys.EMPTY -> {
+                keyImageView.visibility = View.GONE
+                title.setText(R.string.chest_was_empty)
+            }
+        }
+
+        dialog.show()
+        coroutineScope {
+            delay(2000)
+            dialog.dismiss()
         }
     }
 

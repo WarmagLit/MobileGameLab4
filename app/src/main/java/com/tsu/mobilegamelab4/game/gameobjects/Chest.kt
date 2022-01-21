@@ -21,6 +21,7 @@ class Chest(
 
     var sprite = spriteSheet.getSpriteByIndex(Rect(1, 8, 2, 9))
     private var displayCoordinates = Point(0.0, 0.0)
+    var showDialog: (loot: Keys) -> Unit = {}
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         // sprite.draw(canvas, pos.X.toInt(), (pos.Y - sprite.size.y).toInt())
@@ -57,6 +58,7 @@ class Chest(
         } else {
             sprite = spriteSheet.getSpriteByIndex(Rect(2, 8, 3, 9))
         }
+        showDialog.invoke(key ?: Keys.EMPTY)
         key = null
     }
 
