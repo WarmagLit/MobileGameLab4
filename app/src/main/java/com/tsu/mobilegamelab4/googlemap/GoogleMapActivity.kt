@@ -33,10 +33,7 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val viewModel by viewModels<GoogleMapViewModel>()
     private lateinit var binding: ActivityGoogleMapBinding
-
     private lateinit var googleMap: GoogleMap
-//    private val tsu = LatLng(56.469483, 84.948689)
-//    private val areaRadius = 1400.0
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -67,6 +64,11 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
+        configureGoogleMap()
+        initializeMyLocation()
+    }
+
+    private fun configureGoogleMap() {
         googleMap.addMarker(
             MarkerOptions()
                 .position(GoogleMapViewModel.TSU_LAT_LNG)
@@ -86,7 +88,9 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 .strokeColor(Color.RED)
                 .fillColor(ContextCompat.getColor(this, R.color.colorRedTranslucent))
         )
+    }
 
+    private fun initializeMyLocation() {
         showMyLocation(true)
 
         lifecycleScope.launch {
