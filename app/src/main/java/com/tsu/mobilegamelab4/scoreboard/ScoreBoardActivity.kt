@@ -40,7 +40,6 @@ class ScoreBoardActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                val ds = dataSnapshot
                 val userList: MutableList<User> = mutableListOf()
                 for (ds in dataSnapshot.children) {
                     val user = ds.getValue<User>()

@@ -18,5 +18,6 @@ abstract class Level(
 
     var gameObjects: MutableList<GameObject> = mutableListOf()
 
+    abstract fun recycleBitmaps()
     abstract fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player
 }

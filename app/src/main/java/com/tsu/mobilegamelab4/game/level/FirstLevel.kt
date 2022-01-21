@@ -16,7 +16,7 @@ import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 class FirstLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
     private val bossSpriteSheet: BossSpriteSheet,
-    locationSpriteSheet: FirstLocationSpriteSheet,
+    private val locationSpriteSheet: FirstLocationSpriteSheet,
     private val keySpriteSheet: KeySpriteSheet
 ) :
     Level(enemySpriteSheet, locationSpriteSheet, keySpriteSheet) {
@@ -92,6 +92,15 @@ class FirstLevel(
                 )
             )
         )
+    }
+
+    override fun recycleBitmaps() {
+        enemySpriteSheet.bitmap.recycle()
+        bossSpriteSheet.bitmap.recycle()
+        locationSpriteSheet.bitmap.recycle()
+        locationSpriteSheet.lowerLevelBitmap.recycle()
+        locationSpriteSheet.upperLevelBitmap.recycle()
+        keySpriteSheet.bitmap.recycle()
     }
 
     override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {

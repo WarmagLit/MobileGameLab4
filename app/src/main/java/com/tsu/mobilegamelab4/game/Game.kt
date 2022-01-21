@@ -2,7 +2,6 @@ package com.tsu.mobilegamelab4.game
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Canvas
@@ -10,7 +9,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -108,6 +106,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
         steps.levelCompleted = {
             val intent = Intent(activity, ChooseLevelActivity::class.java)
+            currentLevel.recycleBitmaps()
             activity.finish()
             activity.startActivity(intent)
         }
@@ -176,7 +175,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        //Not yet implemented")
+        holder.surface.release()
     }
 
     override fun draw(canvas: Canvas) {
@@ -295,11 +294,16 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         val btnRestart = dialog.findViewById<MaterialButton>(R.id.dialogRestartButton)
         btnRestart.setOnClickListener {
-            activity.restartLevel()
+            currentLevel.recycleBitmaps()
+            val intent = Intent(activity, GameActivity::class.java).putExtra("level", 1)
+            activity.startActivity(intent)
+            activity.finish()
+            //activity.restartLevel()
             dialog.dismiss()
         }
         val btnBackToMenu = dialog.findViewById<MaterialButton>(R.id.dialogBackToMenuButton)
         btnBackToMenu.setOnClickListener {
+            currentLevel.recycleBitmaps()
             val intent = Intent(activity, MenuActivity::class.java)
             activity.startActivity(intent)
         }
