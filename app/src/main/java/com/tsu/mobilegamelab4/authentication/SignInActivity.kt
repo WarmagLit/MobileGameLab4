@@ -40,22 +40,22 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setOnClickListeners() {
 
-        binding.btnSignUp.setOnClickListener {
+        binding.signInSignUpButton.setOnClickListener {
 
             viewModel.signUp(
-                email = binding.editTextEmail.text.toString(),
-                password = binding.editTextTextPassword.text.toString(),
-                nickname = binding.editTextTextNickname.text.toString()
+                email = binding.signInEmailEditText.text.toString(),
+                password = binding.signInPasswordEditText.text.toString(),
+                nickname = binding.signInNicknameEditText.text.toString()
             ) { resId ->
                 Toast.makeText(this, resources.getString(resId), Toast.LENGTH_SHORT).show()
             }
         }
 
 
-        binding.btnLogin.setOnClickListener {
+        binding.signInLoginButton.setOnClickListener {
             viewModel.login(
-                email = binding.editTextEmail.text.toString(),
-                password = binding.editTextTextPassword.text.toString()
+                email = binding.signInEmailEditText.text.toString(),
+                password = binding.signInPasswordEditText.text.toString()
             ) { resId ->
                 Toast.makeText(this, resources.getString(resId), Toast.LENGTH_SHORT).show()
             }

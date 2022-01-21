@@ -21,27 +21,27 @@ class ScoreBoardActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.scoreBoardFirst.observe(this) {
-            binding.scoreBoardFirst.text = it
+            binding.scoreboardFirstPlayerTextView.text = it
         }
 
         viewModel.scoreBoardSecond.observe(this) {
-            binding.scoreBoardSecond.text = it
+            binding.scoreboardSecondPlayerTextView.text = it
         }
 
         viewModel.scoreBoardThird.observe(this) {
-            binding.scoreBoardThird.text = it
+            binding.scoreboardThirdPlayerTextView.text = it
         }
 
         viewModel.scoreBoardFourth.observe(this) {
-            binding.scoreBoardFourth.text = it
+            binding.scoreboardFourthPlayerTextView.text = it
         }
 
         viewModel.scoreBoardFifth.observe(this) {
-            binding.scoreBoardFifth.text = it
+            binding.scoreboardFifthPlayerTextView.text = it
         }
 
         viewModel.scoreBoardUser.observe(this) {
-            binding.scoreBoardUser.text = it
+            binding.scoreboardCurrentUserTextView.text = it
         }
     }
 }
