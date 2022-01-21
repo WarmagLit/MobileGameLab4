@@ -3,12 +3,15 @@ package com.tsu.mobilegamelab4.cases
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.AudioManager
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.TextView
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.*
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +25,7 @@ import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
 import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
+import com.tsu.mobilegamelab4.game.items.Key
 import kotlin.math.abs
 
 class CasesActivity : AppCompatActivity() {
@@ -29,36 +33,42 @@ class CasesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCasesBinding
 
     var myViewPager2: ViewPager2? = null
-    var MyAdapter: MyAdapter? = null
+    var casesAdapter: CasesAdapter? = null
+    var keysAdapter: KeysAdapter? = null
 
     // values of the draggable views (usually this should come from a data source)
-    private val words = mutableListOf(
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8"
-    )
+    private val keys: MutableList<String> = mutableListOf()
+
+    private val cases: MutableList<String> = mutableListOf("red", "green", "blue", "yellow")
 
     // last selected word
-    private var selectedWord = ""
+    private var selectedKey: String = "red"
 
     private var currentScore = 0
+    private var redKeysCount = 0
+    private var greenKeysCount = 0
+    private var blueKeysCount = 0
+    private var yellowKeysCount = 0
 
     private lateinit var auth: FirebaseAuth
     private val database = Firebase.database
     private lateinit var myRef: DatabaseReference
     lateinit var currentUser: User
 
+    // Audio
+    private var soundPool: SoundPool? = null
+    private val soundOpenId = 1
+    private val soundChangeCasenId = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCasesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initDragAndDropKeys()
+        // Load audio
+        soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
+        soundPool!!.load(baseContext, R.raw.open_case_sound, 1)
+        soundPool!!.load(baseContext, R.raw.case_change_sound, 2)
 
         // Initialize Firebase Auth
         auth = Firebase.auth
@@ -66,6 +76,7 @@ class CasesActivity : AppCompatActivity() {
         myRef = database.getReference("users").child(userUid)
 
         getDataFromDatabase()
+        initDragAndDropKeys()
 
         binding.casesGoBackButton.setOnClickListener {
             finish()
@@ -73,9 +84,11 @@ class CasesActivity : AppCompatActivity() {
 
         myViewPager2 = binding.viewpager
 
-        MyAdapter = MyAdapter(this)
+        casesAdapter = CasesAdapter(this).apply {
+            submitList(cases)
+        }
         binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        binding.viewpager.adapter = MyAdapter
+        binding.viewpager.adapter = casesAdapter
         binding.viewpager.offscreenPageLimit = 5
 
         val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
@@ -96,12 +109,16 @@ class CasesActivity : AppCompatActivity() {
                 page.translationX = myOffset
             }
         })
-
+        binding.viewpager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                playSound2()
+            }
+        })
     }
 
     private fun sendNewScore() {
-        // Create new post at /user-posts/$userid/$postid and at
-        // /posts/$postid simultaneously
+
         val key = myRef.push().key
         if (key == null) {
             Log.w("TAG", "Couldn't get push key for posts")
@@ -112,10 +129,10 @@ class CasesActivity : AppCompatActivity() {
             currentUser.nickname,
             currentUser.pass,
             currentScore,
-            currentUser.redKeys,
-            currentUser.greenKeys,
-            currentUser.blueKeys,
-            currentUser.yellowKeys,
+            redKeysCount,
+            greenKeysCount,
+            blueKeysCount,
+            yellowKeysCount,
             currentUser.levelsCompleted
         )
         val postValues = user.toMap()
@@ -156,32 +173,62 @@ class CasesActivity : AppCompatActivity() {
                 val value = dataSnapshot.getValue<User>()
                 if (value != null) {
                     currentUser = value
-                    currentScore = value.score.toInt()
+                    currentScore = value.score
+                    redKeysCount = value.redKeys
+                    greenKeysCount = value.greenKeys
+                    blueKeysCount = value.blueKeys
+                    yellowKeysCount = value.yellowKeys
+
+                    keys.clear()
+                    for (i in 1..redKeysCount) keys.add("red")
+                    for (i in 1..greenKeysCount) keys.add("green")
+                    for (i in 1..blueKeysCount) keys.add("blue")
+                    for (i in 1..yellowKeysCount) keys.add("yellow")
+                    keysAdapter?.submitList(keys)
+
                     binding.casesScoreTextView.text = value.score.toString()
                 }
-                Log.d("TAG", "Value is: $value")
+                //Log.d("TAG", "Value is: $value")
             }
 
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException())
+                //Log.w("TAG", "Failed to read value.", error.toException())
             }
         })
     }
 
-    private fun initDragAndDropKeys() {
-        val wordsAdapter = KeysAdapter {
-            selectedWord = it
-        }.apply {
-            submitList(words)
-        }
+    private fun playSound() {
+        soundPool?.play(soundOpenId, 1F, 1F, 0, 0, 1F)
+        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+    }
 
+    private fun playSound2() {
+        soundPool?.play(soundChangeCasenId, 1F, 1F, 0, 0, 1F)
+        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun initDragAndDropKeys() {
+        keysAdapter = KeysAdapter {
+            selectedKey = it
+        }
 
         binding.viewpager.setOnDragListener(
             DropListener {
-                wordsAdapter.removeItem(selectedWord)
-                showPrizeDialog()
-                Log.d("LoGGG", "Key dropped")
+                if (cases[binding.viewpager.currentItem] == selectedKey) {
+                    keysAdapter?.removeItem(selectedKey)
+                    when (selectedKey) {
+                        "red" -> redKeysCount--
+                        "green" -> greenKeysCount--
+                        "yellow" -> yellowKeysCount--
+                        "blue" -> blueKeysCount--
+                    }
+                    showPrizeDialog()
+                    playSound()
+                } else {
+                    Toast.makeText(this, "Сase and key in different colors!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         )
 
@@ -192,6 +239,6 @@ class CasesActivity : AppCompatActivity() {
                 alignItems = AlignItems.CENTER
             }
 
-        binding.recyclerView.adapter = wordsAdapter
+        binding.recyclerView.adapter = keysAdapter
     }
 }

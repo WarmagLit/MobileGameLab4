@@ -17,6 +17,7 @@ abstract class Level(
 ) : IDrawableUpdatable {
 
     var gameObjects: MutableList<GameObject> = mutableListOf()
+    var level: Int = 0
 
     abstract fun recycleBitmaps()
     abstract fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player

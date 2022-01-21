@@ -25,6 +25,8 @@ class FirstLevel(
     private lateinit var player: Player
 
     init {
+        level = 1
+
         gameObjects.addAll(
             arrayOf(
                 Crate(
