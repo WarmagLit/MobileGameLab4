@@ -272,7 +272,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         dialog.show()
         coroutineScope {
-            delay(2000)
+            delay(1500)
             dialog.dismiss()
         }
     }
