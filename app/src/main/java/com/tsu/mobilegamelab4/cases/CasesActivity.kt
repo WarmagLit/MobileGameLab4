@@ -29,10 +29,10 @@ class CasesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCasesBinding
 
     var myViewPager2: ViewPager2? = null
-    var MyAdapter: MyAdapter? = null
+    var casesAdapter: CasesAdapter? = null
 
     // values of the draggable views (usually this should come from a data source)
-    private val words = mutableListOf(
+    private val keys = mutableListOf(
         "1",
         "2",
         "3",
@@ -42,11 +42,16 @@ class CasesActivity : AppCompatActivity() {
         "7",
         "8"
     )
+    private var keysAmount = 0
 
     // last selected word
     private var selectedWord = ""
 
     private var currentScore = 0
+    private var redKeysCount = 0
+    private var greenKeysCount = 0
+    private var blueKeysCount = 0
+    private var yellowKeysCount = 0
 
     private lateinit var auth: FirebaseAuth
     private val database = Firebase.database
@@ -73,9 +78,9 @@ class CasesActivity : AppCompatActivity() {
 
         myViewPager2 = binding.viewpager
 
-        MyAdapter = MyAdapter(this)
+        casesAdapter = CasesAdapter(this)
         binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        binding.viewpager.adapter = MyAdapter
+        binding.viewpager.adapter = casesAdapter
         binding.viewpager.offscreenPageLimit = 5
 
         val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
@@ -100,8 +105,7 @@ class CasesActivity : AppCompatActivity() {
     }
 
     private fun sendNewScore() {
-        // Create new post at /user-posts/$userid/$postid and at
-        // /posts/$postid simultaneously
+
         val key = myRef.push().key
         if (key == null) {
             Log.w("TAG", "Couldn't get push key for posts")
@@ -112,10 +116,10 @@ class CasesActivity : AppCompatActivity() {
             currentUser.nickname,
             currentUser.pass,
             currentScore,
-            currentUser.redKeys,
-            currentUser.greenKeys,
-            currentUser.blueKeys,
-            currentUser.yellowKeys,
+            redKeysCount,
+            greenKeysCount,
+            blueKeysCount,
+            yellowKeysCount,
             currentUser.levelsCompleted
         )
         val postValues = user.toMap()
@@ -141,6 +145,7 @@ class CasesActivity : AppCompatActivity() {
         val textAmount = dialog.findViewById<TextView>(R.id.dialogAmounttextView)
         val rnds = (100..1000).random()
         currentScore += rnds
+        takeKey()
         sendNewScore()
         textAmount.text = rnds.toString()
 
@@ -156,30 +161,47 @@ class CasesActivity : AppCompatActivity() {
                 val value = dataSnapshot.getValue<User>()
                 if (value != null) {
                     currentUser = value
-                    currentScore = value.score.toInt()
+                    currentScore = value.score
+                    redKeysCount = value.redKeys
+                    greenKeysCount = value.greenKeys
+                    blueKeysCount = value.blueKeys
+                    yellowKeysCount = value.yellowKeys
                     binding.casesScoreTextView.text = value.score.toString()
                 }
-                Log.d("TAG", "Value is: $value")
+                //Log.d("TAG", "Value is: $value")
             }
 
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException())
+                //Log.w("TAG", "Failed to read value.", error.toException())
             }
         })
     }
 
+    private fun takeKey() {
+        if (redKeysCount > 0) {
+            redKeysCount--
+        } else if (greenKeysCount > 0) {
+            greenKeysCount--
+        } else if (blueKeysCount > 0) {
+            blueKeysCount--
+        } else if (yellowKeysCount > 0) {
+            yellowKeysCount--
+        }
+        keysAmount--
+    }
+
     private fun initDragAndDropKeys() {
-        val wordsAdapter = KeysAdapter {
+        val keysAdapter = KeysAdapter {
             selectedWord = it
         }.apply {
-            submitList(words)
+            submitList(keys)
         }
 
 
         binding.viewpager.setOnDragListener(
             DropListener {
-                wordsAdapter.removeItem(selectedWord)
+                keysAdapter.removeItem(selectedWord)
                 showPrizeDialog()
                 Log.d("LoGGG", "Key dropped")
             }
@@ -192,6 +214,6 @@ class CasesActivity : AppCompatActivity() {
                 alignItems = AlignItems.CENTER
             }
 
-        binding.recyclerView.adapter = wordsAdapter
+        binding.recyclerView.adapter = keysAdapter
     }
 }
