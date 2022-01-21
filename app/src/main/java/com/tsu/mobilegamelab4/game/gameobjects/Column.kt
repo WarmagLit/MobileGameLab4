@@ -8,16 +8,14 @@ import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
-class Column(spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos) {
+class Column(spriteSheet: FirstLocationSpriteSheet, pos: Point) : StaticGameObject(spriteSheet, pos) {
 
-    val sprite = spriteSheet.getSpriteByIndex(Rect(6, 5, 7, 8)).also {
+    override var sprite = spriteSheet.getSpriteByIndex(Rect(6, 5, 7, 8)).also {
         it.size = android.graphics.Point(
             it.size.x,
             it.size.y * 3
         )
     }
-
-    private var displayCoordinates = Point(0.0, 0.0)
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         // sprite.draw(canvas, pos.X.toInt(), (pos.Y - sprite.size.y).toInt())
@@ -30,10 +28,6 @@ class Column(spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos
             )
             //hitbox.draw(canvas, display)
         }
-    }
-
-    override fun update() {
-        hitbox.updateCoordinates(displayCoordinates)
     }
 
     init {

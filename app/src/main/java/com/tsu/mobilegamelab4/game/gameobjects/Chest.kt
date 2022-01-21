@@ -12,15 +12,14 @@ import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Chest(
-    private val spriteSheet: FirstLocationSpriteSheet,
+    spriteSheet: FirstLocationSpriteSheet,
     pos: Point,
     private var key: Keys?
 ) :
-    GameObject(pos),
+    StaticGameObject(spriteSheet, pos),
     IUsable {
 
-    var sprite = spriteSheet.getSpriteByIndex(Rect(1, 8, 2, 9))
-    private var displayCoordinates = Point(0.0, 0.0)
+    override var sprite = spriteSheet.getSpriteByIndex(Rect(1, 8, 2, 9))
     var showDialog: (loot: Keys) -> Unit = {}
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
@@ -34,10 +33,6 @@ class Chest(
             )
             //hitbox.draw(canvas, display)
         }
-    }
-
-    override fun update() {
-        hitbox.updateCoordinates(displayCoordinates)
     }
 
     init {

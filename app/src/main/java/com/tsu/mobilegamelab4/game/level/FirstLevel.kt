@@ -161,10 +161,10 @@ class FirstLevel(
         map.draw(canvas, display)
         gameObjects.sortWith(
             Comparator { go1: GameObject, go2: GameObject ->
-                if (go1.pos.Y < go2.pos.Y) {
+                if (go1 is Spikes || go1.pos.Y < go2.pos.Y) {
                     return@Comparator -1
                 }
-                if (go1.pos.Y > go2.pos.Y) {
+                if (go2 is Spikes || go1.pos.Y > go2.pos.Y) {
                     return@Comparator 1
                 }
                 return@Comparator 0

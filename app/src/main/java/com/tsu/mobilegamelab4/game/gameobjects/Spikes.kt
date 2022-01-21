@@ -17,6 +17,7 @@ class Spikes(spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos
         spriteSheet.getSpriteByIndex(Rect(12, 0, 13, 1)),
         spriteSheet.getSpriteByIndex(Rect(13, 0, 14, 1))
     )
+
     private var updatesToNextSprite = 25
     private var afterHitCooldown = 60
     private var currentSpriteIndex = 0
@@ -32,7 +33,7 @@ class Spikes(spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos
                 displayCoordinates.X.toInt(),
                 displayCoordinates.Y.toInt()
             )
-            hitbox.draw(canvas, display)
+            // hitbox.draw(canvas, display)
         }
     }
 
@@ -44,8 +45,12 @@ class Spikes(spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos
             updatesToNextSprite += 25
             currentSpriteIndex = (currentSpriteIndex + 1) % spriteList.size
             when (currentSpriteIndex) {
-                0 -> hitbox.disable()
+                0 -> {
+                    hitbox.isObstacle = false
+                    hitbox.disable()
+                }
                 2 -> hitbox.enable()
+                3 -> hitbox.isObstacle = true
             }
         }
 

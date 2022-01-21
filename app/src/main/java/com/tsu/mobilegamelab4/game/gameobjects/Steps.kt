@@ -12,15 +12,14 @@ import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Steps(
-    private val spriteSheet: FirstLocationSpriteSheet,
+    spriteSheet: FirstLocationSpriteSheet,
     pos: Point
-) : GameObject(pos), IUsable {
+) : StaticGameObject(spriteSheet, pos), IUsable {
 
-    var sprite = spriteSheet.getSpriteByIndex(Rect(0, 3, 2, 5)).also {
+    override var sprite = spriteSheet.getSpriteByIndex(Rect(0, 3, 2, 5)).also {
         it.size.x *= 2
         it.size.y *= 2
     }
-    private var displayCoordinates = Point(0.0, 0.0)
     var levelCompleted: ()->Unit = {}
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
@@ -34,10 +33,6 @@ class Steps(
             )
             //hitbox.draw(canvas, display)
         }
-    }
-
-    override fun update() {
-        hitbox.updateCoordinates(displayCoordinates)
     }
 
     init {

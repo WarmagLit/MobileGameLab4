@@ -12,17 +12,16 @@ import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Door(
-    private val spriteSheet: FirstLocationSpriteSheet,
+    spriteSheet: FirstLocationSpriteSheet,
     pos: Point,
     private val keys: List<Keys>
 ) :
-    GameObject(pos),
+    StaticGameObject(spriteSheet, pos),
     IUsable {
 
-    var sprite = spriteSheet.getSpriteByIndex(Rect(1, 5, 3, 8)).also {
+    override var sprite = spriteSheet.getSpriteByIndex(Rect(1, 5, 3, 8)).also {
         it.size = android.graphics.Point(it.size.x * 2, it.size.y * 3)
     }
-    private var displayCoordinates = Point(0.0, 0.0)
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
         // sprite.draw(canvas, pos.X.toInt(), (pos.Y - sprite.size.y).toInt())
@@ -35,10 +34,6 @@ class Door(
             )
             //hitbox.draw(canvas, display)
         }
-    }
-
-    override fun update() {
-        hitbox.updateCoordinates(displayCoordinates)
     }
 
     init {
