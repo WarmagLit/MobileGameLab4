@@ -20,9 +20,9 @@ import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
-import com.tsu.mobilegamelab4.cases.inventory.Key
 import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
+import com.tsu.mobilegamelab4.game.items.Key
 import kotlin.math.abs
 
 class CasesActivity : AppCompatActivity() {
@@ -31,23 +31,13 @@ class CasesActivity : AppCompatActivity() {
 
     var myViewPager2: ViewPager2? = null
     var casesAdapter: CasesAdapter? = null
-    val keysAdapter = KeysAdapter(this)
+    var keysAdapter: KeysAdapter? = null
 
     // values of the draggable views (usually this should come from a data source)
-    private val keys = mutableListOf(
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8"
-    )
-    private var keysAmount = 0
+    private val keys: MutableList<String> = mutableListOf()
 
     // last selected word
-    private var selectedKey: Key = Key()
+    private var selectedKey: String = "red"
 
     private var currentScore = 0
     private var redKeysCount = 0
@@ -65,14 +55,13 @@ class CasesActivity : AppCompatActivity() {
         binding = ActivityCasesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initDragAndDropKeys()
-
         // Initialize Firebase Auth
         auth = Firebase.auth
         val userUid = auth.currentUser?.uid.toString()
         myRef = database.getReference("users").child(userUid)
 
         getDataFromDatabase()
+        initDragAndDropKeys()
 
         binding.casesGoBackButton.setOnClickListener {
             finish()
@@ -147,7 +136,6 @@ class CasesActivity : AppCompatActivity() {
         val textAmount = dialog.findViewById<TextView>(R.id.dialogAmounttextView)
         val rnds = (100..1000).random()
         currentScore += rnds
-        takeKey()
         sendNewScore()
         textAmount.text = rnds.toString()
 
@@ -169,8 +157,12 @@ class CasesActivity : AppCompatActivity() {
                     blueKeysCount = value.blueKeys
                     yellowKeysCount = value.yellowKeys
 
-                    keysAmount = redKeysCount + greenKeysCount + blueKeysCount + yellowKeysCount
-                    keysAdapter.setKeysAmount(keysAmount)
+                    keys.clear()
+                    for (i in 1..redKeysCount) keys.add("red")
+                    for (i in 1..greenKeysCount) keys.add("green")
+                    for (i in 1..blueKeysCount) keys.add("blue")
+                    for (i in 1..yellowKeysCount) keys.add("yellow")
+                    keysAdapter?.submitList(keys)
 
                     binding.casesScoreTextView.text = value.score.toString()
                 }
@@ -184,25 +176,21 @@ class CasesActivity : AppCompatActivity() {
         })
     }
 
-    private fun takeKey() {
-        if (redKeysCount > 0) {
-            redKeysCount--
-        } else if (greenKeysCount > 0) {
-            greenKeysCount--
-        } else if (blueKeysCount > 0) {
-            blueKeysCount--
-        } else if (yellowKeysCount > 0) {
-            yellowKeysCount--
-        }
-        keysAmount--
-    }
-
     private fun initDragAndDropKeys() {
+        keysAdapter = KeysAdapter {
+            selectedKey = it
+        }
+
         binding.viewpager.setOnDragListener(
             DropListener {
+                keysAdapter?.removeItem(selectedKey)
+                when(selectedKey) {
+                    "red" -> redKeysCount--
+                    "green" -> greenKeysCount--
+                    "yellow" -> yellowKeysCount--
+                    "blue" -> blueKeysCount--
+                }
                 showPrizeDialog()
-                keysAdapter.removeItem(selectedKey)
-                Log.d("LoGGG", "Key dropped" + "amount " + keysAmount)
             }
         )
 

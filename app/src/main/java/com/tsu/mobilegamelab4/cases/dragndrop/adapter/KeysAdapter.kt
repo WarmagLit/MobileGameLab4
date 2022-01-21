@@ -6,45 +6,53 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tsu.mobilegamelab4.R
+import com.tsu.mobilegamelab4.cases.dragndrop.callback.DifferenceCallback
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DragListener
-import com.tsu.mobilegamelab4.cases.inventory.Key
+import com.tsu.mobilegamelab4.game.items.Key
 
 /**
  * A @androidx.recyclerview.widget.RecyclerView adapter to show draggable items
  *
  * @param onDragStarted will provide the current draggable view value. String in this case
  * */
-class KeysAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-  private var keys: MutableList<Key> = mutableListOf()
-
+class KeysAdapter(private val onDragStarted: (String) -> Unit) : ListAdapter<String, KeysAdapter.KeysViewHolder>(
+  DifferenceCallback()
+) {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KeysViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.item_keyholder, parent, false)
     return KeysViewHolder(view)
   }
 
-  override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-    val viewHolder = holder as KeysViewHolder
-    viewHolder.bind()
+  override fun onBindViewHolder(holder: KeysViewHolder, position: Int) {
+    holder.bind(getItem(position))
   }
 
-  @SuppressLint("NotifyDataSetChanged")
-  fun removeItem(selectedKey: Key) {
-    keys.remove(selectedKey)
-    notifyDataSetChanged()
+  fun removeItem(selectedKey: String) {
+    val list = ArrayList(currentList)
+    list.remove(selectedKey)
+    submitList(list)
   }
 
   inner class KeysViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind() = itemView.run {
-
+    val key = itemView.findViewById<ImageView>(R.id.imageViewKey)
+    val holder = itemView.findViewById<ImageView>(R.id.imageViewHolder)
+    fun bind(keyType: String) = itemView.run {
+      when(keyType) {
+        "red" -> key.setImageResource(R.drawable.red_key)
+        "green" -> key.setImageResource(R.drawable.green_key)
+        "yellow" -> key.setImageResource(R.drawable.yellow_key)
+        "blue" -> key.setImageResource(R.drawable.blue_key)
+      }
       setOnLongClickListener { view ->
         // when user is long clicking on a view, drag process will start
-        val data = ClipData.newPlainText("", "")
+        val data = ClipData.newPlainText("", keyType)
         val shadowBuilder = View.DragShadowBuilder(view)
         view.startDragAndDrop(data, shadowBuilder, view, 0)
-        //onDragStarted("")
+        onDragStarted(keyType)
         true
       }
 
@@ -54,16 +62,7 @@ class KeysAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
 
 
   override fun getItemCount(): Int {
-    return keys.size
+    return currentList.size
   }
 
-  @SuppressLint("NotifyDataSetChanged")
-  fun setKeysAmount(count: Int) {
-    keys.clear()
-    for (i in 1..count) {
-      val key = Key()
-      keys.add(key)
-    }
-    notifyDataSetChanged()
-  }
 }

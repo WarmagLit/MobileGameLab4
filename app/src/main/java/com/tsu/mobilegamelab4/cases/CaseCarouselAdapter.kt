@@ -27,7 +27,7 @@ class CasesAdapter(private val context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return 4
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -251,9 +251,9 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
                 it.nickname,
                 it.pass,
                 it.score,
-                it.redKeys,
+                it.redKeys + 1,
                 it.greenKeys,
-                it.blueKeys,
+                it.blueKeys + 1,
                 it.yellowKeys,
                 levelsCompleted
             )
