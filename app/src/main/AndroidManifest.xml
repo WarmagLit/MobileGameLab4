@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".choose_level.ChooseLevelActivity"
+            android:name=".chooselevel.ChooseLevelActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity

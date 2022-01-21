@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.choose_level
+package com.tsu.mobilegamelab4.chooselevel
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.databinding.ActivityChooseLevelBinding
 import com.tsu.mobilegamelab4.game.GameActivity
 import com.tsu.mobilegamelab4.googlemap.GoogleMapActivity
+import com.tsu.mobilegamelab4.menu.MenuActivity
 
 class ChooseLevelActivity : AppCompatActivity() {
 
@@ -30,5 +31,14 @@ class ChooseLevelActivity : AppCompatActivity() {
             val intent = Intent(this, GoogleMapActivity::class.java)
             startActivity(intent)
         }
+
+        binding.chooseLevelBackButton.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onBackPressed() {
+
     }
 }

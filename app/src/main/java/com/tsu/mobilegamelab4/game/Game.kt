@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,7 +25,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.SharedPreference
-import com.tsu.mobilegamelab4.choose_level.ChooseLevelActivity
+import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
 import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
@@ -337,16 +338,14 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         val btnRestart = dialog.findViewById<MaterialButton>(R.id.dialogRestartButton)
         btnRestart.setOnClickListener {
             currentLevel.recycleBitmaps()
-            val intent = Intent(activity, GameActivity::class.java).putExtra("level", 1)
-            activity.startActivity(intent)
-            activity.finish()
-            //activity.restartLevel()
+            activity.restartLevel()
             dialog.dismiss()
         }
         val btnBackToMenu = dialog.findViewById<MaterialButton>(R.id.dialogBackToMenuButton)
         btnBackToMenu.setOnClickListener {
             currentLevel.recycleBitmaps()
             val intent = Intent(activity, MenuActivity::class.java)
+            activity.finish()
             activity.startActivity(intent)
         }
 

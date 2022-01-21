@@ -95,4 +95,8 @@ class GameActivity : AppCompatActivity(),
         sensorManager.unregisterListener(this)
         super.onDestroy()
     }
+
+    override fun onBackPressed() {
+
+    }
 }
