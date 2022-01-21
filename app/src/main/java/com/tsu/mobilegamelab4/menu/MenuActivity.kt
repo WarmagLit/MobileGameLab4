@@ -19,12 +19,16 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
         binding.menuPlayButton.setOnClickListener {
             val intent = Intent(this, ChooseLevelActivity::class.java)
             startActivity(intent)
         }
 
-        binding.menuOpencaseButton.setOnClickListener {
+        binding.menuOpenCaseButton.setOnClickListener {
             val intent = Intent(this, CasesActivity::class.java)
             startActivity(intent)
         }
@@ -39,12 +43,10 @@ class MenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.textView.setOnClickListener {
-
+        binding.menuTitleTextView.setOnClickListener {
             val intent = Intent(this, VideoActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     override fun onBackPressed() {
