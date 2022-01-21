@@ -17,9 +17,17 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.SharedPreference
 import com.tsu.mobilegamelab4.choose_level.ChooseLevelActivity
+import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.game.controls.Joystick
 import com.tsu.mobilegamelab4.game.controls.SwipeStick
 import com.tsu.mobilegamelab4.game.controls.TouchDistributor
@@ -66,7 +74,14 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     var isDeathDialogShowed = false
 
+    // Firebase
+    private val userUid = Firebase.auth.currentUser?.uid.toString()
+    private val myRef = Firebase.database.getReference("users").child(userUid)
+    private lateinit var currentUser: User
+
     init {
+        getDataFromDatabase()
+
         // Metrics for SwipeStick and CenteredGameDisplay
         val displayMetrics = DisplayMetrics()
         (getContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -90,24 +105,13 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
         // Set player
         Utils.setPlayerSkin(context)
-        // player = Player(Point(1000.0, 1000.0), HeroSpriteSheet(context), tilemap.mapLayout, gameObjects)
-
-        // Set enemy
-//        enemy = Masker(
-//            Point(400.0, 300.0),
-//            EnemySpriteSheet(context),
-//            player,
-//            tilemap.mapLayout,
-//            gameObjects
-//        )
-
-        //player.sprite = spriteSheet.playerSpriteArray
         player = currentLevel.initializePlayer(HeroSpriteSheet(context))
 
         //create exit from level
         val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
         steps.levelCompleted = {
             val intent = Intent(activity, ChooseLevelActivity::class.java)
+            sendCollectedKeysAndLevel()
             activity.finish()
             activity.startActivity(intent)
         }
@@ -122,7 +126,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         }
 
         // UseButton
-
         useButton = UseButton(
             player,
             currentLevel.gameObjects.filter { it is IUsable }.map { it as IUsable },
@@ -140,9 +143,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         // Touch Distributor
         touchDistributor = TouchDistributor(joystick, swipeStick, useButton)
 
-        // Set up sensor stuff
-        //sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-
         // Initialize display
         gameDisplay = GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player)
 
@@ -150,11 +150,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     }
 
-    fun attachControlsToPlayer(player: Player) {
-        joystick.player = player
-        swipeStick.player = player
-        gameDisplay.centerObject = player
-    }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         if (gameLoop.state.equals(Thread.State.TERMINATED)) {
@@ -212,13 +207,6 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
     }
 
     override fun update() {
-//        for (obj in gameObjects) {
-//            obj.update()
-//            if (obj.toDestroy) {
-//                gameObjects.remove(obj)
-//                break
-//            }
-//        }
         if (player.toDestroy && !isDeathDialogShowed) {
             showDialog()
             isDeathDialogShowed = true
@@ -242,6 +230,60 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     fun pause() {
         gameLoop.stopLoop()
+    }
+
+    private fun sendCollectedKeysAndLevel() {
+        var levelsCompleted = 0
+        currentUser.let {
+            val myRef = Firebase.database.getReference("users").child(it.uid.toString())
+            val key = myRef.push().key
+            if (key == null) {
+                Log.w("TAG", "Couldn't get push key for posts")
+                return
+            }
+            if (currentLevel.level > currentUser.levelsCompleted) {
+                levelsCompleted += 1
+            } else {
+                levelsCompleted = currentUser.levelsCompleted
+            }
+            val user = User(
+                it.uid,
+                it.nickname,
+                it.pass,
+                it.score,
+                it.redKeys,
+                it.greenKeys,
+                it.blueKeys,
+                it.yellowKeys,
+                levelsCompleted
+            )
+            val postValues = user.toMap()
+
+            val childUpdates = hashMapOf<String, Any>(
+                "/users/${currentUser.uid}" to postValues
+            )
+
+            Firebase.database.reference.updateChildren(childUpdates)
+        }
+    }
+
+    private fun getDataFromDatabase() {
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val value = dataSnapshot.getValue<User>()
+                if (value != null) {
+                    currentUser = value
+                }
+                Log.d("TAG", "Value is: $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
     }
 
     private suspend fun showOpenChestDialog(loot: Keys) {
