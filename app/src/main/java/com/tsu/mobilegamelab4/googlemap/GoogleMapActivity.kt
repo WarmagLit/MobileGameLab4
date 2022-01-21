@@ -5,11 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,9 +21,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tsu.mobilegamelab4.R
+import com.tsu.mobilegamelab4.chooselevel.ChooseLevelViewModel
 import com.tsu.mobilegamelab4.databinding.ActivityGoogleMapBinding
 import com.tsu.mobilegamelab4.game.GameActivity
 import kotlinx.coroutines.delay
@@ -31,10 +31,12 @@ import kotlinx.coroutines.launch
 
 class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private val viewModel by viewModels<GoogleMapViewModel>()
     private lateinit var binding: ActivityGoogleMapBinding
+
     private lateinit var googleMap: GoogleMap
-    private val tsu = LatLng(56.469483, 84.948689)
-    private val areaRadius = 1400.0
+//    private val tsu = LatLng(56.469483, 84.948689)
+//    private val areaRadius = 1400.0
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -58,24 +60,29 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setOnClickListener() {
         binding.bonusButton.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
-            intent.putExtra("level", 1)
+            intent.putExtra(ChooseLevelViewModel.LEVEL_KEY, 1)
             startActivity(intent)
         }
     }
 
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
-        p0.addMarker(
+        googleMap.addMarker(
             MarkerOptions()
-                .position(tsu)
-                .title("Marker in TSU")
+                .position(GoogleMapViewModel.TSU_LAT_LNG)
+                .title(resources.getString(R.string.marker_is_tsu))
         )
-        p0.moveCamera(CameraUpdateFactory.newLatLng(tsu))
-        p0.animateCamera(CameraUpdateFactory.newLatLngZoom(tsu, 17f))
-        p0.addCircle(
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(GoogleMapViewModel.TSU_LAT_LNG))
+        googleMap.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                GoogleMapViewModel.TSU_LAT_LNG,
+                GoogleMapViewModel.ZOOM
+            )
+        )
+        googleMap.addCircle(
             CircleOptions()
-                .center(tsu)
-                .radius(areaRadius)
+                .center(GoogleMapViewModel.TSU_LAT_LNG)
+                .radius(GoogleMapViewModel.AREA_RADIUS)
                 .strokeColor(Color.RED)
                 .fillColor(ContextCompat.getColor(this, R.color.colorRedTranslucent))
         )
@@ -84,7 +91,7 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         lifecycleScope.launch {
             while (true) {
-                delay(3000)
+                delay(GoogleMapViewModel.LOCATION_CHECK_INTERVAL)
                 if (!(ActivityCompat.checkSelfPermission(
                         this@GoogleMapActivity,
                         Manifest.permission.ACCESS_FINE_LOCATION
@@ -97,17 +104,17 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     fusedLocationClient.lastLocation
                         .addOnSuccessListener { location: Location? ->
                             location?.let {
-                                if (it.distanceTo(Location(LocationManager.GPS_PROVIDER).apply {
-                                        latitude = tsu.latitude
-                                        longitude = tsu.longitude
-                                    }) <= areaRadius
-                                ) {
-                                    binding.bonusButton.visibility = View.VISIBLE
-                                    binding.bonusButton.isEnabled = true
-                                } else {
-                                    binding.bonusButton.visibility = View.GONE
-                                    binding.bonusButton.isEnabled = false
-                                }
+                                viewModel.isUserInArea(
+                                    it,
+                                    onSuccess = {
+                                        binding.bonusButton.visibility = View.VISIBLE
+                                        binding.bonusButton.isEnabled = true
+                                    },
+                                    onFailure = {
+                                        binding.bonusButton.visibility = View.GONE
+                                        binding.bonusButton.isEnabled = false
+                                    }
+                                )
                             }
                         }
                 }

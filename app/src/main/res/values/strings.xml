@@ -40,4 +40,6 @@
     <string name="authentication_failed">Authentication failed.</string>
     <string name="authorized">Authorized</string>
     <string name="user_is_not_authorized">User is not authorized</string>
+    <string name="get_into_the_selected_area">Get into the selected area..</string>
+    <string name="marker_is_tsu">Marker in TSU</string>
 </resources>
