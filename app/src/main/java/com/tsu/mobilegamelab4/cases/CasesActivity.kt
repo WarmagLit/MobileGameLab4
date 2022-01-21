@@ -20,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
+import com.tsu.mobilegamelab4.cases.inventory.Key
 import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
 import kotlin.math.abs
@@ -30,6 +31,7 @@ class CasesActivity : AppCompatActivity() {
 
     var myViewPager2: ViewPager2? = null
     var casesAdapter: CasesAdapter? = null
+    val keysAdapter = KeysAdapter(this)
 
     // values of the draggable views (usually this should come from a data source)
     private val keys = mutableListOf(
@@ -45,7 +47,7 @@ class CasesActivity : AppCompatActivity() {
     private var keysAmount = 0
 
     // last selected word
-    private var selectedWord = ""
+    private var selectedKey: Key = Key()
 
     private var currentScore = 0
     private var redKeysCount = 0
@@ -166,6 +168,10 @@ class CasesActivity : AppCompatActivity() {
                     greenKeysCount = value.greenKeys
                     blueKeysCount = value.blueKeys
                     yellowKeysCount = value.yellowKeys
+
+                    keysAmount = redKeysCount + greenKeysCount + blueKeysCount + yellowKeysCount
+                    keysAdapter.setKeysAmount(keysAmount)
+
                     binding.casesScoreTextView.text = value.score.toString()
                 }
                 //Log.d("TAG", "Value is: $value")
@@ -192,18 +198,11 @@ class CasesActivity : AppCompatActivity() {
     }
 
     private fun initDragAndDropKeys() {
-        val keysAdapter = KeysAdapter {
-            selectedWord = it
-        }.apply {
-            submitList(keys)
-        }
-
-
         binding.viewpager.setOnDragListener(
             DropListener {
-                keysAdapter.removeItem(selectedWord)
                 showPrizeDialog()
-                Log.d("LoGGG", "Key dropped")
+                keysAdapter.removeItem(selectedKey)
+                Log.d("LoGGG", "Key dropped" + "amount " + keysAmount)
             }
         )
 
