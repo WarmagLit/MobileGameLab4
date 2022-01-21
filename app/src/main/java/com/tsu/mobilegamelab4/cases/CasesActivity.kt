@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.TextView
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.*
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,8 @@ class CasesActivity : AppCompatActivity() {
 
     // values of the draggable views (usually this should come from a data source)
     private val keys: MutableList<String> = mutableListOf()
+
+    private val cases: MutableList<String> = mutableListOf("red", "green", "blue", "yellow")
 
     // last selected word
     private var selectedKey: String = "red"
@@ -69,7 +72,9 @@ class CasesActivity : AppCompatActivity() {
 
         myViewPager2 = binding.viewpager
 
-        casesAdapter = CasesAdapter(this)
+        casesAdapter = CasesAdapter(this).apply {
+            submitList(cases)
+        }
         binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.viewpager.adapter = casesAdapter
         binding.viewpager.offscreenPageLimit = 5
@@ -183,14 +188,19 @@ class CasesActivity : AppCompatActivity() {
 
         binding.viewpager.setOnDragListener(
             DropListener {
-                keysAdapter?.removeItem(selectedKey)
-                when(selectedKey) {
-                    "red" -> redKeysCount--
-                    "green" -> greenKeysCount--
-                    "yellow" -> yellowKeysCount--
-                    "blue" -> blueKeysCount--
+                if (cases[binding.viewpager.currentItem] == selectedKey) {
+                    keysAdapter?.removeItem(selectedKey)
+                    when (selectedKey) {
+                        "red" -> redKeysCount--
+                        "green" -> greenKeysCount--
+                        "yellow" -> yellowKeysCount--
+                        "blue" -> blueKeysCount--
+                    }
+                    showPrizeDialog()
+                } else {
+                    Toast.makeText(this, "Сase and key in different colors!", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                showPrizeDialog()
             }
         )
 
