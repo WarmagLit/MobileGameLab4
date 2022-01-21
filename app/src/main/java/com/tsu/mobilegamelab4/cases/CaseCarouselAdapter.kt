@@ -38,7 +38,6 @@ class CasesAdapter(private val context: Context) : ListAdapter<String, CasesAdap
         var imgBanner: ImageView
 
         init {
-            //tvName = itemView.findViewById(R.id.tvName)
             imgBanner = itemView.findViewById(R.id.imgBanner)
         }
         fun bind(caseType: String) = itemView.run {

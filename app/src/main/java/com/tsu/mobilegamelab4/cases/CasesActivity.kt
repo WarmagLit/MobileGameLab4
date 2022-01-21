@@ -3,6 +3,8 @@ package com.tsu.mobilegamelab4.cases
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.AudioManager
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -53,10 +55,20 @@ class CasesActivity : AppCompatActivity() {
     private lateinit var myRef: DatabaseReference
     lateinit var currentUser: User
 
+    // Audio
+    private var soundPool: SoundPool? = null
+    private val soundOpenId = 1
+    private val soundChangeCasenId = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCasesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Load audio
+        soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
+        soundPool!!.load(baseContext, R.raw.open_case_sound, 1)
+        soundPool!!.load(baseContext, R.raw.case_change_sound, 2)
 
         // Initialize Firebase Auth
         auth = Firebase.auth
@@ -97,7 +109,12 @@ class CasesActivity : AppCompatActivity() {
                 page.translationX = myOffset
             }
         })
-
+        binding.viewpager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                playSound2()
+            }
+        })
     }
 
     private fun sendNewScore() {
@@ -181,6 +198,16 @@ class CasesActivity : AppCompatActivity() {
         })
     }
 
+    private fun playSound() {
+        soundPool?.play(soundOpenId, 1F, 1F, 0, 0, 1F)
+        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun playSound2() {
+        soundPool?.play(soundChangeCasenId, 1F, 1F, 0, 0, 1F)
+        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+    }
+
     private fun initDragAndDropKeys() {
         keysAdapter = KeysAdapter {
             selectedKey = it
@@ -197,6 +224,7 @@ class CasesActivity : AppCompatActivity() {
                         "blue" -> blueKeysCount--
                     }
                     showPrizeDialog()
+                    playSound()
                 } else {
                     Toast.makeText(this, "Сase and key in different colors!", Toast.LENGTH_SHORT)
                         .show()
