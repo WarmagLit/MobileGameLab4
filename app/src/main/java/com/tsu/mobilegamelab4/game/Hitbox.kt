@@ -8,15 +8,19 @@ import android.graphics.Rect.intersects
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.interfaces.IDrawable
 
-class Hitbox(val gameObject: GameObject, private var width: Int, private var height: Int) : IDrawable {
+class Hitbox(val gameObject: GameObject, private var width: Int, private var height: Int) :
+    IDrawable {
 
-    var offset = android.graphics.Point(0,0)
+    var offset = android.graphics.Point(0, 0)
+    private var disabledWidth = 0
+    private var disabledHeight = 0
+    var isObstacle = true
 
     var rect = Rect(
         gameObject.pos.X.toInt() + offset.x,
         gameObject.pos.Y.toInt() + offset.y,
         gameObject.pos.X.toInt() + width + offset.x,
-        gameObject.pos.Y.toInt() + height+ offset.y
+        gameObject.pos.Y.toInt() + height + offset.y
     )
 
     var rectPaint = Paint()
@@ -30,15 +34,15 @@ class Hitbox(val gameObject: GameObject, private var width: Int, private var hei
         canvas.drawRect(rect, rectPaint)
     }
 
-    fun updateCoordinatesWithCentering(p:Point) {
+    fun updateCoordinatesWithCentering(p: Point) {
         rect.left = p.X.toInt() + offset.x - width / 2
         rect.top = p.Y.toInt() + offset.y - height / 2
         rect.right = p.X.toInt() + offset.x + width / 2
         rect.bottom = p.Y.toInt() + offset.y + height / 2
     }
 
-    fun updateCoordinates(p:Point) {
-        rect.left = p.X.toInt()+ offset.x
+    fun updateCoordinates(p: Point) {
+        rect.left = p.X.toInt() + offset.x
         rect.top = p.Y.toInt() + offset.y
         rect.right = p.X.toInt() + offset.x + width
         rect.bottom = p.Y.toInt() + offset.y + height
@@ -53,8 +57,15 @@ class Hitbox(val gameObject: GameObject, private var width: Int, private var hei
     }
 
     fun disable() {
+        disabledWidth = width
+        disabledHeight = height
         width = 0
         height = 0
+    }
+
+    fun enable() {
+        width = disabledWidth
+        height = disabledHeight
     }
 
     fun isDisabled() = width == 0 && height == 0

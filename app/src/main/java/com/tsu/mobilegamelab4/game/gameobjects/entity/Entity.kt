@@ -2,7 +2,9 @@ package com.tsu.mobilegamelab4.game.gameobjects.entity
 
 import android.graphics.Paint
 import android.graphics.Rect
-import com.tsu.mobilegamelab4.game.*
+import com.tsu.mobilegamelab4.game.GameLoop
+import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.Vector
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
@@ -31,14 +33,14 @@ abstract class Entity(
 
     fun collideCheck(): Rect? {
         for (obj in gameObjects) {
-            if (obj != this && obj.hitbox.isCollide(hitbox))
+            if (obj != this && obj.hitbox.isObstacle && obj.hitbox.isCollide(hitbox))
                 return obj.hitbox.rect
         }
         return null
     }
 
     fun die() {
-        hitbox.rect = Rect(0,0,0,0)
+        hitbox.rect = Rect(0, 0, 0, 0)
         toDestroy = true
     }
 }

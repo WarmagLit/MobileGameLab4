@@ -1,23 +1,15 @@
 package com.tsu.mobilegamelab4.game.level
 
 import android.graphics.Canvas
-import android.util.DisplayMetrics
 import com.tsu.mobilegamelab4.game.GameDisplay
 import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.gameobjects.Column
-import com.tsu.mobilegamelab4.game.gameobjects.Crate
-import com.tsu.mobilegamelab4.game.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.gameobjects.*
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Boss.Boss
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Landmine.Landmine
-import com.tsu.mobilegamelab4.game.gameobjects.*
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.Masker
 import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Wizard.Wizard
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
-import com.tsu.mobilegamelab4.game.graphics.BossSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.KeySpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.*
 import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
@@ -90,6 +82,13 @@ class FirstLevel(
                         28.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         2.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
                 )
             )
         )
@@ -107,6 +106,7 @@ class FirstLevel(
         )
         gameObjects.add(player)
         addEnemies(player)
+        gameObjects.filterIsInstance<Spikes>().forEach { it.player = player }
         return player
     }
 
@@ -180,7 +180,8 @@ class FirstLevel(
             var xOffset = 200
             for (key in player.keys) {
                 val keySprite = keySpriteSheet.getSpriteByRect(key.keyRect)
-                keySprite.size = android.graphics.Point(key.keyRect.width()*4, key.keyRect.height()*4)
+                keySprite.size =
+                    android.graphics.Point(key.keyRect.width() * 4, key.keyRect.height() * 4)
                 keySprite.draw(canvas, display.widthPixels - xOffset, 50)
                 xOffset += 150
             }
