@@ -25,13 +25,13 @@ class FirstLocationSpriteSheet(context: Context) : SpriteSheet(context) {
         lowerLevelBitmap =
             BitmapFactory.decodeResource(
                 context.resources,
-                R.drawable.first_lock_lower,
+                R.drawable.first_level_lower,
                 bitmapOptions
             )
         upperLevelBitmap =
             BitmapFactory.decodeResource(
                 context.resources,
-                R.drawable.first_lock_upper,
+                R.drawable.first_level_upper,
                 bitmapOptions
             )
     }

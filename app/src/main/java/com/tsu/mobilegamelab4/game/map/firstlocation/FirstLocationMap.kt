@@ -11,7 +11,7 @@ class FirstLocationMap(spriteSheet: FirstLocationSpriteSheet) : IDrawable {
     companion object {
         const val CELL_WIDTH_PIXELS = 200
         const val CELL_HEIGHT_PIXELS = 200
-        const val NUMBER_OF_ROW_CELLS = 40
+        const val NUMBER_OF_ROW_CELLS = 42
         const val NUMBER_OF_COLUMN_CELLS = 49
     }
 
