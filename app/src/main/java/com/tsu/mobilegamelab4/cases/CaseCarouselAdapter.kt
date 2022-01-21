@@ -1,18 +1,16 @@
 package com.tsu.mobilegamelab4.cases
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.inventory.Case
 
-class MyAdapter(private val context: Context) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class CasesAdapter(private val context: Context) :
+    RecyclerView.Adapter<CasesAdapter.MyViewHolder>() {
 
     var cases_list = ArrayList<Case>()
 
