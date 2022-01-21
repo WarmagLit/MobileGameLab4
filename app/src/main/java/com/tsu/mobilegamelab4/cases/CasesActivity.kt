@@ -5,88 +5,65 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
 import android.media.SoundPool
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DropListener
-import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.databinding.ActivityCasesBinding
-import com.tsu.mobilegamelab4.game.items.Key
 import kotlin.math.abs
 
 class CasesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCasesBinding
+    private val viewModel by viewModels<CasesViewModel>()
 
-    var myViewPager2: ViewPager2? = null
-    var casesAdapter: CasesAdapter? = null
-    var keysAdapter: KeysAdapter? = null
-
-    // values of the draggable views (usually this should come from a data source)
-    private val keys: MutableList<String> = mutableListOf()
-
-    private val cases: MutableList<String> = mutableListOf("red", "green", "blue", "yellow")
-
-    // last selected word
-    private var selectedKey: String = "red"
-
-    private var currentScore = 0
-    private var redKeysCount = 0
-    private var greenKeysCount = 0
-    private var blueKeysCount = 0
-    private var yellowKeysCount = 0
-
-    private lateinit var auth: FirebaseAuth
-    private val database = Firebase.database
-    private lateinit var myRef: DatabaseReference
-    lateinit var currentUser: User
+    private var myViewPager2: ViewPager2? = null
+    private var casesAdapter: CasesAdapter? = null
+    private var keysAdapter: KeysAdapter? = null
 
     // Audio
     private var soundPool: SoundPool? = null
-    private val soundOpenId = 1
-    private val soundChangeCasenId = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCasesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loadAudio()
+        initDragAndDropKeys()
+        setOnClickListener()
+        configureViewPager()
+        setObservers()
+    }
+
+    private fun loadAudio() {
         // Load audio
         soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
-        soundPool!!.load(baseContext, R.raw.open_case_sound, 1)
-        soundPool!!.load(baseContext, R.raw.case_change_sound, 2)
+        soundPool?.load(baseContext, R.raw.open_case_sound, 1)
+        soundPool?.load(baseContext, R.raw.case_change_sound, 2)
+    }
 
-        // Initialize Firebase Auth
-        auth = Firebase.auth
-        val userUid = auth.currentUser?.uid.toString()
-        myRef = database.getReference("users").child(userUid)
-
-        getDataFromDatabase()
-        initDragAndDropKeys()
-
+    private fun setOnClickListener() {
         binding.casesGoBackButton.setOnClickListener {
             finish()
         }
+    }
 
+    private fun configureViewPager() {
         myViewPager2 = binding.viewpager
 
         casesAdapter = CasesAdapter(this).apply {
-            submitList(cases)
+            submitList(viewModel.cases)
         }
+
         binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.viewpager.adapter = casesAdapter
         binding.viewpager.offscreenPageLimit = 5
@@ -94,54 +71,31 @@ class CasesActivity : AppCompatActivity() {
         val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
         val pageOffset = resources.getDimensionPixelOffset(R.dimen.offset).toFloat()
 
-        binding.viewpager.setPageTransformer(ViewPager2.PageTransformer { page: View, position: Float ->
+        binding.viewpager.setPageTransformer { page: View, position: Float ->
             val myOffset = position * -(2 * pageOffset + pageMargin)
-            if (position < -1) {
-                page.translationX = -myOffset
-            } else if (position <= 1) {
-                val scaleFactor =
-                    0.7f.coerceAtLeast(1 - abs(position))
-                page.translationX = myOffset
-                page.scaleY = scaleFactor
-                page.alpha = scaleFactor
-            } else {
-                page.alpha = 0.5f
-                page.translationX = myOffset
+            when {
+                position < -1 -> {
+                    page.translationX = -myOffset
+                }
+                position <= 1 -> {
+                    val scaleFactor =
+                        0.7f.coerceAtLeast(1 - abs(position))
+                    page.translationX = myOffset
+                    page.scaleY = scaleFactor
+                    page.alpha = scaleFactor
+                }
+                else -> {
+                    page.alpha = 0.5f
+                    page.translationX = myOffset
+                }
             }
-        })
-        binding.viewpager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+        }
+        binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 playSound2()
             }
         })
-    }
-
-    private fun sendNewScore() {
-
-        val key = myRef.push().key
-        if (key == null) {
-            Log.w("TAG", "Couldn't get push key for posts")
-            return
-        }
-        val user = User(
-            currentUser.uid,
-            currentUser.nickname,
-            currentUser.pass,
-            currentScore,
-            redKeysCount,
-            greenKeysCount,
-            blueKeysCount,
-            yellowKeysCount,
-            currentUser.levelsCompleted
-        )
-        val postValues = user.toMap()
-
-        val childUpdates = hashMapOf<String, Any>(
-            "/users/${currentUser.uid}" to postValues
-        )
-
-        database.reference.updateChildren(childUpdates)
     }
 
     private fun showPrizeDialog() {
@@ -157,76 +111,46 @@ class CasesActivity : AppCompatActivity() {
 
         val textAmount = dialog.findViewById<TextView>(R.id.dialogAmounttextView)
         val rnds = (100..1000).random()
-        currentScore += rnds
-        sendNewScore()
+        viewModel.increaseScore(rnds)
         textAmount.text = rnds.toString()
 
         dialog.show()
     }
 
-    private fun getDataFromDatabase() {
-        // Read from the database
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = dataSnapshot.getValue<User>()
-                if (value != null) {
-                    currentUser = value
-                    currentScore = value.score
-                    redKeysCount = value.redKeys
-                    greenKeysCount = value.greenKeys
-                    blueKeysCount = value.blueKeys
-                    yellowKeysCount = value.yellowKeys
+    private fun setObservers() {
+        viewModel.keys.observe(this) { list ->
+            keysAdapter?.submitList(list)
+        }
 
-                    keys.clear()
-                    for (i in 1..redKeysCount) keys.add("red")
-                    for (i in 1..greenKeysCount) keys.add("green")
-                    for (i in 1..blueKeysCount) keys.add("blue")
-                    for (i in 1..yellowKeysCount) keys.add("yellow")
-                    keysAdapter?.submitList(keys)
-
-                    binding.casesScoreTextView.text = value.score.toString()
-                }
-                //Log.d("TAG", "Value is: $value")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                //Log.w("TAG", "Failed to read value.", error.toException())
-            }
-        })
+        viewModel.score.observe(this) {
+            binding.casesScoreTextView.text = it.toString()
+        }
     }
 
     private fun playSound() {
-        soundPool?.play(soundOpenId, 1F, 1F, 0, 0, 1F)
-        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+        soundPool?.play(CasesViewModel.SOUND_OPEN_ID, 1F, 1F, 0, 0, 1F)
     }
 
     private fun playSound2() {
-        soundPool?.play(soundChangeCasenId, 1F, 1F, 0, 0, 1F)
-        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+        soundPool?.play(CasesViewModel.SOUND_CHANGE_CASES_ID, 1F, 1F, 0, 0, 1F)
     }
 
     private fun initDragAndDropKeys() {
+        // last selected word
+        var selectedKey = ""
+
         keysAdapter = KeysAdapter {
             selectedKey = it
         }
 
         binding.viewpager.setOnDragListener(
             DropListener {
-                if (cases[binding.viewpager.currentItem] == selectedKey) {
-                    keysAdapter?.removeItem(selectedKey)
-                    when (selectedKey) {
-                        "red" -> redKeysCount--
-                        "green" -> greenKeysCount--
-                        "yellow" -> yellowKeysCount--
-                        "blue" -> blueKeysCount--
-                    }
+                if (viewModel.cases[binding.viewpager.currentItem] == selectedKey) {
+                    viewModel.reduceKeyCount(selectedKey)
                     showPrizeDialog()
                     playSound()
                 } else {
-                    Toast.makeText(this, "Сase and key in different colors!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, R.string.case_key_different_colors, Toast.LENGTH_SHORT)
                         .show()
                 }
             }

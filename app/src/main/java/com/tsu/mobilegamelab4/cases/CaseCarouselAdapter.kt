@@ -1,6 +1,5 @@
 package com.tsu.mobilegamelab4.cases
 
-import android.content.ClipData
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tsu.mobilegamelab4.R
-import com.tsu.mobilegamelab4.cases.dragndrop.adapter.KeysAdapter
 import com.tsu.mobilegamelab4.cases.dragndrop.callback.DifferenceCallback
-import com.tsu.mobilegamelab4.cases.dragndrop.callback.DragListener
-import com.tsu.mobilegamelab4.cases.inventory.Case
 
 class CasesAdapter(private val context: Context) : ListAdapter<String, CasesAdapter.MyViewHolder>(
     DifferenceCallback()
@@ -35,17 +31,14 @@ class CasesAdapter(private val context: Context) : ListAdapter<String, CasesAdap
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imgBanner: ImageView
+        var imgBanner: ImageView = itemView.findViewById(R.id.imgBanner)
 
-        init {
-            imgBanner = itemView.findViewById(R.id.imgBanner)
-        }
         fun bind(caseType: String) = itemView.run {
             when(caseType) {
-                "red" -> imgBanner.setImageResource(R.drawable.ic_chest_red)
-                "green" -> imgBanner.setImageResource(R.drawable.ic_chest_green)
-                "yellow" -> imgBanner.setImageResource(R.drawable.ic_chest)
-                "blue" -> imgBanner.setImageResource(R.drawable.ic_chest_blue)
+                CasesViewModel.RED -> imgBanner.setImageResource(R.drawable.ic_chest_red)
+                CasesViewModel.GREEN -> imgBanner.setImageResource(R.drawable.ic_chest_green)
+                CasesViewModel.YELLOW -> imgBanner.setImageResource(R.drawable.ic_chest)
+                CasesViewModel.BLUE -> imgBanner.setImageResource(R.drawable.ic_chest_blue)
             }
 
         }

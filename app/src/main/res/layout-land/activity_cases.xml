@@ -10,14 +10,15 @@
 
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/casesCoinImageView"
         android:layout_width="40dp"
         android:layout_height="45dp"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/coin"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/casesScoreTextView"
@@ -28,8 +29,8 @@
         android:layout_marginTop="40dp"
         android:text="@string/_0"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/casesCoinImageView"
+        app:layout_constraintStart_toEndOf="@+id/casesCoinImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
