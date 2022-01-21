@@ -28,5 +28,8 @@ class VideoActivity : AppCompatActivity() {
         binding.videoView.setVideoURI(offlineUri)
         binding.videoView.requestFocus()
         binding.videoView.start()
+        binding.videoView.setOnCompletionListener {
+            finish()
+        }
     }
 }
