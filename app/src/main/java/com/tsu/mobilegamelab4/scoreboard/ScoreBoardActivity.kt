@@ -1,9 +1,10 @@
 package com.tsu.mobilegamelab4.scoreboard
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -13,7 +14,6 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.databinding.ActivityScoreBoardBinding
-import com.tsu.mobilegamelab4.databinding.ActivitySignUpBinding
 
 class ScoreBoardActivity : AppCompatActivity() {
 
@@ -82,6 +82,10 @@ class ScoreBoardActivity : AppCompatActivity() {
             binding.scoreBoardFifth.text = "5. ${sortedList[4].nickname}  ${sortedList[4].score}"
         }
 
+        val userUid = Firebase.auth.currentUser?.uid.toString()
+        val userIndex = sortedList.indexOfFirst { it.uid == userUid }
+        binding.scoreBoardPlayer.text =
+            "${userIndex + 1}. ${sortedList[userIndex].nickname} ${sortedList[userIndex].score}"
 
     }
 }
