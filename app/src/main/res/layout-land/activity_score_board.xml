@@ -24,63 +24,63 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/scoreBoardFirst"
+        android:id="@+id/scoreboardFirstPlayerTextView"
         style="@style/TextSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="@string/_0"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/scoreBoardSecond"
+        app:layout_constraintBottom_toTopOf="@+id/scoreboardSecondPlayerTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scoreboardTitleTextView" />
 
     <TextView
-        android:id="@+id/scoreBoardSecond"
+        android:id="@+id/scoreboardSecondPlayerTextView"
         style="@style/TextSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="@string/_0"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/scoreBoardThird"
+        app:layout_constraintBottom_toTopOf="@+id/scoreboardThirdPlayerTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreBoardFirst" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreboardFirstPlayerTextView" />
 
     <TextView
-        android:id="@+id/scoreBoardThird"
+        android:id="@+id/scoreboardThirdPlayerTextView"
         style="@style/TextSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="@string/_0"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/scoreBoardFourth"
+        app:layout_constraintBottom_toTopOf="@+id/scoreboardFourthPlayerTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreBoardSecond" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreboardSecondPlayerTextView" />
 
     <TextView
-        android:id="@+id/scoreBoardFourth"
+        android:id="@+id/scoreboardFourthPlayerTextView"
         style="@style/TextSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="@string/_0"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/scoreBoardFifth"
+        app:layout_constraintBottom_toTopOf="@+id/scoreboardFifthPlayerTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreBoardThird" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreboardThirdPlayerTextView" />
 
     <TextView
-        android:id="@+id/scoreBoardFifth"
+        android:id="@+id/scoreboardFifthPlayerTextView"
         style="@style/TextSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,20 +92,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreBoardFourth" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreboardFourthPlayerTextView" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="16dp"
         app:dividerColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/scoreBoardUser"
-        app:layout_constraintTop_toBottomOf="@id/scoreBoardFifth"
+        app:layout_constraintBottom_toTopOf="@id/scoreboardCurrentUserTextView"
+        app:layout_constraintTop_toBottomOf="@id/scoreboardFifthPlayerTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/scoreBoardUser"
+        android:id="@+id/scoreboardCurrentUserTextView"
         style="@style/TextSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
