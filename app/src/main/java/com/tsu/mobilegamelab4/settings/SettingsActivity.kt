@@ -2,6 +2,7 @@ package com.tsu.mobilegamelab4.settings
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -13,9 +14,9 @@ import com.tsu.mobilegamelab4.databinding.ActivitySettingsBinding
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
+    private val viewModel by viewModels<SettingsViewModel>()
 
     private var isJoystick = true
-
     private var showPerformance = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,8 @@ class SettingsActivity : AppCompatActivity() {
 
         isJoystick = sharedPreferences.getValueBoolean("control", true)
         showPerformance = sharedPreferences.getValueBoolean("performance", false)
+
+        setObservers()
 
         checkControls()
 
@@ -58,6 +61,10 @@ class SettingsActivity : AppCompatActivity() {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
+
+    }
+
+    private fun setObservers() {
 
     }
 

@@ -64,7 +64,7 @@ class ScoreBoardViewModel : ViewModel() {
             _scoreBoardFourth.value = "4. ${sortedList[3].nickname}  ${sortedList[3].score}"
         }
         if (sortedList.size > 4) {
-            _scoreBoardFirst.value = "5. ${sortedList[4].nickname}  ${sortedList[4].score}"
+            _scoreBoardFifth.value = "5. ${sortedList[4].nickname}  ${sortedList[4].score}"
         }
 
         val userUid = repository.getCurrentUserId()

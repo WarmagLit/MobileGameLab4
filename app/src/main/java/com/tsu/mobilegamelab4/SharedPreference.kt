@@ -5,8 +5,12 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SharedPreference(val context: Context) {
-    private val PREFS_NAME = "kotlincodes"
-    val sharedPref: SharedPreferences =
+    companion object {
+        private const val PREFS_NAME = "kotlincodes"
+        const val CONTROLS_KEY = "control"
+        const val PERFORMANCE_KEY = "performance"
+    }
+    private val sharedPref: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     @SuppressLint("CommitPrefEdits")

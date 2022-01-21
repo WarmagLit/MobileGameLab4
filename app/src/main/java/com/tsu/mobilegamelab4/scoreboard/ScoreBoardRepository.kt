@@ -12,7 +12,6 @@ import com.tsu.mobilegamelab4.database.User
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 class ScoreBoardRepository {
 
@@ -33,10 +32,10 @@ class ScoreBoardRepository {
     }
 
     private fun getUserListFromDatabase() {
-        val localUserList: MutableList<User> = mutableListOf()
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val localUserList: MutableList<User> = mutableListOf()
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (ds in dataSnapshot.children) {
