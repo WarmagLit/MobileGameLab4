@@ -3,7 +3,6 @@ package com.tsu.mobilegamelab4.game.gameobjects.entity.player
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.util.Log
 import com.tsu.mobilegamelab4.game.*
 import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
 import com.tsu.mobilegamelab4.game.gameobjects.GameObject
@@ -110,10 +109,12 @@ class Player(
 
         val objRect = collideCheck()
         objRect?.let {
-            val pushVector = Utils.normalizeVector(Vector(
-                ((hitbox.rect.centerX() - it.centerX())).toDouble(),
-                ((hitbox.rect.centerY() - it.centerY())).toDouble()
-            ))
+            val pushVector = Utils.normalizeVector(
+                Vector(
+                    (hitbox.rect.centerX() - it.centerX()).toDouble(),
+                    (hitbox.rect.centerY() - it.centerY()).toDouble()
+                )
+            )
             pos.X += pushVector.X - velocity.X
             pos.Y += pushVector.Y - velocity.Y
         }

@@ -66,7 +66,7 @@ class ScoreBoardActivity : AppCompatActivity() {
             it.score
         }
 
-        if (sortedList.size > 0) {
+        if (sortedList.isNotEmpty()) {
             binding.scoreBoardFirst.text = "1. ${sortedList[0].nickname} ${sortedList[0].score}"
         }
         if (sortedList.size > 1) {
