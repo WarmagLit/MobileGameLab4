@@ -61,7 +61,7 @@
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".game.GameActivity"
+            android:name="com.tsu.mobilegamelab4.game.GameActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
