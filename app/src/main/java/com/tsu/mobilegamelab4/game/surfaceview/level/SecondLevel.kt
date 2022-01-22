@@ -4,6 +4,9 @@ import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
 import com.tsu.mobilegamelab4.game.surfaceview.Point
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.*
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.enemy.Landmine.Landmine
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.enemy.Masker.Masker
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.enemy.Wizard.Wizard
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.*
 import com.tsu.mobilegamelab4.game.surfaceview.items.Keys
@@ -489,7 +492,130 @@ class SecondLevel(
     }
 
     private fun addEnemies(player: Player) {
-        //gameObjects.addAll()
+        gameObjects.addAll(
+            arrayOf(
+                Masker(
+                    Point(
+                        16.3 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        20.4 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        25.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.1 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Masker(
+                    Point(
+                        16.3 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        35.4 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        25.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        32.1 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Landmine(
+                    Point(
+                        44.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Landmine(
+                    Point(
+                        43.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Landmine(
+                    Point(
+                        44.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        43.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        10.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.6 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        12.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        37.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Landmine(
+                    Point(
+                        10.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        51.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        36.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        42.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        2.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                )
+            )
+        )
     }
 
     override fun draw(canvas: Canvas, display: GameDisplay?) {
