@@ -1,23 +1,23 @@
-package com.tsu.mobilegamelab4.game.map.thirdlocation
+package com.tsu.mobilegamelab4.game.map.bonuslocation
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.graphics.SecondLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.BonusLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.ThirdLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IDrawable
-import com.tsu.mobilegamelab4.game.map.secondlocation.SecondLocationCollisionLayout
+import com.tsu.mobilegamelab4.game.map.thirdlocation.ThirdLocationCollisionLayout
 
-class ThirdLocationMap(spriteSheet: ThirdLocationSpriteSheet) : IDrawable {
+class BonusLocationMap(spriteSheet: BonusLocationSpriteSheet) : IDrawable {
 
     companion object {
-        const val CELL_WIDTH_PIXELS = 200
-        const val CELL_HEIGHT_PIXELS = 200
-        const val NUMBER_OF_ROW_CELLS = 46
-        const val NUMBER_OF_COLUMN_CELLS = 59
+        const val CELL_WIDTH_PIXELS = 80
+        const val CELL_HEIGHT_PIXELS = 80
+        const val NUMBER_OF_ROW_CELLS = 130
+        const val NUMBER_OF_COLUMN_CELLS = 105
     }
 
-    val collisionLayout = ThirdLocationCollisionLayout()
+    val collisionLayout = BonusLocationCollisionLayout()
     private val lowerLevel: Bitmap = Bitmap.createScaledBitmap(
         spriteSheet.lowerLevelBitmap,
         NUMBER_OF_COLUMN_CELLS * CELL_WIDTH_PIXELS,

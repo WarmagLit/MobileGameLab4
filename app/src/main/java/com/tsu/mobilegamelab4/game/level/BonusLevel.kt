@@ -8,19 +8,19 @@ import com.tsu.mobilegamelab4.game.gameobjects.Spikes
 import com.tsu.mobilegamelab4.game.gameobjects.Steps
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.*
+import com.tsu.mobilegamelab4.game.map.bonuslocation.BonusLocationMap
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
-import com.tsu.mobilegamelab4.game.map.secondlocation.SecondLocationMap
 import com.tsu.mobilegamelab4.game.map.thirdlocation.ThirdLocationMap
 
-class ThirdLevel(
+class BonusLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
     private val bossSpriteSheet: BossSpriteSheet,
-    private val locationSpriteSheet: ThirdLocationSpriteSheet,
+    private val locationSpriteSheet: BonusLocationSpriteSheet,
     private val keySpriteSheet: KeySpriteSheet
 ) :
     Level(enemySpriteSheet, keySpriteSheet) {
 
-    private val map = ThirdLocationMap(locationSpriteSheet)
+    private val map = BonusLocationMap(locationSpriteSheet)
     private lateinit var player: Player
 
     init {
