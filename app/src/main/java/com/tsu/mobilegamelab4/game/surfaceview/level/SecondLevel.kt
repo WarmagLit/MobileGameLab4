@@ -195,6 +195,16 @@ class SecondLevel(
                     player,
                     map.collisionLayout,
                     gameObjects
+                ),
+                Wizard(
+                    Point(
+                        2.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
                 )
             )
         )
