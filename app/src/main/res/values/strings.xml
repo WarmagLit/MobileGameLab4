@@ -44,4 +44,5 @@
     <string name="marker_is_tsu">Marker in TSU</string>
     <string name="case_key_different_colors">Сase and key in different colors!</string>
     <string name="accelerometer">Accelerometer:</string>
+    <string name="level_completed">Level completed!</string>
 </resources>

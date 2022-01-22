@@ -7,13 +7,11 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelViewModel
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
 import com.tsu.mobilegamelab4.game.surfaceview.Game
-import com.tsu.mobilegamelab4.game.surfaceview.GameViewModel
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.BossSpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
@@ -24,7 +22,6 @@ class GameActivity : AppCompatActivity(),
     SensorEventListener {
 
     private lateinit var binding: ActivityGameBinding
-    private val viewModel by viewModels<GameViewModel>()
 
     // For sensors
     private lateinit var sensorManager: SensorManager
@@ -37,24 +34,6 @@ class GameActivity : AppCompatActivity(),
 
         startLevel(intent.getIntExtra(ChooseLevelViewModel.LEVEL_KEY, 0))
         configureSensorForAccelerometer()
-    }
-
-    private fun setObservers() {
-        viewModel.isJoystick.observe(this) {
-            game.isJoystick = it
-        }
-
-        viewModel.showPerformance.observe(this) {
-            game.showPerformance = it
-        }
-
-        viewModel.levelsCompleted.observe(this) {
-            game.userCompletedLevels = it
-        }
-
-        game.levelsCompleted.observe(this) {
-            viewModel.updateCompletedLevels(it)
-        }
     }
 
     private fun startLevel(level: Int) {
@@ -88,7 +67,7 @@ class GameActivity : AppCompatActivity(),
             )
             else -> throw Exception("Wrong level")
         }
-        setObservers()
+
         setContentView(game)
     }
 

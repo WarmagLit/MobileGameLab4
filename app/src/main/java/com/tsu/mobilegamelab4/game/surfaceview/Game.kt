@@ -9,22 +9,15 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
-import com.tsu.mobilegamelab4.database.User
 import com.tsu.mobilegamelab4.game.GameActivity
 import com.tsu.mobilegamelab4.game.surfaceview.controls.Joystick
 import com.tsu.mobilegamelab4.game.surfaceview.controls.SwipeStick
@@ -50,6 +43,8 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
     SurfaceHolder.Callback,
     IUpdatable {
 
+    private val viewModel by activity.viewModels<GameViewModel>()
+
     private val gameDisplay: GameDisplay
     private var gameLoop: GameLoop
     private val joystick: Joystick
@@ -74,22 +69,13 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     var isDeathDialogShowed = false
 
-    // Firebase
-//    private val userUid = Firebase.auth.currentUser?.uid.toString()
-//    private val myRef = Firebase.database.getReference("users").child(userUid)
-//    private lateinit var currentUser: User
-
     init {
-        //getDataFromDatabase()
+        setObservers()
 
         // Metrics for SwipeStick and CenteredGameDisplay
         val displayMetrics = DisplayMetrics()
-        (getContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
         Utils.setDisplayMetrics(context)
-
-        // Check joystick or gyroscope from settings
-//        isJoystick = SharedPreference(context).getValueBoolean("control", true)
-//        showPerformance = SharedPreference(context).getValueBoolean("performance", false)
 
         // For Accelerometer values
         textPaint.color = Color.CYAN
@@ -110,11 +96,15 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         //create exit from level
         val steps: Steps = currentLevel.gameObjects.find { it is Steps } as Steps
         steps.levelCompleted = {
-            val intent = Intent(activity, ChooseLevelActivity::class.java)
-            currentLevel.recycleBitmaps()
-            sendCollectedKeysAndLevel()
-            activity.startActivity(intent)
-            activity.finish()
+            activity.lifecycleScope.launch {
+                showLevelCompletedDialog {
+                    val intent = Intent(activity, ChooseLevelActivity::class.java)
+                    currentLevel.recycleBitmaps()
+                    sendCollectedKeysAndLevel()
+                    activity.startActivity(intent)
+                    activity.finish()
+                }
+            }
         }
 
         //create dialogs from open chest
@@ -151,13 +141,19 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
 
     }
 
-//    fun setControls() {
-//        isJoystick = SharedPreference(context).getValueBoolean("control", true)
-//    }
-//
-//    fun setShowPerformance() {
-//        showPerformance = SharedPreference(context).getValueBoolean("performance", false)
-//    }
+    private fun setObservers() {
+        viewModel.showPerformance.observe(activity) {
+            showPerformance = it
+        }
+
+        viewModel.isJoystick.observe(activity) {
+            isJoystick = it
+        }
+
+        viewModel.levelsCompleted.observe(activity) {
+            userCompletedLevels = it
+        }
+    }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         if (gameLoop.state.equals(Thread.State.TERMINATED)) {
@@ -238,66 +234,11 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         gameLoop.stopLoop()
     }
 
-    private val _levelsCompleted = MutableLiveData<Int>()
-    val levelsCompleted: LiveData<Int>
-        get() = _levelsCompleted
-
     private fun sendCollectedKeysAndLevel() {
-//        var levelsCompleted = 0
         if (userCompletedLevels < currentLevel.level) {
-            _levelsCompleted.value = userCompletedLevels + 1
+            viewModel.updateCompletedLevels(userCompletedLevels + 1)
         }
-//        currentUser.let {
-//            val myRef = Firebase.database.getReference("users").child(it.uid.toString())
-//            val key = myRef.push().key
-//            if (key == null) {
-//                Log.w("TAG", "Couldn't get push key for posts")
-//                return
-//            }
-//            if (currentLevel.level > currentUser.levelsCompleted) {
-//                levelsCompleted += 1
-//            } else {
-//                levelsCompleted = currentUser.levelsCompleted
-//            }
-//            val user = User(
-//                it.uid,
-//                it.nickname,
-//                it.pass,
-//                it.score,
-//                it.redKeys + 1,
-//                it.greenKeys,
-//                it.blueKeys + 1,
-//                it.yellowKeys,
-//                levelsCompleted
-//            )
-//            val postValues = user.toMap()
-//
-//            val childUpdates = hashMapOf<String, Any>(
-//                "/users/${currentUser.uid}" to postValues
-//            )
-//
-//            Firebase.database.reference.updateChildren(childUpdates)
-
     }
-
-//    private fun getDataFromDatabase() {
-//        myRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                val value = dataSnapshot.getValue<User>()
-//                if (value != null) {
-//                    currentUser = value
-//                }
-//                Log.d("TAG", "Value is: $value")
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Failed to read value
-//                Log.w("TAG", "Failed to read value.", error.toException())
-//            }
-//        })
-//    }
 
     private suspend fun showOpenChestDialog(loot: Keys) {
         val dialog = Dialog(context)
@@ -306,7 +247,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         )
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_open_chest_layout)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialog.findViewById<ConstraintLayout>(R.id.rootLayout).setOnClickListener {
             dialog.dismiss()
@@ -329,6 +270,31 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         dialog.show()
         coroutineScope {
             delay(1500)
+            dialog.dismiss()
+        }
+    }
+
+    private suspend fun showLevelCompletedDialog(onDismiss: () -> Unit) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(
+            Window.FEATURE_NO_TITLE
+        )
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+        dialog.setContentView(R.layout.dialog_open_chest_layout)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val keyImageView = dialog.findViewById<ImageView>(R.id.dialogChestKeyImageView)
+        val title = dialog.findViewById<TextView>(R.id.dialogChestTitleTextView)
+
+        keyImageView.visibility = View.GONE
+        title.setText(R.string.level_completed)
+
+        dialog.show()
+        coroutineScope {
+            delay(1500)
+            onDismiss.invoke()
             dialog.dismiss()
         }
     }
