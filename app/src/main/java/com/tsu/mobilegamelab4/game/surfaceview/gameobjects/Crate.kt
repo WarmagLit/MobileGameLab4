@@ -5,10 +5,10 @@ import android.graphics.Rect
 import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
 import com.tsu.mobilegamelab4.game.surfaceview.Hitbox
 import com.tsu.mobilegamelab4.game.surfaceview.Point
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 
-class Crate(spriteSheet: FirstLocationSpriteSheet, pos: Point) : StaticGameObject(spriteSheet, pos) {
+class Crate(spriteSheet: SpriteSheet, pos: Point) : StaticGameObject(spriteSheet, pos) {
 
     override var sprite = spriteSheet.getSpriteByIndex(Rect(0, 8, 1, 10)).also {
         it.size = android.graphics.Point(
@@ -24,7 +24,7 @@ class Crate(spriteSheet: FirstLocationSpriteSheet, pos: Point) : StaticGameObjec
             sprite.draw(
                 canvas,
                 displayCoordinates.X.toInt(),
-                (displayCoordinates.Y - sprite.size.y/2).toInt()
+                (displayCoordinates.Y - sprite.size.y / 2).toInt()
             )
             //hitbox.draw(canvas, display)
         }

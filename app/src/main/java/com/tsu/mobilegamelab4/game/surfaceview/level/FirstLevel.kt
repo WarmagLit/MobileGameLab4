@@ -71,7 +71,7 @@ class FirstLevel(
                     locationSpriteSheet,
                     Point(
                         25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        9.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        11.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     listOf(
                         Keys.RED,

@@ -3,11 +3,13 @@ package com.tsu.mobilegamelab4.game.surfaceview.level
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
 import com.tsu.mobilegamelab4.game.surfaceview.Point
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Door
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Spikes
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Steps
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.*
+import com.tsu.mobilegamelab4.game.surfaceview.items.Keys
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 import com.tsu.mobilegamelab4.game.surfaceview.map.secondlocation.SecondLocationMap
 
@@ -33,7 +35,18 @@ class SecondLevel(
                         26.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
                         36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
-                )
+                ),
+                Door(
+                    locationSpriteSheet,
+                    Point(
+                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        9.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    listOf(
+                        Keys.RED,
+                        Keys.BLUE
+                    )
+                ),
             )
         )
     }

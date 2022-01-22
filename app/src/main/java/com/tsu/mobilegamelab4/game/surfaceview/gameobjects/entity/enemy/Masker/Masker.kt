@@ -9,6 +9,7 @@ import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.guns.Bullet
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.interfaces.ICollideable
+import com.tsu.mobilegamelab4.game.surfaceview.map.CollisionLayout
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationCollisionLayout
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 
@@ -16,7 +17,7 @@ class Masker(
     pos: Point,
     spriteSheet: EnemySpriteSheet,
     player: Player,
-    private val collisionLayout: FirstLocationCollisionLayout,
+    private val collisionLayout: CollisionLayout,
     private val gameObjects: MutableList<GameObject>
 ) :
     Enemy(pos, spriteSheet, collisionLayout, player, gameObjects), ICollideable {

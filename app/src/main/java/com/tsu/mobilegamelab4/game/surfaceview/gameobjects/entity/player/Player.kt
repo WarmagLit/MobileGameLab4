@@ -100,11 +100,14 @@ class Player(
         if (cooldownCounter > 0) cooldownCounter--
 
         //obstacle check
-        if (pos.X >= 0 && pos.Y >= 0
-            && collisionLayout.layout[(pos.Y / FirstLocationMap.CELL_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMap.CELL_WIDTH_PIXELS).toInt()] == 1
-        ) {
-            pos.X -= velocity.X
-            pos.Y -= velocity.Y
+        try {
+            if (pos.X >= 0 && pos.Y >= 0
+                && collisionLayout.layout[(pos.Y / FirstLocationMap.CELL_HEIGHT_PIXELS).toInt()][(pos.X / FirstLocationMap.CELL_WIDTH_PIXELS).toInt()] == 1
+            ) {
+                pos.X -= velocity.X
+                pos.Y -= velocity.Y
+            }
+        } catch (e: Exception) {
         }
 
         val objRect = collideCheck()

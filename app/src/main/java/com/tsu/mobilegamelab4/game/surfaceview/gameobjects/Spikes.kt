@@ -7,9 +7,10 @@ import com.tsu.mobilegamelab4.game.surfaceview.Hitbox
 import com.tsu.mobilegamelab4.game.surfaceview.Point
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 
-class Spikes(spriteSheet: FirstLocationSpriteSheet, pos: Point) : GameObject(pos) {
+class Spikes(spriteSheet: SpriteSheet, pos: Point) : GameObject(pos) {
 
     private var spriteList = listOf(
         spriteSheet.getSpriteByIndex(Rect(10, 0, 11, 1)),

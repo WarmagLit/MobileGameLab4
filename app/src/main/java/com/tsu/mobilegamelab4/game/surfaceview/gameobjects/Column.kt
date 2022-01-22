@@ -6,9 +6,10 @@ import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
 import com.tsu.mobilegamelab4.game.surfaceview.Hitbox
 import com.tsu.mobilegamelab4.game.surfaceview.Point
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 
-class Column(spriteSheet: FirstLocationSpriteSheet, pos: Point) : StaticGameObject(spriteSheet, pos) {
+class Column(spriteSheet: SpriteSheet, pos: Point) : StaticGameObject(spriteSheet, pos) {
 
     override var sprite = spriteSheet.getSpriteByIndex(Rect(6, 5, 7, 8)).also {
         it.size = android.graphics.Point(
