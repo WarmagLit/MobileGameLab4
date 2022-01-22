@@ -9,9 +9,18 @@ import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.interfaces.IUsable
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
+import com.tsu.mobilegamelab4.game.GameDisplay
+import com.tsu.mobilegamelab4.game.Hitbox
+import com.tsu.mobilegamelab4.game.Point
+import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
+import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
+import com.tsu.mobilegamelab4.game.interfaces.IUsable
+import com.tsu.mobilegamelab4.game.items.Keys
+import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Steps(
-    spriteSheet: FirstLocationSpriteSheet,
+    spriteSheet: SpriteSheet,
     pos: Point
 ) : StaticGameObject(spriteSheet, pos), IUsable {
 

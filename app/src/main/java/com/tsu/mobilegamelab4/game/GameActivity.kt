@@ -17,6 +17,13 @@ import com.tsu.mobilegamelab4.game.surfaceview.graphics.EnemySpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.KeySpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.level.FirstLevel
+import com.tsu.mobilegamelab4.game.graphics.*
+import com.tsu.mobilegamelab4.game.level.BonusLevel
+import com.tsu.mobilegamelab4.game.level.FirstLevel
+import com.tsu.mobilegamelab4.game.level.SecondLevel
+import com.tsu.mobilegamelab4.game.level.ThirdLevel
+import java.lang.Exception
+import java.lang.reflect.Executable
 
 class GameActivity : AppCompatActivity(),
     SensorEventListener {
@@ -49,7 +56,7 @@ class GameActivity : AppCompatActivity(),
             )
             2 -> Game(
                 this,
-                FirstLevel(
+                SecondLevel(
                     EnemySpriteSheet(this),
                     BossSpriteSheet(this),
                     FirstLocationSpriteSheet(this),
@@ -58,7 +65,16 @@ class GameActivity : AppCompatActivity(),
             )
             3 -> Game(
                 this,
-                FirstLevel(
+                ThirdLevel(
+                    EnemySpriteSheet(this),
+                    BossSpriteSheet(this),
+                    FirstLocationSpriteSheet(this),
+                    KeySpriteSheet(this)
+                )
+            ),
+            4 -> Game(
+                this,
+                BonusLevel(
                     EnemySpriteSheet(this),
                     BossSpriteSheet(this),
                     FirstLocationSpriteSheet(this),
