@@ -5,9 +5,12 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelViewModel
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
@@ -29,12 +32,15 @@ class GameActivity : AppCompatActivity(),
 
     private lateinit var game: Game
 
+    var mMediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
 
         startLevel(intent.getIntExtra(ChooseLevelViewModel.LEVEL_KEY, 0))
         configureSensorForAccelerometer()
+        playSound()
     }
 
     private fun startLevel(level: Int) {
@@ -102,6 +108,30 @@ class GameActivity : AppCompatActivity(),
         super.onPause()
         game.pause()
         Log.d("PAUS", "We are paused")
+        stopSound()
+    }
+
+    // 1. Plays the water sound
+    fun playSound() {
+        if (mMediaPlayer == null) {
+            mMediaPlayer = MediaPlayer.create(this, R.raw.background_music)
+            mMediaPlayer!!.isLooping = true
+            mMediaPlayer!!.start()
+        } else mMediaPlayer!!.start()
+    }
+
+    // 2. Pause playback
+    fun pauseSound() {
+        if (mMediaPlayer != null && mMediaPlayer!!.isPlaying) mMediaPlayer!!.pause()
+    }
+
+    // 3. {optional} Stops playback
+    fun stopSound() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer?.stop()
+            mMediaPlayer?.release()
+            mMediaPlayer = null
+        }
     }
 
     override fun onSensorChanged(event: SensorEvent?) {

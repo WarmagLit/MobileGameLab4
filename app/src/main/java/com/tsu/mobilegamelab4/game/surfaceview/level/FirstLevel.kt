@@ -32,8 +32,43 @@ class FirstLevel(
                 Crate(
                     locationSpriteSheet,
                     Point(
-                        7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        16.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        17.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        16.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        17.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        15.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        15.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        25.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        17.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        24.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 ),
                 Column(
@@ -46,24 +81,24 @@ class FirstLevel(
                 Chest(
                     locationSpriteSheet,
                     Point(
-                        3.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        29.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        39.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     Keys.BLUE
                 ),
                 Chest(
                     locationSpriteSheet,
                     Point(
-                        5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        46.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        23.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     Keys.RED
                 ),
                 Chest(
                     locationSpriteSheet,
                     Point(
-                        7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        21.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        46.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     Keys.EMPTY
                 ),
@@ -88,8 +123,190 @@ class FirstLevel(
                 Spikes(
                     locationSpriteSheet,
                     Point(
-                        5.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        22.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        23.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        24.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        26.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        27.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        28.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        29.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        30.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        21.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        22.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        23.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        24.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        26.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        27.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        28.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        29.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        22.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        23.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        24.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        26.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        27.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        28.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        29.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        30.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        38.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 )
             )
@@ -115,12 +332,6 @@ class FirstLevel(
         if (!locationSpriteSheet.upperLevelBitmap.isRecycled) {
             locationSpriteSheet.upperLevelBitmap.recycle()
         }
-//        enemySpriteSheet.bitmap.recycle()
-//        bossSpriteSheet.bitmap.recycle()
-//        locationSpriteSheet.bitmap.recycle()
-//        locationSpriteSheet.lowerLevelBitmap.recycle()
-//        locationSpriteSheet.upperLevelBitmap.recycle()
-//        keySpriteSheet.bitmap.recycle()
     }
 
     override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
@@ -144,8 +355,8 @@ class FirstLevel(
             arrayOf(
                 Masker(
                     Point(
-                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        14.3 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        18.4 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     enemySpriteSheet,
                     player,
@@ -154,30 +365,70 @@ class FirstLevel(
                 ),
                 Wizard(
                     Point(
-                        16.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        19.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        16.6 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        19.1 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     enemySpriteSheet,
                     player,
                     map.collisionLayout,
                     gameObjects
                 ),
-                Landmine(
+                Masker(
                     Point(
-                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        23.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        24.1 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        20.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     enemySpriteSheet,
                     player,
                     map.collisionLayout,
                     gameObjects
                 ),
-                Boss(
+                Wizard(
                     Point(
-                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        23.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        22.7 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        26.2 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
-                    bossSpriteSheet,
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Masker(
+                    Point(
+                        33.4 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        20.345 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        35.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        29.346 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Masker(
+                    Point(
+                        24.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        15.2 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
+                    player,
+                    map.collisionLayout,
+                    gameObjects
+                ),
+                Wizard(
+                    Point(
+                        25.1 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        35.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    enemySpriteSheet,
                     player,
                     map.collisionLayout,
                     gameObjects
@@ -190,10 +441,10 @@ class FirstLevel(
         map.draw(canvas, display)
         gameObjects.sortWith(
             Comparator { go1: GameObject, go2: GameObject ->
-                if (go1 is Spikes || go1.pos.Y < go2.pos.Y) {
+                if (go1 is Spikes || go1.pos.Y <= go2.pos.Y) {
                     return@Comparator -1
                 }
-                if (go2 is Spikes || go1.pos.Y > go2.pos.Y) {
+                if (go2 is Spikes || go1.pos.Y >= go2.pos.Y) {
                     return@Comparator 1
                 }
                 return@Comparator 0

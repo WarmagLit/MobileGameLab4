@@ -37,7 +37,7 @@ class Masker(
     companion object {
         private const val SPEED_PIXELS_PER_SECOND = 200.0
         private const val MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS
-        private const val SEEK_DISTANCE = 400.0
+        private const val SEEK_DISTANCE = 800.0
         private const val ATTACK_DISTANCE = 200.0
         private const val ATTACK_COOLDOWN = 60
     }
