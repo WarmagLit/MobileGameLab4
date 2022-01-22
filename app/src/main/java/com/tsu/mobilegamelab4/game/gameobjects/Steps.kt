@@ -7,12 +7,13 @@ import com.tsu.mobilegamelab4.game.Hitbox
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.IUsable
 import com.tsu.mobilegamelab4.game.items.Keys
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Steps(
-    spriteSheet: FirstLocationSpriteSheet,
+    spriteSheet: SpriteSheet,
     pos: Point
 ) : StaticGameObject(spriteSheet, pos), IUsable {
 

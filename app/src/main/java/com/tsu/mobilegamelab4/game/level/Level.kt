@@ -12,7 +12,6 @@ import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 abstract class Level(
     enemySpriteSheet: EnemySpriteSheet,
-    spriteSheet: FirstLocationSpriteSheet,
     keySpriteSheet: KeySpriteSheet
 ) : IDrawableUpdatable {
 

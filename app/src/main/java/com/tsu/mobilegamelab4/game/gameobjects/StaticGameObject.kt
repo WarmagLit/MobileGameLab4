@@ -3,8 +3,9 @@ package com.tsu.mobilegamelab4.game.gameobjects
 import com.tsu.mobilegamelab4.game.Point
 import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.graphics.Sprite
+import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
 
-abstract class StaticGameObject(protected val spriteSheet: FirstLocationSpriteSheet, pos: Point) :
+abstract class StaticGameObject(protected val spriteSheet: SpriteSheet, pos: Point) :
     GameObject(pos) {
     abstract var sprite: Sprite
     protected var displayCoordinates = Point(0.0, 0.0)

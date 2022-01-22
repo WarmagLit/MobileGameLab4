@@ -13,13 +13,14 @@ import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.hero_gun.HeroG
 import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.items.Keys
+import com.tsu.mobilegamelab4.game.map.CollisionLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
 import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
 
 class Player(
     pos: Point,
     val spriteSheet: HeroSpriteSheet,
-    private val collisionLayout: FirstLocationCollisionLayout,
+    private val collisionLayout: CollisionLayout,
     gameObjects: MutableList<GameObject>
 ) :
     Entity(pos, collisionLayout, gameObjects),

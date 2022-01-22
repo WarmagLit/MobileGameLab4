@@ -19,7 +19,7 @@ class FirstLevel(
     private val locationSpriteSheet: FirstLocationSpriteSheet,
     private val keySpriteSheet: KeySpriteSheet
 ) :
-    Level(enemySpriteSheet, locationSpriteSheet, keySpriteSheet) {
+    Level(enemySpriteSheet, keySpriteSheet) {
 
     private val map = FirstLocationMap(locationSpriteSheet)
     private lateinit var player: Player

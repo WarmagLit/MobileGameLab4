@@ -1,8 +1,10 @@
 package com.tsu.mobilegamelab4.game.map.firstlocation
 
-class FirstLocationCollisionLayout {
+import com.tsu.mobilegamelab4.game.map.CollisionLayout
 
-        val layout = arrayListOf(
+class FirstLocationCollisionLayout: CollisionLayout() {
+
+        override var layout = arrayListOf(
         arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
         arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
         arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),

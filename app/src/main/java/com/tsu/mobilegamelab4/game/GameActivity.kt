@@ -15,11 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tsu.mobilegamelab4.R
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
-import com.tsu.mobilegamelab4.game.graphics.BossSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.EnemySpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.KeySpriteSheet
+import com.tsu.mobilegamelab4.game.graphics.*
 import com.tsu.mobilegamelab4.game.level.FirstLevel
+import com.tsu.mobilegamelab4.game.level.SecondLevel
+import com.tsu.mobilegamelab4.game.level.ThirdLevel
 import java.lang.Exception
 import java.lang.reflect.Executable
 
@@ -43,8 +42,8 @@ class GameActivity : AppCompatActivity(),
 
         when(level) {
             1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this), KeySpriteSheet(this)))
-            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this), KeySpriteSheet(this)))
-            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this), KeySpriteSheet(this)))
+            2 -> game = Game(this, SecondLevel(EnemySpriteSheet(this), BossSpriteSheet(this), SecondLocationSpriteSheet(this), KeySpriteSheet(this)))
+            3 -> game = Game(this, ThirdLevel(EnemySpriteSheet(this), BossSpriteSheet(this), ThirdLocationSpriteSheet(this), KeySpriteSheet(this)))
             else -> throw Exception("Wrong level")
         }
 
@@ -64,8 +63,8 @@ class GameActivity : AppCompatActivity(),
     fun restartLevel() {
         when(level) {
             1 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this), KeySpriteSheet(this)))
-            2 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this), KeySpriteSheet(this)))
-            3 -> game = Game(this, FirstLevel(EnemySpriteSheet(this), BossSpriteSheet(this), FirstLocationSpriteSheet(this), KeySpriteSheet(this)))
+            2 -> game = Game(this, SecondLevel(EnemySpriteSheet(this), BossSpriteSheet(this), SecondLocationSpriteSheet(this), KeySpriteSheet(this)))
+            3 -> game = Game(this, ThirdLevel(EnemySpriteSheet(this), BossSpriteSheet(this), ThirdLocationSpriteSheet(this), KeySpriteSheet(this)))
             else -> throw Exception("Wrong level")
         }
 

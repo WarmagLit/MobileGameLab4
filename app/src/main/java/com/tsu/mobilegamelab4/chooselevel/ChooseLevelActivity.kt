@@ -35,6 +35,18 @@ class ChooseLevelActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.chooseLevelSecondLevelPanelInclude.root.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra(ChooseLevelViewModel.LEVEL_KEY, 2)
+            startActivity(intent)
+        }
+
+        binding.chooseLevelThirdLevelPanelInclude.root.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra(ChooseLevelViewModel.LEVEL_KEY, 3)
+            startActivity(intent)
+        }
+
         binding.chooseLevelBonusLevelPanelInclude.root.setOnClickListener {
             val intent = Intent(this, GoogleMapActivity::class.java)
             startActivity(intent)
