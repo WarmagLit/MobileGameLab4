@@ -36,19 +36,427 @@ class SecondLevel(
                 Door(
                     locationSpriteSheet,
                     Point(
-                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        9.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        24.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        40.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     ),
                     listOf(
                         Keys.RED,
-                        Keys.BLUE
+                        Keys.BLUE,
+                        Keys.YELLOW
+                    )
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        2.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        14.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.RED
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        43.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        14.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.YELLOW
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        22.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        24.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.EMPTY
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        50.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.BLUE
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        7.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        52.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.EMPTY
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        6.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        51.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.EMPTY
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        39.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.EMPTY
+                ),
+                Chest(
+                    locationSpriteSheet,
+                    Point(
+                        31.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    ),
+                    Keys.EMPTY
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        40.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        14.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 ),
                 Crate(
                     locationSpriteSheet,
                     Point(
+                        23.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        25.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        23.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        23.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        26.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        24.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        30.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        39.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        2.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        51.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        3.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        52.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        43.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        18.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
                         18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        16.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        20.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        1.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        19.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        2.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        19.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        3.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        19.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        39.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        40.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        41.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        42.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        43.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        44.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        45.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        46.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        48.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        39.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        40.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        41.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        42.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        43.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        44.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        45.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        46.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        11.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        48.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        39.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        40.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        41.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        42.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        43.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        44.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        45.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        46.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        8.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        48.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        33.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        33.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        35.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Spikes(
+                    locationSpriteSheet,
+                    Point(
+                        33.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        34.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Column(
+                    locationSpriteSheet,
+                    Point(
+                        19.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Column(
+                    locationSpriteSheet,
+                    Point(
+                        21.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        45.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Column(
+                    locationSpriteSheet,
+                    Point(
+                        24.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Column(
+                    locationSpriteSheet,
+                    Point(
+                        25.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        47.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                ),
+                Column(
+                    locationSpriteSheet,
+                    Point(
+                        28.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        45.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 )
             )
