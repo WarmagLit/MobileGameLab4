@@ -3,10 +3,7 @@ package com.tsu.mobilegamelab4.game.surfaceview.level
 import android.graphics.Canvas
 import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
 import com.tsu.mobilegamelab4.game.surfaceview.Point
-import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Door
-import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.GameObject
-import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Spikes
-import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Steps
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.*
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.*
 import com.tsu.mobilegamelab4.game.surfaceview.items.Keys
@@ -47,6 +44,13 @@ class SecondLevel(
                         Keys.BLUE
                     )
                 ),
+                Crate(
+                    locationSpriteSheet,
+                    Point(
+                        18.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        16.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                    )
+                )
             )
         )
     }
