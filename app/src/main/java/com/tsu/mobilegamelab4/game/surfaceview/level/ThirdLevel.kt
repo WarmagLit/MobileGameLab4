@@ -1,28 +1,25 @@
-package com.tsu.mobilegamelab4.game.level
+package com.tsu.mobilegamelab4.game.surfaceview.level
 
 import android.graphics.Canvas
-import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.gameobjects.*
-import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Boss.Boss
-import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Landmine.Landmine
-import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Masker.Masker
-import com.tsu.mobilegamelab4.game.gameobjects.entity.enemy.Wizard.Wizard
-import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
-import com.tsu.mobilegamelab4.game.graphics.*
-import com.tsu.mobilegamelab4.game.items.Keys
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
-import com.tsu.mobilegamelab4.game.map.secondlocation.SecondLocationMap
+import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
+import com.tsu.mobilegamelab4.game.surfaceview.Point
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Spikes
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Steps
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.*
+import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
+import com.tsu.mobilegamelab4.game.surfaceview.map.thirdlocation.ThirdLocationMap
 
-class SecondLevel(
+class ThirdLevel(
     private val enemySpriteSheet: EnemySpriteSheet,
     private val bossSpriteSheet: BossSpriteSheet,
-    private val locationSpriteSheet: SecondLocationSpriteSheet,
+    private val locationSpriteSheet: ThirdLocationSpriteSheet,
     private val keySpriteSheet: KeySpriteSheet
 ) :
     Level(enemySpriteSheet, keySpriteSheet) {
 
-    private val map = SecondLocationMap(locationSpriteSheet)
+    private val map = ThirdLocationMap(locationSpriteSheet)
     private lateinit var player: Player
 
     init {
@@ -33,8 +30,8 @@ class SecondLevel(
                 Steps(
                     locationSpriteSheet,
                     Point(
-                        26.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        36.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        29.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        3.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 )
             )
@@ -53,8 +50,8 @@ class SecondLevel(
     override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
         player = Player(
             Point(
-                23.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                5.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                33.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                16.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
             ),
             heroSpriteSheet,
             map.collisionLayout,

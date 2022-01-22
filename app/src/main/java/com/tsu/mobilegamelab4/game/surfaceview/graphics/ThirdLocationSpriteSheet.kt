@@ -1,4 +1,4 @@
-package com.tsu.mobilegamelab4.game.graphics
+package com.tsu.mobilegamelab4.game.surfaceview.graphics
 
 import android.content.Context
 import android.graphics.Bitmap

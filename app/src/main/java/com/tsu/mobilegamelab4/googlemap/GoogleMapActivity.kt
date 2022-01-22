@@ -57,7 +57,7 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setOnClickListener() {
         binding.bonusButton.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
-            intent.putExtra(ChooseLevelViewModel.LEVEL_KEY, -1)
+            intent.putExtra(ChooseLevelViewModel.LEVEL_KEY, 4)
             startActivity(intent)
         }
     }

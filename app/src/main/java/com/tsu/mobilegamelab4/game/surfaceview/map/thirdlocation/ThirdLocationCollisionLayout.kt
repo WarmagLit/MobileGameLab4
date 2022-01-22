@@ -1,6 +1,6 @@
-package com.tsu.mobilegamelab4.game.map.thirdlocation
+package com.tsu.mobilegamelab4.game.surfaceview.map.thirdlocation
 
-import com.tsu.mobilegamelab4.game.map.CollisionLayout
+import com.tsu.mobilegamelab4.game.surfaceview.map.CollisionLayout
 
 class ThirdLocationCollisionLayout: CollisionLayout() {
     override var layout = arrayListOf(

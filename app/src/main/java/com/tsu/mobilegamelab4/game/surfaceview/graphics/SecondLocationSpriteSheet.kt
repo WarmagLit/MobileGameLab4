@@ -1,11 +1,11 @@
-package com.tsu.mobilegamelab4.game.graphics
+package com.tsu.mobilegamelab4.game.surfaceview.graphics
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.tsu.mobilegamelab4.R
 
-class BonusLocationSpriteSheet(context: Context) : SpriteSheet(context) {
+class SecondLocationSpriteSheet(context: Context) : SpriteSheet(context) {
 
     var lowerLevelBitmap: Bitmap
     var upperLevelBitmap: Bitmap
@@ -25,13 +25,13 @@ class BonusLocationSpriteSheet(context: Context) : SpriteSheet(context) {
         lowerLevelBitmap =
             BitmapFactory.decodeResource(
                 context.resources,
-                R.drawable.bonus_level_lower,
+                R.drawable.second_level_lower,
                 bitmapOptions
             )
         upperLevelBitmap =
             BitmapFactory.decodeResource(
                 context.resources,
-                R.drawable.bonus_level_upper,
+                R.drawable.secod_level_upper,
                 bitmapOptions
             )
     }

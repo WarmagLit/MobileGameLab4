@@ -1,12 +1,8 @@
 package com.tsu.mobilegamelab4.game.surfaceview.gameobjects
 
 import com.tsu.mobilegamelab4.game.surfaceview.Point
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.Sprite
-import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.graphics.FirstLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.Sprite
-import com.tsu.mobilegamelab4.game.graphics.SpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.SpriteSheet
 
 abstract class StaticGameObject(protected val spriteSheet: SpriteSheet, pos: Point) :
     GameObject(pos) {

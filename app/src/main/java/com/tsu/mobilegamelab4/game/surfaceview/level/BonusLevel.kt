@@ -1,16 +1,15 @@
-package com.tsu.mobilegamelab4.game.level
+package com.tsu.mobilegamelab4.game.surfaceview.level
 
 import android.graphics.Canvas
-import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.gameobjects.GameObject
-import com.tsu.mobilegamelab4.game.gameobjects.Spikes
-import com.tsu.mobilegamelab4.game.gameobjects.Steps
-import com.tsu.mobilegamelab4.game.gameobjects.entity.player.Player
-import com.tsu.mobilegamelab4.game.graphics.*
-import com.tsu.mobilegamelab4.game.map.bonuslocation.BonusLocationMap
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
-import com.tsu.mobilegamelab4.game.map.thirdlocation.ThirdLocationMap
+import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
+import com.tsu.mobilegamelab4.game.surfaceview.Point
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.GameObject
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Spikes
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.Steps
+import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.*
+import com.tsu.mobilegamelab4.game.surfaceview.map.bonuslocation.BonusLocationMap
+import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 
 class BonusLevel(
     private val enemySpriteSheet: EnemySpriteSheet,

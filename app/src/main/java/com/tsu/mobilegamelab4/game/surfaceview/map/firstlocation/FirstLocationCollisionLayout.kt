@@ -1,6 +1,6 @@
 package com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation
 
-import com.tsu.mobilegamelab4.game.map.CollisionLayout
+import com.tsu.mobilegamelab4.game.surfaceview.map.CollisionLayout
 
 class FirstLocationCollisionLayout: CollisionLayout() {
 

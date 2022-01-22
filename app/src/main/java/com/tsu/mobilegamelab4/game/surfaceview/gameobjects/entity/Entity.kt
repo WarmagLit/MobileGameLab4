@@ -7,14 +7,7 @@ import com.tsu.mobilegamelab4.game.surfaceview.Point
 import com.tsu.mobilegamelab4.game.surfaceview.Vector
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.GameObject
 import com.tsu.mobilegamelab4.game.surfaceview.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationCollisionLayout
-import com.tsu.mobilegamelab4.game.GameLoop
-import com.tsu.mobilegamelab4.game.Point
-import com.tsu.mobilegamelab4.game.Vector
-import com.tsu.mobilegamelab4.game.gameobjects.GameObject
-import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.map.CollisionLayout
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
+import com.tsu.mobilegamelab4.game.surfaceview.map.CollisionLayout
 
 abstract class Entity(
     pos: Point,

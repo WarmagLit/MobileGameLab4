@@ -12,18 +12,12 @@ import com.tsu.mobilegamelab4.chooselevel.ChooseLevelActivity
 import com.tsu.mobilegamelab4.chooselevel.ChooseLevelViewModel
 import com.tsu.mobilegamelab4.databinding.ActivityGameBinding
 import com.tsu.mobilegamelab4.game.surfaceview.Game
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.BossSpriteSheet
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.EnemySpriteSheet
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.KeySpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.*
 import com.tsu.mobilegamelab4.game.surfaceview.level.FirstLevel
-import com.tsu.mobilegamelab4.game.graphics.*
-import com.tsu.mobilegamelab4.game.level.BonusLevel
-import com.tsu.mobilegamelab4.game.level.FirstLevel
-import com.tsu.mobilegamelab4.game.level.SecondLevel
-import com.tsu.mobilegamelab4.game.level.ThirdLevel
+import com.tsu.mobilegamelab4.game.surfaceview.level.BonusLevel
+import com.tsu.mobilegamelab4.game.surfaceview.level.SecondLevel
+import com.tsu.mobilegamelab4.game.surfaceview.level.ThirdLevel
 import java.lang.Exception
-import java.lang.reflect.Executable
 
 class GameActivity : AppCompatActivity(),
     SensorEventListener {
@@ -59,7 +53,7 @@ class GameActivity : AppCompatActivity(),
                 SecondLevel(
                     EnemySpriteSheet(this),
                     BossSpriteSheet(this),
-                    FirstLocationSpriteSheet(this),
+                    SecondLocationSpriteSheet(this),
                     KeySpriteSheet(this)
                 )
             )
@@ -68,16 +62,16 @@ class GameActivity : AppCompatActivity(),
                 ThirdLevel(
                     EnemySpriteSheet(this),
                     BossSpriteSheet(this),
-                    FirstLocationSpriteSheet(this),
+                    ThirdLocationSpriteSheet(this),
                     KeySpriteSheet(this)
                 )
-            ),
+            )
             4 -> Game(
                 this,
                 BonusLevel(
                     EnemySpriteSheet(this),
                     BossSpriteSheet(this),
-                    FirstLocationSpriteSheet(this),
+                    BonusLocationSpriteSheet(this),
                     KeySpriteSheet(this)
                 )
             )

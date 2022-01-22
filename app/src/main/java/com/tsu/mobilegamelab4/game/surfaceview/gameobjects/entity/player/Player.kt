@@ -13,21 +13,8 @@ import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.guns.he
 import com.tsu.mobilegamelab4.game.surfaceview.graphics.HeroSpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.interfaces.ICollideable
 import com.tsu.mobilegamelab4.game.surfaceview.items.Keys
-import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationCollisionLayout
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
-import com.tsu.mobilegamelab4.game.*
-import com.tsu.mobilegamelab4.game.Utils.getDistanceBetweenPoints
-import com.tsu.mobilegamelab4.game.gameobjects.GameObject
-import com.tsu.mobilegamelab4.game.gameobjects.entity.Entity
-import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Bullet
-import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.Gun
-import com.tsu.mobilegamelab4.game.gameobjects.entity.player.guns.hero_gun.HeroGun
-import com.tsu.mobilegamelab4.game.graphics.HeroSpriteSheet
-import com.tsu.mobilegamelab4.game.interfaces.ICollideable
-import com.tsu.mobilegamelab4.game.items.Keys
-import com.tsu.mobilegamelab4.game.map.CollisionLayout
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationCollisionLayout
-import com.tsu.mobilegamelab4.game.map.firstlocation.FirstLocationMap
+import com.tsu.mobilegamelab4.game.surfaceview.map.CollisionLayout
 
 class Player(
     pos: Point,

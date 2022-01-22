@@ -51,14 +51,14 @@ class ChooseLevelActivity : AppCompatActivity() {
 
         with(binding.chooseLevelSecondLevelPanelInclude) {
             includeLevelSubTitleTextView.text = resources.getString(R.string.level_2)
-            includeLevelPreviewImageView.setImageResource(R.drawable.top_secret)
+            includeLevelPreviewImageView.setImageResource(R.drawable.level_second_preview)
             includeLevelNameTextView.text = resources.getString(R.string.continues)
             root.isEnabled = false
         }
 
         with(binding.chooseLevelThirdLevelPanelInclude) {
             includeLevelSubTitleTextView.text = resources.getString(R.string.level_3)
-            includeLevelPreviewImageView.setImageResource(R.drawable.top_secret)
+            includeLevelPreviewImageView.setImageResource(R.drawable.level_third_preview)
             includeLevelNameTextView.text = resources.getString(R.string.end)
             root.isEnabled = false
         }

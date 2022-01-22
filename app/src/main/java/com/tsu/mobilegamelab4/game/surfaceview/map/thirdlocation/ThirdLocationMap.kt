@@ -1,12 +1,10 @@
-package com.tsu.mobilegamelab4.game.map.thirdlocation
+package com.tsu.mobilegamelab4.game.surfaceview.map.thirdlocation
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.tsu.mobilegamelab4.game.GameDisplay
-import com.tsu.mobilegamelab4.game.graphics.SecondLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.graphics.ThirdLocationSpriteSheet
-import com.tsu.mobilegamelab4.game.interfaces.IDrawable
-import com.tsu.mobilegamelab4.game.map.secondlocation.SecondLocationCollisionLayout
+import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.ThirdLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.interfaces.IDrawable
 
 class ThirdLocationMap(spriteSheet: ThirdLocationSpriteSheet) : IDrawable {
 

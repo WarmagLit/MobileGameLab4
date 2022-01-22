@@ -6,13 +6,13 @@ import com.tsu.mobilegamelab4.game.surfaceview.GameDisplay
 import com.tsu.mobilegamelab4.game.surfaceview.Hitbox
 import com.tsu.mobilegamelab4.game.surfaceview.Point
 import com.tsu.mobilegamelab4.game.surfaceview.gameobjects.entity.player.Player
-import com.tsu.mobilegamelab4.game.surfaceview.graphics.FirstLocationSpriteSheet
+import com.tsu.mobilegamelab4.game.surfaceview.graphics.SpriteSheet
 import com.tsu.mobilegamelab4.game.surfaceview.interfaces.IUsable
 import com.tsu.mobilegamelab4.game.surfaceview.items.Keys
 import com.tsu.mobilegamelab4.game.surfaceview.map.firstlocation.FirstLocationMap
 
 class Door(
-    spriteSheet: FirstLocationSpriteSheet,
+    spriteSheet: SpriteSheet,
     pos: Point,
     private val keys: List<Keys>
 ) :
