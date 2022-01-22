@@ -30,8 +30,8 @@ class BonusLevel(
                 Steps(
                     locationSpriteSheet,
                     Point(
-                        29.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                        3.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                        14.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                        1.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
                     )
                 )
             )
@@ -50,8 +50,8 @@ class BonusLevel(
     override fun initializePlayer(heroSpriteSheet: HeroSpriteSheet): Player {
         player = Player(
             Point(
-                33.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
-                16.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
+                22.0 * FirstLocationMap.CELL_WIDTH_PIXELS,
+                44.0 * FirstLocationMap.CELL_HEIGHT_PIXELS
             ),
             heroSpriteSheet,
             map.collisionLayout,
