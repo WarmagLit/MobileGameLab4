@@ -238,6 +238,7 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         if (userCompletedLevels < currentLevel.level) {
             viewModel.updateCompletedLevels(userCompletedLevels + 1)
         }
+        viewModel.sendKeys(player.keys)
     }
 
     private suspend fun showOpenChestDialog(loot: Keys) {
