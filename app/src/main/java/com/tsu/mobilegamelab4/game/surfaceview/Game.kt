@@ -120,16 +120,16 @@ class Game(private val activity: GameActivity, private val currentLevel: Level) 
         useButton = UseButton(
             player,
             currentLevel.gameObjects.filter { it is IUsable }.map { it as IUsable },
-            Point(displayMetrics.widthPixels.toDouble() - 600.0, 900.0),
+            Point(displayMetrics.widthPixels.toDouble() - 600.0, displayMetrics.heightPixels.toDouble() - 125.0),
             100
         )
 
         // Joystick
-        joystick = Joystick(player, Point(275.0, 700.0), 180, 80)
+        joystick = Joystick(player, Point(275.0,  displayMetrics.heightPixels.toDouble() - 275.0), 180, 80)
 
         // SwipeStick
         swipeStick =
-            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, 700.0), 180, 80)
+            SwipeStick(player, Point(displayMetrics.widthPixels.toDouble() - 275.0, displayMetrics.heightPixels.toDouble() - 275.0), 180, 80)
 
         // Touch Distributor
         touchDistributor = TouchDistributor(joystick, swipeStick, useButton)
